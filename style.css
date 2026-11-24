@@ -1,0 +1,1854 @@
+:root{--bg:#0a0a12;--ink:#ece8f5;--ac:#c9b8ff;--card:#15151f;--tf:Fraunces,Georgia,serif;--bf:Georgia,serif;--mx:50%;--my:40%}
+[data-theme=horror]{--bg:#0b0404;--ink:#f1dcdc;--ac:#e5253a;--card:#1a0808;--tf:Creepster,cursive}
+[data-theme=thriller]{--bg:#050a14;--ink:#dcecf7;--ac:#35d0ff;--card:#0b1626;--tf:'Bebas Neue',sans-serif;--bf:'Segoe UI',system-ui,sans-serif}
+[data-theme=fantasy]{--bg:#120a24;--ink:#f0e6ff;--ac:#b57bff;--card:#1e1240;--tf:'Cinzel Decorative',serif}
+[data-theme=mystery]{--bg:#07130e;--ink:#e2efe6;--ac:#3fbf8f;--card:#0e211a;--tf:'Special Elite',monospace;--bf:'Special Elite',monospace}
+[data-theme=adventure]{--bg:#1c1205;--ink:#fbefd5;--ac:#f5a623;--card:#e8d4a0;--tf:Rye,serif}
+[data-theme=shayari]{--bg:#0a0f2c;--ink:#f3ead3;--ac:#e8d28f;--card:#141a42;--tf:Kalam,cursive;--bf:Kalam,cursive}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:18px/1.7 var(--bf);min-height:100vh;transition:background .8s,color .8s}
+h1,h2,h3,.logo{font-family:var(--tf);font-weight:400;letter-spacing:.02em}
+button{font:inherit;cursor:pointer;color:var(--ac);background:none;border:1px solid var(--ac);padding:8px 18px;border-radius:2px}
+button:hover,button:focus-visible{background:var(--ac);color:var(--bg);outline:none}
+nav{display:flex;justify-content:space-between;align-items:center;padding:14px 24px;position:sticky;top:0;z-index:5;background:var(--bg)}
+nav button{border:0;padding:6px 10px}.logo{font-size:24px;color:var(--ink)}
+main{max-width:1100px;margin:0 auto;padding:24px 20px 80px;position:relative;z-index:1}
+.view{display:none}.view.on{display:block}
+footer{text-align:center;padding-bottom:30px;position:relative;z-index:1}.ghost{border:0;opacity:.5;font-size:14px}
+.sub{opacity:.75;margin-bottom:20px;font-size:20px}
+
+/* landing worlds */
+#gate h1{font-family:Fraunces,serif;font-weight:900;font-size:clamp(44px,9vw,104px);line-height:1;background:linear-gradient(90deg,#c9b8ff,#fff,#e5253a,#35d0ff,#f5a623);background-size:300%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shift 8s linear infinite;margin:20px 0 8px}
+@keyframes shift{to{background-position:300%}}
+.worlds{display:flex;gap:8px;height:68vh;min-height:430px}
+.world{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;text-align:left;padding:22px 16px;border:0;border-radius:4px;color:#fff;overflow:hidden;transition:flex .5s;position:relative}
+.world:hover,.world:focus-visible{flex:3.4;color:#fff}
+.world b{font-weight:400;font-size:clamp(26px,3vw,42px);writing-mode:vertical-rl;transform:rotate(180deg);align-self:flex-start;margin-bottom:auto;transition:.3s}
+.world:hover b,.world:focus-visible b{writing-mode:horizontal-tb;transform:none;margin:auto 0 6px}
+.world span{opacity:0;max-height:0;transition:.4s;font-size:18px}
+.world:hover span,.world:focus-visible span{opacity:1;max-height:60px}
+.world[data-world=horror]{background:radial-gradient(circle at 50% 110%,#a0001a,#0b0404 70%);font-family:Creepster}
+.world[data-world=thriller]{background:linear-gradient(160deg,#0b1626,#04121f 60%,#35d0ff55);font-family:'Bebas Neue'}
+.world[data-world=fantasy]{background:radial-gradient(circle at 30% 20%,#b57bff88,#120a24 70%);font-family:'Cinzel Decorative'}
+.world[data-world=mystery]{background:radial-gradient(circle at 70% 30%,#3fbf8f55,#07130e 70%);font-family:'Special Elite'}
+.world[data-world=adventure]{background:linear-gradient(#f5a62366,#2b1b08 80%);font-family:Rye}
+.world[data-world=shayari]{background:radial-gradient(circle at 50% 20%,#e8d28f55,#0a0f2c 70%);font-family:Kalam}
+.world b,.world span{font-family:inherit}
+@media(max-width:700px){.worlds{flex-direction:column;height:auto}.world{min-height:90px;flex:none}.world b{writing-mode:horizontal-tb;transform:none;margin:0}.world span{opacity:.8;max-height:60px}.world:hover{flex:none}}
+
+/* library + cards */
+h2{font-size:clamp(40px,8vw,80px);color:var(--ac);line-height:1.1;margin-bottom:6px}
+.tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:28px}.tabs .on{background:var(--ac);color:var(--bg)}
+.shelf{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:22px}
+.book{background:var(--card);padding:24px;min-height:210px;cursor:pointer;transition:transform .3s}
+.book:hover{transform:translateY(-6px) rotate(-1deg)}
+.book h3{font-size:26px;margin-bottom:8px;color:var(--ac)}.book small,.meta{opacity:.7;font-size:14px}.empty{opacity:.7}
+[data-theme=adventure] .view#library .book small{color:#3a2408}
+
+/* reader, forms, diary */
+.back{margin-bottom:20px;border:0;padding-left:0}
+.body{white-space:pre-wrap;max-width:65ch;margin:24px 0 40px;font-size:20px;line-height:1.9}
+h3{font-size:30px;margin:30px 0 12px;color:var(--ac)}
+input,select,textarea{width:100%;background:#0006;color:var(--ink);border:1px solid #fff3;padding:10px;font:inherit;margin-bottom:10px;border-radius:2px}
+.review{border-top:1px solid #fff2;padding:12px 0}.err{color:#ff6b6b}.panel{display:grid;gap:4px;max-width:560px}
+.pages{display:grid;gap:22px;max-width:700px}
+.page{background:var(--card);padding:26px;font-size:24px;line-height:1.9;white-space:pre-wrap;border-left:2px solid var(--ac)}
+.page small{display:block;font:14px Georgia,serif;opacity:.7;margin-top:10px}
+
+/* effects */
+#fx{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+#fx i{position:absolute;display:none;left:var(--x);top:var(--y);width:var(--s);height:var(--s);animation-timing-function:linear;animation-iteration-count:infinite;animation-duration:var(--t);animation-delay:var(--d)}
+[data-theme=horror] #fx i{display:block;top:-12%;width:2px;height:calc(var(--s)*7);background:#c1121f;opacity:.6;animation-name:fall}
+[data-theme=thriller] #fx i{display:block;top:-12%;width:1px;height:calc(var(--s)*9);background:#35d0ff;opacity:.5;animation-name:fall}
+[data-theme=fantasy] #fx i{display:block;top:auto;bottom:-5%;border-radius:50%;background:#e9d0ff;box-shadow:0 0 10px #b57bff;animation-name:rise}
+[data-theme=adventure] #fx i{display:block;top:auto;bottom:-5%;border-radius:50%;background:#f5a623;box-shadow:0 0 8px #ff7a00;animation-name:rise}
+[data-theme=shayari] #fx i{display:block;border-radius:50%;background:#fff;animation-name:tw;animation-direction:alternate}
+[data-theme=mystery] #fx i{display:block;width:calc(var(--s)*45);height:calc(var(--s)*45);border-radius:50%;background:radial-gradient(#3fbf8f33,transparent 70%);animation-name:drift;animation-direction:alternate}
+@keyframes fall{to{transform:translateY(120vh)}}@keyframes rise{to{transform:translateY(-120vh)}}
+@keyframes tw{50%{opacity:.1}}@keyframes drift{to{transform:translateX(40vw)}}
+[data-theme=horror] h2,[data-theme=horror] .logo{animation:flick 5s infinite}
+@keyframes flick{0%,92%,100%{opacity:1}93%{opacity:.3}95%{opacity:1}97%{opacity:.4}}
+[data-theme=thriller] h2{text-shadow:2px 0 #f0f,-2px 0 #0ff;letter-spacing:.06em}
+body[data-theme=thriller]::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:2;background:repeating-linear-gradient(0deg,#0003 0 2px,transparent 2px 4px)}
+body[data-theme=adventure]{background:linear-gradient(var(--bg) 55%,#4a2c08)}
+body[data-theme=fantasy]{background:radial-gradient(circle at 50% 0,#3a1b7a,var(--bg) 60%)}
+body[data-theme=shayari]{background:radial-gradient(circle at 50% 0,#1b2466,var(--bg) 65%)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* quotes, intro, pillars */
+.quote{font:italic 22px/1.5 Georgia,serif;max-width:620px;min-height:68px;opacity:.9;transition:opacity .5s;color:#e8e2ff}
+blockquote{border-left:3px solid var(--ac);padding:4px 0 4px 16px;margin:0 0 26px;font-style:italic;font-size:21px;max-width:620px;opacity:.9}
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:48px;text-align:left}
+.pillars h3{font-family:Fraunces,serif;font-size:24px;margin:0 0 4px;color:#fff}.pillars p{opacity:.7;font-size:17px}
+#intro{position:fixed;inset:0;z-index:100;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:30px;text-align:center;cursor:pointer;transition:opacity .9s}
+#intro p{font:italic clamp(24px,4vw,44px)/1.4 Fraunces,Georgia,serif;color:#e8e2ff;min-height:1.4em}
+#intro p::after{content:"|";animation:blink 1s steps(1) infinite}#intro small{opacity:.4;color:#fff}
+#intro.done{opacity:0;pointer-events:none}
+@keyframes blink{50%{opacity:0}}
+blockquote{white-space:pre-line}
+
+/* world art */
+.world svg.art{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;transition:transform .6s}
+.world:hover svg.art{transform:scale(1.07)}
+.world b,.world span,.world em{position:relative;z-index:1;text-shadow:0 2px 8px #000}
+.world em{display:block;font-style:italic;font-size:16px;opacity:0;max-height:0;transition:.4s .1s}
+.world:hover em,.world:focus-visible em{opacity:.85;max-height:50px}
+.fl{animation:fl 3s infinite}.fl.d2{animation-delay:1.3s}@keyframes fl{0%,100%{opacity:1}45%{opacity:.2}55%{opacity:.9}}
+.bl{animation:bl 4s infinite}@keyframes bl{0%,90%,100%{opacity:1}94%{opacity:0}}
+.fly{animation:fly 9s linear infinite}@keyframes fly{from{transform:translateX(-40px)}to{transform:translateX(240px)}}
+.sweep{transform-origin:50px 300px;animation:sw 6s ease-in-out infinite alternate}@keyframes sw{from{transform:rotate(-25deg)}to{transform:rotate(30deg)}}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pu 3s ease-in-out infinite}@keyframes pu{50%{opacity:.5;transform:scale(1.08)}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spn 10s linear infinite}@keyframes spn{to{transform:rotate(360deg)}}
+.tw{animation:tw 3s infinite alternate}
+@media(max-width:700px){.world{min-height:150px}.world em{opacity:.8;max-height:50px}}
+
+/* inside a world */
+.hero{display:flex;gap:30px;align-items:center;justify-content:space-between;margin-bottom:26px}
+.hero-text{flex:1}
+#hero-art{width:240px;height:340px;flex:none;border-radius:6px;overflow:hidden;border:1px solid var(--ac);background:#0007;box-shadow:0 0 40px -10px var(--ac)}
+#hero-art svg{width:100%;height:100%;display:block}
+.chip{display:inline-block;font:13px/1 'Segoe UI',sans-serif;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ac);color:var(--ac);padding:6px 10px;margin-bottom:12px}
+[data-theme=thriller] .chip{transform:rotate(-3deg);border:2px solid #ff3b5c;color:#ff3b5c;font-weight:700}
+[data-theme=mystery] .chip{border-style:dashed}
+[data-theme=fantasy] .chip{border-radius:20px}
+[data-theme=adventure] .chip{border:2px dashed var(--ac)}
+[data-theme=horror] .hero-text{position:relative}
+[data-theme=horror] #genre-title{position:relative;display:inline-block}
+[data-theme=horror] #genre-title::after{content:"";position:absolute;left:0;right:0;top:92%;height:40px;transform-origin:top;animation:drip 6s ease-in infinite;
+background:linear-gradient(#e5253a,#e5253a) 8% 0/6px 16px,linear-gradient(#e5253a,#e5253a) 27% 0/6px 36px,linear-gradient(#e5253a,#e5253a) 52% 0/6px 22px,linear-gradient(#e5253a,#e5253a) 74% 0/6px 40px,linear-gradient(#e5253a,#e5253a) 92% 0/6px 18px;background-repeat:no-repeat}
+@keyframes drip{0%{transform:scaleY(0)}70%,100%{transform:scaleY(1)}}
+body[data-theme=horror]{background:linear-gradient(var(--bg) 60%,#2a0606)}
+[data-theme=thriller] .empty,[data-theme=mystery] .empty{font-family:var(--bf)}
+.empty{font-size:22px;font-style:italic;border-left:3px solid var(--ac);padding-left:16px;max-width:520px}
+@media(max-width:760px){.hero{flex-direction:column-reverse;align-items:stretch}#hero-art{width:100%;height:220px}}
+
+/* cursor trails */
+
+/* reading experience */
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--ac);z-index:20;box-shadow:0 0 10px var(--ac)}
+#pulse{position:fixed;inset:0;pointer-events:none;z-index:7;opacity:0;box-shadow:inset 0 0 180px #e5253a}
+body.reading[data-theme=horror] #pulse{animation:beat var(--hb,1.7s) infinite}
+@keyframes beat{0%,100%{opacity:0}12%{opacity:.55}24%{opacity:.1}36%{opacity:.4}60%{opacity:0}}
+.red{background:#000;color:#000;padding:0 3px;transition:.35s;cursor:crosshair}
+.red:hover,.red:active{background:transparent;color:#ff6b81}
+[data-theme=fantasy] .body::first-letter,[data-theme=adventure] .body::first-letter{float:left;font:400 4.2em/.8 var(--tf);color:var(--ac);padding:8px 12px 0 0;text-shadow:0 0 16px var(--ac)}
+[data-theme=shayari] .page{opacity:0;animation:write 1.4s forwards;animation-delay:calc(var(--i) * .5s)}
+@keyframes write{from{opacity:1;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+.big{display:block;margin:28px 0 0;padding:14px 26px;font-size:20px;color:#fff;border-color:#fff8}
+
+/* new landing: editorial scroll */
+html{scroll-behavior:smooth}
+main{max-width:1240px}
+#grain{position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.1;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.top{position:relative;min-height:84vh;display:flex;flex-direction:column;justify-content:center}
+.kicker{letter-spacing:.3em;text-transform:uppercase;font:13px 'Segoe UI',sans-serif;color:var(--ac);margin-bottom:18px}
+#gate h1{font-family:Fraunces,Georgia,serif;font-weight:900;font-size:clamp(46px,10.5vw,150px);line-height:.95;letter-spacing:-.02em;background:none;color:var(--ink);animation:none;margin:0 0 24px}
+#gate h1 i{font-weight:400;color:var(--ac)}
+#gate h1 b{color:transparent;-webkit-text-stroke:2px var(--ac)}
+#gate h1 u{text-decoration:none;color:var(--ac);text-shadow:0 0 40px var(--ac)}
+.cue{color:var(--ink);opacity:.7;text-decoration:none;font:15px 'Segoe UI',sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
+.badge{position:absolute;right:0;top:6%;width:clamp(90px,14vw,170px);fill:var(--ac);animation:spn 18s linear infinite}
+.badge text{font:600 10.5px 'Segoe UI',sans-serif;letter-spacing:.14em}
+.ticker{overflow:hidden;white-space:nowrap;border-block:1px solid var(--ac);margin:30px -20px 50px;padding:12px 0;font:400 clamp(30px,5vw,60px)/1 'Bebas Neue',sans-serif;color:transparent;-webkit-text-stroke:1px var(--ac)}
+.ticker div{display:inline-block;animation:mq 28s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.chap{min-height:88vh;display:flex;align-items:center;justify-content:space-between;gap:50px;cursor:pointer;padding:30px 0}
+.chap:nth-of-type(even){flex-direction:row-reverse}
+.chap .txt,.chap .frame{opacity:0;transform:translateY(70px);transition:opacity 1s,transform 1s}
+.chap.in .txt,.chap.in .frame{opacity:1;transform:none}
+.chap .txt{flex:1;max-width:620px}
+.num{font:400 28px 'Bebas Neue',sans-serif;letter-spacing:.2em;color:var(--ac);display:block;margin-bottom:6px}
+.ct{font-size:clamp(64px,13vw,170px);line-height:.9;color:var(--ac);transition:.4s;margin-bottom:12px}
+.chap:hover .ct,.chap:focus-visible .ct{color:transparent;-webkit-text-stroke:2px var(--ac)}
+.chap[data-world=horror] .ct{font-family:Creepster}.chap[data-world=thriller] .ct{font-family:'Bebas Neue'}
+.chap[data-world=fantasy] .ct{font-family:'Cinzel Decorative';font-size:clamp(48px,10vw,130px)}.chap[data-world=mystery] .ct{font-family:'Special Elite';font-size:clamp(48px,10vw,130px)}
+.chap[data-world=adventure] .ct{font-family:Rye;font-size:clamp(46px,9vw,120px)}.chap[data-world=shayari] .ct{font-family:Kalam}
+.tl{font-size:26px;margin-bottom:10px}
+.tz{font-style:italic;opacity:.75;max-width:460px;border-left:3px solid var(--ac);padding-left:14px;margin-bottom:22px}
+.enter{display:inline-block;color:var(--ac);font:16px 'Segoe UI',sans-serif;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--ac);padding-bottom:4px;transition:.3s}
+.chap:hover .enter{letter-spacing:.3em}
+.frame{width:min(38vw,380px);aspect-ratio:2/3.2;flex:none;overflow:hidden;border:1px solid var(--ac);box-shadow:0 0 90px -20px var(--ac);background:#0007;transition:transform .6s}
+.frame svg{width:100%;height:100%;display:block}
+.chap:hover .frame{transform:rotate(-2deg) scale(1.04)}
+.chap[data-world=horror] .frame{clip-path:polygon(0 3%,100% 0,100% 97%,0 100%)}
+.chap[data-world=thriller] .frame{clip-path:polygon(0 0,100% 0,100% 90%,86% 100%,0 100%)}
+.chap[data-world=fantasy] .frame{border-radius:999px 999px 14px 14px}
+.chap[data-world=mystery] .frame{border-radius:50%;aspect-ratio:1}
+.chap[data-world=adventure] .frame{border:3px dashed var(--ac);border-radius:10px}
+.chap[data-world=shayari] .frame{border-radius:200px 12px 200px 12px}
+.finale{text-align:center;padding:80px 0 20px}
+.big-quote{font:900 clamp(36px,7vw,92px)/1.05 Fraunces,serif;margin-bottom:10px}.big-quote i{font-weight:400;color:var(--ac)}
+.finale .big{margin:30px auto 0}.finale .pillars{text-align:left}
+@media(max-width:760px){.chap,.chap:nth-of-type(even){flex-direction:column;gap:24px}.frame{width:80%}.chap[data-world=mystery] .frame{width:80%}}
+
+/* galaxy landing */
+[data-theme=home] #fx i{display:block;border-radius:50%;background:#fff;animation-name:tw;animation-direction:alternate}
+.gx-head{text-align:center;padding-top:10px}
+#gate .gx-head h1{font-size:clamp(38px,7vw,92px);margin:0 0 10px}
+.gx-head .quote{margin:0 auto;text-align:center}
+.galaxy{--u:min(90vw,760px);position:relative;width:var(--u);height:var(--u);margin:0 auto;animation:zoom 1.8s ease-out}
+.galaxy::before{content:"";position:absolute;inset:-12%;background:radial-gradient(circle,var(--glow,#4b32a033),transparent 62%);transition:background .6s;pointer-events:none}
+@keyframes zoom{from{transform:scale(.25) rotate(-60deg);opacity:0}}
+.moon{position:absolute;left:50%;top:50%;width:15%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fffbe8,#efdc9a 55%,#8a7a3a);box-shadow:0 0 70px 14px #e8d28f55,inset -12px -8px 22px #0006;animation:glow 4s ease-in-out infinite alternate}
+@keyframes glow{to{box-shadow:0 0 110px 26px #e8d28f77,inset -12px -8px 22px #0006}}
+.orbit{position:absolute;left:50%;top:50%;translate:-50% -50%;aspect-ratio:1;border:1px dashed #ffffff2e;border-radius:50%;pointer-events:none;animation:orb var(--d) linear infinite}
+.o1{width:42%;--d:36s;--b:calc(var(--u)*.095)}.o2{width:68%;--d:60s;--b:calc(var(--u)*.105)}.o3{width:94%;--d:88s;--b:calc(var(--u)*.115)}
+@keyframes orb{to{transform:rotate(360deg)}}@keyframes orbr{to{transform:rotate(-360deg)}}
+.orbit:hover,.orbit:hover .pl{animation-play-state:paused}
+.pl{position:absolute;left:50%;top:0;translate:-50% -50%;width:var(--b);height:var(--b);padding:0;border:0;background:none;border-radius:50%;pointer-events:auto;cursor:pointer;animation:orbr var(--d) linear infinite}
+.pl.b{top:100%}
+.pl:hover,.pl:focus-visible{background:none;outline:none}
+.pl span{position:absolute;top:100%;left:50%;translate:-50% 0;margin-top:8px;font:12px 'Segoe UI',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#fff;text-shadow:0 1px 6px #000;white-space:nowrap}
+.ball{position:absolute;inset:0;border-radius:50%;transition:transform .4s}
+.pl:hover .ball,.pl:focus-visible .ball{transform:scale(1.4)}
+[data-world=horror] .ball{background:radial-gradient(circle at 35% 30%,#ff7a7a,#a0001a 55%,#2a0000);box-shadow:0 0 28px #e5253a99}
+[data-world=thriller] .ball{background:radial-gradient(circle at 35% 30%,#aeeaff,#0b5a7a 55%,#031018);box-shadow:0 0 28px #35d0ff88}
+[data-world=fantasy] .ball{background:radial-gradient(circle at 35% 30%,#ecd8ff,#7b3fe4 55%,#1a0a3a);box-shadow:0 0 28px #b57bffaa}
+[data-world=mystery] .ball{background:radial-gradient(circle at 35% 30%,#aaf7d5,#1f8a63 55%,#04150e);box-shadow:0 0 28px #3fbf8f88}
+[data-world=adventure] .ball{background:radial-gradient(circle at 35% 30%,#ffe3a8,#e08a10 55%,#3a1f02);box-shadow:0 0 28px #f5a623aa}
+[data-world=shayari] .ball{background:radial-gradient(circle at 35% 30%,#fffdf0,#e8d28f 50%,#4a3f1c);box-shadow:0 0 28px #e8d28faa}
+[data-world=thriller] .ball::after,[data-world=adventure] .ball::after{content:"";position:absolute;left:-32%;right:-32%;top:38%;height:24%;border:2px solid #ffffff77;border-radius:50%;transform:rotate(-18deg)}
+#gx-info{text-align:center;margin:46px auto 10px;min-height:130px}
+#gx-name{font:900 clamp(40px,8vw,88px)/1 Fraunces,serif;transition:color .4s}
+#gx-tag{font-size:20px;opacity:.8;margin-top:8px}
+.finale{padding-top:40px}
+@media(max-width:600px){.pl span{font-size:10px;letter-spacing:.08em}}
+
+
+/* tarot landing */
+.gx-head{text-align:center;padding-top:10px}.gx-head .quote{margin:0 auto;text-align:center}
+.tf,.tb{position:absolute;inset:0;display:block;border-radius:10px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:2px solid var(--c);outline:1px solid var(--c);outline-offset:-8px;background:#07070f;box-shadow:0 14px 34px #000c}
+.tf::before,.tf::after{content:var(--g);position:absolute;top:7px;font-size:15px;z-index:2}.tf::before{left:11px}.tf::after{right:11px}
+.tb{transform:rotateY(180deg);--c:#e8d28f;background:repeating-linear-gradient(45deg,#ffffff0b 0 6px,transparent 6px 12px),radial-gradient(circle,#2b1f5c,#07070f 75%)}
+.tb::before{content:"";position:absolute;left:28%;top:34%;width:44%;aspect-ratio:1;border-radius:50%;box-shadow:inset -10px 5px 0 #e8d28f}
+.tb::after{content:"";position:absolute;inset:12px;border:1px solid #e8d28f88;border-radius:6px}
+.sheen{position:absolute;inset:0;z-index:3;background:linear-gradient(115deg,transparent 30%,#ffffff40 46%,transparent 60%);transform:translateX(-130%);transition:transform .9s;pointer-events:none}
+.tarot:hover .sheen{transform:translateX(130%)}
+.rn{position:absolute;top:9px;left:0;right:0;text-align:center;font:14px Fraunces,serif;letter-spacing:.3em;z-index:2}
+.tpic{position:absolute;display:block;inset:28px 12px 66px;overflow:hidden;border:1px solid var(--c)}
+.tpic svg{width:100%;height:100%;display:block}
+.tt{position:absolute;bottom:36px;left:0;right:0;text-align:center;font:italic clamp(10px,1.1vw,13px)/1 Georgia,serif;color:#fff;opacity:.8}
+.nm{position:absolute;bottom:11px;left:0;right:0;text-align:center;font-size:clamp(16px,1.9vw,24px);line-height:1;text-shadow:0 0 12px #000}
+.tarot[data-world=horror] .nm{font-family:Creepster}.tarot[data-world=thriller] .nm{font-family:'Bebas Neue'}.tarot[data-world=fantasy] .nm{font-family:'Cinzel Decorative'}
+.tarot[data-world=mystery] .nm{font-family:'Special Elite'}.tarot[data-world=adventure] .nm{font-family:Rye}.tarot[data-world=shayari] .nm{font-family:Kalam}
+
+/* inside a world */
+.hero{display:flex;gap:30px;align-items:center;justify-content:space-between;margin-bottom:26px}
+.hero-text{flex:1}
+#hero-art{width:240px;height:340px;flex:none;border-radius:6px;overflow:hidden;border:1px solid var(--ac);background:#0007;box-shadow:0 0 40px -10px var(--ac)}
+#hero-art svg{width:100%;height:100%;display:block}
+.chip{display:inline-block;font:13px/1 'Segoe UI',sans-serif;letter-spacing:.14em;text-transform:uppercase;border:1px solid var(--ac);color:var(--ac);padding:6px 10px;margin-bottom:12px}
+[data-theme=thriller] .chip{transform:rotate(-3deg);border:2px solid #ff3b5c;color:#ff3b5c;font-weight:700}
+[data-theme=mystery] .chip{border-style:dashed}
+[data-theme=fantasy] .chip{border-radius:20px}
+[data-theme=adventure] .chip{border:2px dashed var(--ac)}
+[data-theme=horror] .hero-text{position:relative}
+[data-theme=horror] #genre-title{position:relative;display:inline-block}
+[data-theme=horror] #genre-title::after{content:"";position:absolute;left:0;right:0;top:92%;height:40px;transform-origin:top;animation:drip 6s ease-in infinite;
+background:linear-gradient(#e5253a,#e5253a) 8% 0/6px 16px,linear-gradient(#e5253a,#e5253a) 27% 0/6px 36px,linear-gradient(#e5253a,#e5253a) 52% 0/6px 22px,linear-gradient(#e5253a,#e5253a) 74% 0/6px 40px,linear-gradient(#e5253a,#e5253a) 92% 0/6px 18px;background-repeat:no-repeat}
+@keyframes drip{0%{transform:scaleY(0)}70%,100%{transform:scaleY(1)}}
+body[data-theme=horror]{background:linear-gradient(var(--bg) 60%,#2a0606)}
+[data-theme=thriller] .empty,[data-theme=mystery] .empty{font-family:var(--bf)}
+.empty{font-size:22px;font-style:italic;border-left:3px solid var(--ac);padding-left:16px;max-width:520px}
+@media(max-width:760px){.hero{flex-direction:column-reverse;align-items:stretch}#hero-art{width:100%;height:220px}}
+
+/* cursor trails */
+
+/* reading experience */
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:var(--ac);z-index:20;box-shadow:0 0 10px var(--ac)}
+#pulse{position:fixed;inset:0;pointer-events:none;z-index:7;opacity:0;box-shadow:inset 0 0 180px #e5253a}
+body.reading[data-theme=horror] #pulse{animation:beat var(--hb,1.7s) infinite}
+@keyframes beat{0%,100%{opacity:0}12%{opacity:.55}24%{opacity:.1}36%{opacity:.4}60%{opacity:0}}
+.red{background:#000;color:#000;padding:0 3px;transition:.35s;cursor:crosshair}
+.red:hover,.red:active{background:transparent;color:#ff6b81}
+[data-theme=fantasy] .body::first-letter,[data-theme=adventure] .body::first-letter{float:left;font:400 4.2em/.8 var(--tf);color:var(--ac);padding:8px 12px 0 0;text-shadow:0 0 16px var(--ac)}
+[data-theme=shayari] .page{opacity:0;animation:write 1.4s forwards;animation-delay:calc(var(--i) * .5s)}
+@keyframes write{from{opacity:1;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0 0 0 0)}}
+.big{display:block;margin:28px 0 0;padding:14px 26px;font-size:20px;color:#fff;border-color:#fff8}
+
+/* new landing: editorial scroll */
+html{scroll-behavior:smooth}
+main{max-width:1240px}
+#grain{position:fixed;inset:0;pointer-events:none;z-index:9;opacity:.1;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.top{position:relative;min-height:84vh;display:flex;flex-direction:column;justify-content:center}
+.kicker{letter-spacing:.3em;text-transform:uppercase;font:13px 'Segoe UI',sans-serif;color:var(--ac);margin-bottom:18px}
+#gate h1{font-family:Fraunces,Georgia,serif;font-weight:900;font-size:clamp(46px,10.5vw,150px);line-height:.95;letter-spacing:-.02em;background:none;color:var(--ink);animation:none;margin:0 0 24px}
+#gate h1 i{font-weight:400;color:var(--ac)}
+#gate h1 b{color:transparent;-webkit-text-stroke:2px var(--ac)}
+#gate h1 u{text-decoration:none;color:var(--ac);text-shadow:0 0 40px var(--ac)}
+.cue{color:var(--ink);opacity:.7;text-decoration:none;font:15px 'Segoe UI',sans-serif;letter-spacing:.12em;text-transform:uppercase;margin-top:10px;animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(8px)}}
+.badge{position:absolute;right:0;top:6%;width:clamp(90px,14vw,170px);fill:var(--ac);animation:spn 18s linear infinite}
+.badge text{font:600 10.5px 'Segoe UI',sans-serif;letter-spacing:.14em}
+.ticker{overflow:hidden;white-space:nowrap;border-block:1px solid var(--ac);margin:30px -20px 50px;padding:12px 0;font:400 clamp(30px,5vw,60px)/1 'Bebas Neue',sans-serif;color:transparent;-webkit-text-stroke:1px var(--ac)}
+.ticker div{display:inline-block;animation:mq 28s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.chap{min-height:88vh;display:flex;align-items:center;justify-content:space-between;gap:50px;cursor:pointer;padding:30px 0}
+.chap:nth-of-type(even){flex-direction:row-reverse}
+.chap .txt,.chap .frame{opacity:0;transform:translateY(70px);transition:opacity 1s,transform 1s}
+.chap.in .txt,.chap.in .frame{opacity:1;transform:none}
+.chap .txt{flex:1;max-width:620px}
+.num{font:400 28px 'Bebas Neue',sans-serif;letter-spacing:.2em;color:var(--ac);display:block;margin-bottom:6px}
+.ct{font-size:clamp(64px,13vw,170px);line-height:.9;color:var(--ac);transition:.4s;margin-bottom:12px}
+.chap:hover .ct,.chap:focus-visible .ct{color:transparent;-webkit-text-stroke:2px var(--ac)}
+.chap[data-world=horror] .ct{font-family:Creepster}.chap[data-world=thriller] .ct{font-family:'Bebas Neue'}
+.chap[data-world=fantasy] .ct{font-family:'Cinzel Decorative';font-size:clamp(48px,10vw,130px)}.chap[data-world=mystery] .ct{font-family:'Special Elite';font-size:clamp(48px,10vw,130px)}
+.chap[data-world=adventure] .ct{font-family:Rye;font-size:clamp(46px,9vw,120px)}.chap[data-world=shayari] .ct{font-family:Kalam}
+.tl{font-size:26px;margin-bottom:10px}
+.tz{font-style:italic;opacity:.75;max-width:460px;border-left:3px solid var(--ac);padding-left:14px;margin-bottom:22px}
+.enter{display:inline-block;color:var(--ac);font:16px 'Segoe UI',sans-serif;letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--ac);padding-bottom:4px;transition:.3s}
+.chap:hover .enter{letter-spacing:.3em}
+.frame{width:min(38vw,380px);aspect-ratio:2/3.2;flex:none;overflow:hidden;border:1px solid var(--ac);box-shadow:0 0 90px -20px var(--ac);background:#0007;transition:transform .6s}
+.frame svg{width:100%;height:100%;display:block}
+.chap:hover .frame{transform:rotate(-2deg) scale(1.04)}
+.chap[data-world=horror] .frame{clip-path:polygon(0 3%,100% 0,100% 97%,0 100%)}
+.chap[data-world=thriller] .frame{clip-path:polygon(0 0,100% 0,100% 90%,86% 100%,0 100%)}
+.chap[data-world=fantasy] .frame{border-radius:999px 999px 14px 14px}
+.chap[data-world=mystery] .frame{border-radius:50%;aspect-ratio:1}
+.chap[data-world=adventure] .frame{border:3px dashed var(--ac);border-radius:10px}
+.chap[data-world=shayari] .frame{border-radius:200px 12px 200px 12px}
+.finale{text-align:center;padding:80px 0 20px}
+.big-quote{font:900 clamp(36px,7vw,92px)/1.05 Fraunces,serif;margin-bottom:10px}.big-quote i{font-weight:400;color:var(--ac)}
+.finale .big{margin:30px auto 0}.finale .pillars{text-align:left}
+@media(max-width:760px){.chap,.chap:nth-of-type(even){flex-direction:column;gap:24px}.frame{width:80%}.chap[data-world=mystery] .frame{width:80%}}
+
+/* galaxy landing */
+[data-theme=home] #fx i{display:block;border-radius:50%;background:#fff;animation-name:tw;animation-direction:alternate}
+.gx-head{text-align:center;padding-top:10px}
+#gate .gx-head h1{font-size:clamp(38px,7vw,92px);margin:0 0 10px}
+.gx-head .quote{margin:0 auto;text-align:center}
+.galaxy{--u:min(90vw,760px);position:relative;width:var(--u);height:var(--u);margin:0 auto;animation:zoom 1.8s ease-out}
+.galaxy::before{content:"";position:absolute;inset:-12%;background:radial-gradient(circle,var(--glow,#4b32a033),transparent 62%);transition:background .6s;pointer-events:none}
+@keyframes zoom{from{transform:scale(.25) rotate(-60deg);opacity:0}}
+.moon{position:absolute;left:50%;top:50%;width:15%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle at 30% 28%,#fffbe8,#efdc9a 55%,#8a7a3a);box-shadow:0 0 70px 14px #e8d28f55,inset -12px -8px 22px #0006;animation:glow 4s ease-in-out infinite alternate}
+@keyframes glow{to{box-shadow:0 0 110px 26px #e8d28f77,inset -12px -8px 22px #0006}}
+.orbit{position:absolute;left:50%;top:50%;translate:-50% -50%;aspect-ratio:1;border:1px dashed #ffffff2e;border-radius:50%;pointer-events:none;animation:orb var(--d) linear infinite}
+.o1{width:42%;--d:36s;--b:calc(var(--u)*.095)}.o2{width:68%;--d:60s;--b:calc(var(--u)*.105)}.o3{width:94%;--d:88s;--b:calc(var(--u)*.115)}
+@keyframes orb{to{transform:rotate(360deg)}}@keyframes orbr{to{transform:rotate(-360deg)}}
+.orbit:hover,.orbit:hover .pl{animation-play-state:paused}
+.pl{position:absolute;left:50%;top:0;translate:-50% -50%;width:var(--b);height:var(--b);padding:0;border:0;background:none;border-radius:50%;pointer-events:auto;cursor:pointer;animation:orbr var(--d) linear infinite}
+.pl.b{top:100%}
+.pl:hover,.pl:focus-visible{background:none;outline:none}
+.pl span{position:absolute;top:100%;left:50%;translate:-50% 0;margin-top:8px;font:12px 'Segoe UI',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:#fff;text-shadow:0 1px 6px #000;white-space:nowrap}
+.ball{position:absolute;inset:0;border-radius:50%;transition:transform .4s}
+.pl:hover .ball,.pl:focus-visible .ball{transform:scale(1.4)}
+[data-world=horror] .ball{background:radial-gradient(circle at 35% 30%,#ff7a7a,#a0001a 55%,#2a0000);box-shadow:0 0 28px #e5253a99}
+[data-world=thriller] .ball{background:radial-gradient(circle at 35% 30%,#aeeaff,#0b5a7a 55%,#031018);box-shadow:0 0 28px #35d0ff88}
+[data-world=fantasy] .ball{background:radial-gradient(circle at 35% 30%,#ecd8ff,#7b3fe4 55%,#1a0a3a);box-shadow:0 0 28px #b57bffaa}
+[data-world=mystery] .ball{background:radial-gradient(circle at 35% 30%,#aaf7d5,#1f8a63 55%,#04150e);box-shadow:0 0 28px #3fbf8f88}
+[data-world=adventure] .ball{background:radial-gradient(circle at 35% 30%,#ffe3a8,#e08a10 55%,#3a1f02);box-shadow:0 0 28px #f5a623aa}
+[data-world=shayari] .ball{background:radial-gradient(circle at 35% 30%,#fffdf0,#e8d28f 50%,#4a3f1c);box-shadow:0 0 28px #e8d28faa}
+[data-world=thriller] .ball::after,[data-world=adventure] .ball::after{content:"";position:absolute;left:-32%;right:-32%;top:38%;height:24%;border:2px solid #ffffff77;border-radius:50%;transform:rotate(-18deg)}
+#gx-info{text-align:center;margin:46px auto 10px;min-height:130px}
+#gx-name{font:900 clamp(40px,8vw,88px)/1 Fraunces,serif;transition:color .4s}
+#gx-tag{font-size:20px;opacity:.8;margin-top:8px}
+.finale{padding-top:40px}
+@media(max-width:600px){.pl span{font-size:10px;letter-spacing:.08em}}
+
+
+/* tarot landing */
+.gx-head{text-align:center;padding-top:10px}.gx-head .quote{margin:0 auto;text-align:center}
+.rn{position:absolute;top:9px;left:0;right:0;text-align:center;font:14px Fraunces,serif;letter-spacing:.3em;z-index:2}
+.tpic{position:absolute;display:block;inset:28px 12px 48px;overflow:hidden;border:1px solid var(--c)}
+.tpic svg{width:100%;height:100%;display:block}
+.nm{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:clamp(16px,1.9vw,24px);line-height:1;text-shadow:0 0 12px #000}
+.tarot[data-world=horror] .nm{font-family:Creepster}.tarot[data-world=thriller] .nm{font-family:'Bebas Neue'}.tarot[data-world=fantasy] .nm{font-family:'Cinzel Decorative'}
+.tarot[data-world=mystery] .nm{font-family:'Special Elite'}.tarot[data-world=adventure] .nm{font-family:Rye}.tarot[data-world=shayari] .nm{font-family:Kalam}
+
+/* inside a world */
+#world-bg{position:fixed;inset:0;z-index:0;opacity:.2;pointer-events:none}
+#world-bg svg{width:100%;height:100%;display:block}
+.orn{color:var(--ac);letter-spacing:.6em;font-size:18px;margin:8px 0;text-align:center}
+.hero{flex-direction:column;text-align:center;align-items:center;gap:0}
+.hero-text{flex:none;width:100%}#hero-art{display:none}
+blockquote{border:0;border-top:1px solid var(--ac);border-bottom:1px solid var(--ac);padding:14px 20px;margin:0 auto 28px;text-align:center;max-width:620px}
+.tabs{justify-content:center}
+.shelf{grid-template-columns:repeat(auto-fill,minmax(220px,250px));justify-content:center;gap:30px}
+.book{position:relative;aspect-ratio:2/3.1;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;background:linear-gradient(165deg,#ffffff10,#0009),#05050c;color:var(--ink);border:2px solid var(--ac);outline:1px solid var(--ac);outline-offset:-9px;border-radius:10px;padding:30px 22px 20px;box-shadow:0 12px 30px #000b;transition:transform .4s,box-shadow .4s}
+.book:hover{transform:translateY(-10px) rotate(0);box-shadow:0 0 44px -6px var(--ac)}
+.book .rn{top:10px}.book .gl{font-size:34px;color:var(--ac);margin:8px 0 4px;line-height:1}
+.book h3{font-size:24px;margin:0 0 6px;color:var(--ac);line-height:1.15}
+.book p{font-size:15px;opacity:.8;overflow:hidden;flex:1}.book small{margin-top:auto;padding-top:8px;color:var(--ink);opacity:.7}
+.empty{margin:30px auto;text-align:center;border:0}
+#reader>*{max-width:720px;margin-left:auto;margin-right:auto}
+#story{text-align:center;border:2px solid var(--ac);outline:1px solid var(--ac);outline-offset:-10px;background:#05050ccc;padding:clamp(28px,6vw,64px);border-radius:10px}
+#story h2{font-size:clamp(34px,6vw,64px)}
+#story .body{text-align:left;margin:26px auto;font-size:20px}
+#story .body::first-letter{float:left;font:400 4em/.8 var(--tf);color:var(--ac);padding:8px 12px 0 0;text-shadow:0 0 16px var(--ac)}
+#reader h3{text-align:center}
+#review-form,#reviews{max-width:720px}
+.page{background:#05050ccc;border:2px solid var(--ac);outline:1px solid var(--ac);outline-offset:-9px;border-radius:10px;text-align:center;padding:40px 30px}
+.page::before{content:"\201C";display:block;font-size:56px;line-height:.6;color:var(--ac)}
+.pages{margin:0 auto}#diary{text-align:center}
+
+.book{animation:bookIn .7s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0)*.1s)}
+@keyframes bookIn{from{opacity:0;transform:translateY(50px) rotate(-4deg)}}
+.book::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 35%,#ffffff2e 48%,transparent 60%);transform:translateX(-130%);transition:transform .8s}
+.book:hover::after{transform:translateX(130%)}
+
+/* cinematic banner inside worlds */
+#world-bg{display:none}
+.banner{position:relative;height:clamp(280px,46vh,440px);border-radius:14px;overflow:hidden;border:1px solid var(--ac);box-shadow:0 0 70px -18px var(--ac);margin-bottom:26px;background:#000}
+.bart{position:absolute;inset:0;animation:kb 26s ease-in-out infinite alternate}
+.bart svg{width:100%;height:100%;display:block;animation:fadein 1s}
+@keyframes kb{to{transform:scale(1.08)}}@keyframes fadein{from{opacity:0}}
+.banner::before{content:"";position:absolute;left:-50%;right:-50%;bottom:0;height:45%;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 30% 100%,#ffffff26,transparent 60%),radial-gradient(ellipse at 72% 100%,#ffffff1c,transparent 60%);animation:fogm 14s ease-in-out infinite alternate}
+@keyframes fogm{to{transform:translateX(18%)}}
+.banner::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(transparent 30%,#000c)}
+.btxt{position:absolute;left:0;right:0;bottom:22px;z-index:2;text-align:center;padding:0 12px}
+.btxt h2{margin:0;font-size:clamp(46px,10vw,118px);line-height:1;text-shadow:0 0 40px #000}
+.btxt .sub{margin:4px 0 0;font-size:22px;color:#fff;text-shadow:0 2px 10px #000}
+.chip{display:block;width:max-content;max-width:92%;margin:0 auto 10px;background:#000b;color:var(--ac)}
+.flyw{animation:flyw 15s linear infinite}@keyframes flyw{from{transform:translateX(-120px)}to{transform:translateX(1320px)}}
+.sweep2{transform-box:fill-box;transform-origin:50% 100%;animation:sw 6s ease-in-out infinite alternate}
+.drift2{animation:dr2 14s ease-in-out infinite alternate}@keyframes dr2{to{transform:translateX(160px)}}
+.wave{animation:wv 4s linear infinite}@keyframes wv{to{transform:translateX(100px)}}
+.bob{animation:bb 3.4s ease-in-out infinite alternate}@keyframes bb{to{transform:translateY(7px) rotate(1.2deg)}}
+.slot{aspect-ratio:2/3.1;border:2px dashed var(--ac);border-radius:10px;display:flex;align-items:center;justify-content:center;text-align:center;padding:26px;font-style:italic;opacity:.85;animation:slotp 3s ease-in-out infinite}
+.slot .gl{font-size:46px;color:var(--ac);margin-bottom:10px;font-style:normal}
+@keyframes slotp{50%{opacity:.4;box-shadow:0 0 40px -8px var(--ac)}}
+
+/* admin, drafts, fonts, phones */
+[hidden]{display:none!important}
+.chk{display:flex;gap:8px;align-items:center;font-size:16px;margin:4px 0 8px}.chk input{width:auto;margin:0}
+.draft{position:absolute;top:10px;right:10px;font:11px 'Segoe UI',sans-serif;letter-spacing:.14em;background:var(--ac);color:var(--bg);padding:3px 7px;border-radius:3px}
+.adm{display:flex;gap:6px;margin-top:8px}.adm button{padding:4px 10px;font-size:14px}
+body,.body,.page{font-family:var(--bf),'Noto Serif Devanagari','Noto Sans Oriya',serif}
+h1,h2,h3,.logo{font-family:var(--tf),'Noto Serif Devanagari','Noto Sans Oriya',serif}
+html,body{overflow-x:hidden}
+@media(max-width:640px){
+ body{font-size:17px}
+ nav{padding:10px 14px}.logo{font-size:19px}main{padding:14px 14px 70px}
+ .banner{height:270px}.btxt{bottom:16px}.btxt h2{font-size:clamp(38px,13vw,64px)}.btxt .sub{font-size:17px}
+ .chip{font-size:11px;letter-spacing:.08em}
+ .tabs{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;padding-bottom:6px}.tabs button{flex:none}
+ .shelf{grid-template-columns:minmax(220px,300px)}
+ #story{padding:26px 18px}#story .body{font-size:18px}
+ .page{font-size:21px;padding:30px 20px}
+ .big-quote{font-size:34px}.daily{font-size:16px;padding:14px}
+}
+
+/* one-screen landing: hanging cards + living sky */
+main{padding-bottom:16px}
+footer{position:fixed;right:10px;bottom:4px;padding:0;z-index:4}
+#gate.on{display:flex;flex-direction:column;justify-content:space-between;height:calc(100svh - 96px);min-height:540px}
+.gx-head{padding-top:0}.kicker{margin-bottom:6px;font-size:12px}
+#gate h1{font-size:clamp(30px,5.2vw,62px);margin:0 0 6px}
+.gx-head .quote{height:28px;min-height:0;font-size:18px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.gx-head>*{animation:fadeup .9s backwards}.gx-head>*:nth-child(2){animation-delay:.1s}.gx-head>*:nth-child(3){animation-delay:.2s}
+@keyframes fadeup{from{opacity:0;transform:translateY(16px)}}
+.fan{--h:min(42vh,340px);position:relative;display:flex;justify-content:center;align-items:flex-start;gap:clamp(8px,1.8vw,24px);padding-top:6px;flex:1}
+.fan::before{content:"";position:absolute;left:4%;right:4%;top:6px;height:2px;background:linear-gradient(90deg,transparent,#ffffff66,transparent)}
+.tarot{position:relative;flex:none;width:min(calc(var(--h)/1.7),13vw);aspect-ratio:2/3.4;margin-top:calc(var(--len) + 6px);padding:0;background:none;border:0;outline:0;color:var(--c);cursor:pointer;transform-origin:50% calc(var(--len)*-1);animation:drop 1.3s cubic-bezier(.3,1.35,.5,1) backwards,swing var(--sw) ease-in-out infinite;animation-delay:calc(var(--i)*.16s + .2s),calc(var(--i)*-1.1s);transition:filter .4s}
+.tarot::before{content:"";position:absolute;left:50%;bottom:100%;width:1px;height:var(--len);background:linear-gradient(#ffffff22,#ffffffaa)}
+@keyframes drop{0%{translate:0 -110vh}100%{translate:0 0}}
+@keyframes swing{0%,100%{rotate:calc(var(--a)*-1)}50%{rotate:var(--a)}}
+.tarot:hover,.tarot:focus-visible{background:none;color:var(--c);outline:0;z-index:5;animation-play-state:paused;filter:drop-shadow(0 0 26px var(--c))}
+.tin{position:absolute;inset:0;display:block;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.tarot:hover .tin,.tarot:focus-visible .tin{transform:perspective(900px) scale(1.07)}
+.tarot.flip .tin{transform:perspective(900px) rotateY(720deg) scale(1.2);transition:transform .85s ease-in-out}
+.tarot.flip{animation-play-state:paused;filter:drop-shadow(0 0 60px var(--c));z-index:9}
+.tf{animation:ignite 1s backwards;animation-delay:calc(var(--i)*.16s + 1.3s)}
+@keyframes ignite{from{filter:brightness(.2) saturate(.2)}}
+.dock{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;align-items:center}
+.daily{display:inline-block;margin:0;max-width:none;font-size:16px;padding:10px 18px;border:1px dashed var(--ac);color:var(--ink)}
+.daily b{color:var(--ac)}.daily u{display:inline;margin-left:8px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;color:var(--ac)}
+.dock .big{display:inline-block;margin:0;padding:10px 18px;font-size:16px}
+.chips{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;font-size:14px;opacity:.7;margin-top:8px}.chips span::before{content:"\2726  ";color:var(--ac)}
+/* base animations: living sky */
+.sky{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+.aur{position:absolute;width:60vw;height:60vw;border-radius:50%;filter:blur(90px);opacity:.28}
+.a1{left:-15vw;top:-22vw;background:#5b3fd0;animation:aur1 22s ease-in-out infinite alternate}
+.a2{right:-15vw;top:4vw;background:#0fa3a3;animation:aur2 28s ease-in-out infinite alternate}
+@keyframes aur1{to{transform:translate(18vw,10vw) scale(1.2)}}@keyframes aur2{to{transform:translate(-20vw,12vw) scale(.85)}}
+.moonbg{position:absolute;right:6vw;top:9vh;width:86px;height:86px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fffbe8,#e8d28f);box-shadow:0 0 80px 20px #e8d28f55;opacity:.9;animation:moonf 8s ease-in-out infinite alternate}
+@keyframes moonf{to{transform:translateY(16px);box-shadow:0 0 120px 34px #e8d28f77}}
+.shoot{position:absolute;top:var(--t);left:var(--l);width:150px;height:2px;background:linear-gradient(90deg,#fff,transparent);rotate:-25deg;opacity:0;animation:shoot 9s linear infinite;animation-delay:var(--d)}
+@keyframes shoot{0%{opacity:0;translate:0 0}2%{opacity:1}12%{opacity:0;translate:-440px 205px}100%{opacity:0}}
+.mist{position:absolute;left:-20%;right:-20%;bottom:-6vh;height:30vh;background:radial-gradient(ellipse at 30% 100%,#ffffff1c,transparent 60%),radial-gradient(ellipse at 75% 100%,#b9a2ff1c,transparent 60%);animation:fogm 16s ease-in-out infinite alternate}
+@media(max-width:760px){#gate.on{height:auto}.fan{flex-wrap:wrap;gap:18px 14px;padding-top:12px}.fan::before,.tarot::before{display:none}.tarot{width:40vw;margin-top:0;transform-origin:50% 0;animation:none}.gx-head .quote{white-space:normal;height:auto}.dock{margin:16px 0}.moonbg{width:56px;height:56px}}
+
+/* front page extras */
+.foot-quote{text-align:center;font:italic 22px/1.5 Georgia,serif;min-height:2em;color:#e8e2ff;transition:opacity .7s}
+.foot-quote.fade{opacity:0}.foot-quote::after{content:"|";margin-left:2px;color:var(--ac);animation:blink 1s steps(1) infinite}
+.ring{position:fixed;left:50%;top:56%;width:min(96vh,920px);aspect-ratio:1;translate:-50% -50%;opacity:.4;pointer-events:none;z-index:0}
+.r1{transform-origin:300px 300px;animation:spn 90s linear infinite}.r2{transform-origin:300px 300px;animation:spn 60s linear infinite reverse}
+#gate h1 i{background:linear-gradient(90deg,var(--ac),#fff,var(--ac));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shift2 4s linear infinite}
+@keyframes shift2{to{background-position:200%}}
+.tf{animation:ignite 1s backwards,glowc 4s ease-in-out infinite alternate;animation-delay:calc(var(--i)*.16s + 1.3s),calc(var(--i)*-.7s)}
+@keyframes glowc{to{box-shadow:0 0 28px -2px var(--c)}}
+/* ambient motion in every world */
+#amb{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+#amb b{position:absolute;display:block}
+[data-theme=horror]{--fc:#a0101f55}[data-theme=mystery]{--fc:#3fbf8f44}
+#amb .fog{left:-40vw;top:var(--y);width:80vw;height:38vh;border-radius:50%;filter:blur(36px);background:radial-gradient(var(--fc,#ffffff22),transparent 70%);animation:fogx var(--t) ease-in-out infinite alternate;animation-delay:var(--d)}
+@keyframes fogx{to{transform:translateX(70vw)}}
+#amb .flash{inset:0;background:#fff;opacity:0;animation:flash 11s infinite}
+@keyframes flash{0%,93%,100%{opacity:0}94%{opacity:.2}95%{opacity:0}96.5%{opacity:.12}98%{opacity:0}}
+#amb .orb{left:var(--x);bottom:-8%;width:calc(var(--s)*22px);height:calc(var(--s)*22px);border-radius:50%;background:radial-gradient(#fff3c0,#ffb347aa 45%,transparent 70%);animation:rise var(--t) linear infinite;animation-delay:var(--d)}
+#amb .cloud{left:-300px;top:var(--y);width:calc(var(--s)*180px);height:calc(var(--s)*40px);border-radius:40px;background:#ffffff26;box-shadow:70px -18px 0 8px #ffffff1f,-60px 6px 0 0 #ffffff1a;filter:blur(3px);animation:cloudx var(--t) linear infinite;animation-delay:var(--d)}
+@keyframes cloudx{to{transform:translateX(calc(100vw + 600px))}}
+#amb .bird{left:-40px;top:var(--y);width:22px;height:10px;border-top:2px solid #1b0f03;border-radius:50% 50% 0 0/100% 100% 0 0;animation:birdx calc(var(--t)*.6) linear infinite,flap .5s ease-in-out infinite alternate;animation-delay:var(--d),0s}
+@keyframes birdx{to{transform:translateX(calc(100vw + 80px))}}@keyframes flap{to{scale:1 .4}}
+#amb .petal{left:var(--x);top:-5%;width:8px;height:12px;background:#e8d28f;border-radius:80% 0 80% 0;opacity:.8;animation:petal var(--t) linear infinite;animation-delay:var(--d)}
+@keyframes petal{to{transform:translate(70px,112vh) rotate(540deg)}}
+#amb .ff{left:var(--x);top:var(--y);width:5px;height:5px;border-radius:50%;background:#fff6b0;box-shadow:0 0 12px 4px #ffe27a99;animation:wander var(--t) ease-in-out infinite,tw 3s infinite alternate;animation-delay:var(--d),var(--d)}
+@keyframes wander{25%{transform:translate(40px,-50px)}50%{transform:translate(-30px,-100px)}75%{transform:translate(50px,-40px)}}
+/* inside the worlds */
+.book{animation:bookIn .7s cubic-bezier(.2,.8,.2,1) backwards,idle 6s ease-in-out infinite;animation-delay:calc(var(--i,0)*.1s),calc(var(--i,0)*-1.3s)}
+@keyframes idle{50%{translate:0 -7px}}
+.book:hover{animation-play-state:paused}
+.btxt h2{animation:glowp 4s ease-in-out infinite alternate}
+@keyframes glowp{from{text-shadow:0 0 20px #000}to{text-shadow:0 0 34px var(--ac),0 0 10px #000}}
+[data-theme=horror] .btxt h2{animation:flick 5s infinite}
+
+/* a different transition for every world */
+@property --y{syntax:'<percentage>';inherits:false;initial-value:-25%}
+#curtain{position:fixed;inset:0;z-index:50;pointer-events:none;visibility:hidden}
+#curtain.go,#curtain.out{visibility:visible}
+#curtain.out{opacity:0;transition:opacity .6s}
+#curtain[data-w=horror]{background:#7d0a14}#curtain[data-w=thriller]{background:#06202c}
+#curtain[data-w=fantasy]{background:conic-gradient(#b57bff,#2a1458,#e2c8ff,#b57bff)}
+#curtain[data-w=mystery]{background:linear-gradient(90deg,#0b2a20,#1f6b50)}
+#curtain[data-w=adventure]{background:linear-gradient(#e8d4a0,#c9a45c)}
+#curtain[data-w=shayari]{background:radial-gradient(circle at var(--cx,50%) var(--cy,50%),#1b2466,#05081f)}
+#curtain.go[data-w=horror]{clip-path:polygon(0 0,100% 0,100% var(--y),88% calc(var(--y) + 9%),76% var(--y),62% calc(var(--y) + 16%),48% var(--y),34% calc(var(--y) + 7%),20% calc(var(--y) + 13%),8% var(--y),0 var(--y));animation:cdrip .8s ease-in forwards}
+@keyframes cdrip{from{--y:-25%}to{--y:125%}}
+#curtain.go[data-w=thriller]{animation:cglitch .8s steps(1,end) forwards}
+@keyframes cglitch{0%{clip-path:inset(45% 0 48% 0)}15%{clip-path:inset(10% 0 78% 0)}30%{clip-path:inset(62% 0 8% 0)}45%{clip-path:inset(0 0 55% 0);background:#35d0ff}60%{clip-path:inset(30% 0 20% 0)}75%{clip-path:inset(0);background:#06202c}100%{clip-path:inset(0)}}
+#curtain.go[data-w=fantasy]{animation:cportal .8s ease-in forwards}
+@keyframes cportal{from{clip-path:circle(0 at 50% 50%);transform:rotate(0)}to{clip-path:circle(150% at 50% 50%);transform:rotate(200deg) scale(1.6)}}
+#curtain.go[data-w=mystery]{animation:cfog .8s ease-in-out forwards}
+@keyframes cfog{from{clip-path:inset(0 100% 0 0);filter:blur(14px)}to{clip-path:inset(0);filter:blur(0)}}
+#curtain.go[data-w=adventure]{transform-origin:top;animation:cmap .8s cubic-bezier(.5,0,.2,1) forwards}
+@keyframes cmap{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+#curtain.go[data-w=shayari]{animation:cink 1s ease-in forwards}
+@keyframes cink{from{clip-path:circle(0 at var(--cx) var(--cy))}to{clip-path:circle(150% at var(--cx) var(--cy))}}
+/* ratings and sharing */
+.rate{display:flex;gap:2px;margin-bottom:10px}
+.rate button{border:0;padding:2px 6px;font-size:28px;line-height:1;color:var(--ac);opacity:.3}
+.rate button.on{opacity:1}.rate button:hover{background:none;color:var(--ac)}
+.sharebtn{display:block;margin:12px auto 0;font-size:14px;padding:5px 14px}
+#sharebox{position:fixed;inset:0;z-index:90;background:#000d;display:flex;align-items:center;justify-content:center;padding:14px}
+.sbin{display:flex;flex-direction:column;align-items:center;gap:12px}
+#sc{max-height:72vh;max-width:90vw;width:auto;height:auto;border-radius:6px}
+.sbtns{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+/* minimalist pass: calmer, fewer layers */
+.banner::before{display:none}.bart{animation:none}.banner{box-shadow:none;border:0}
+[data-theme=horror] #genre-title::after{display:none}
+.btxt h2,[data-theme=horror] .btxt h2,[data-theme=horror] h2,[data-theme=horror] .logo{animation:none}
+#gate h1 i{animation:none;background:none;color:var(--ac);-webkit-text-fill-color:currentColor}
+.tf{outline:0;animation:ignite 1s backwards;animation-delay:calc(var(--i)*.16s + 1.3s)}
+.book{animation:bookIn .6s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0)*.08s);outline:0;border:1px solid var(--ac);background:#05050c;box-shadow:none}
+.book::after{display:none}
+#story{outline:0;border:1px solid #ffffff2e;background:none}
+.page{outline:0;border:0;border-top:1px solid #ffffff26;background:none;border-radius:0}
+.chip,.orn{display:none}
+blockquote{border:0;font-size:19px;opacity:.8}
+.slot{animation:none}#fx{opacity:.55}
+
+/* small helpers that appear only when needed */
+.listen{display:block;margin:10px auto 0;font-size:14px;opacity:.8}
+.nxt{display:block;margin:34px auto 0;padding:10px 20px}
+#snd{font-size:14px;opacity:.65}
+.tarot.seen .rn::after{content:"\2713";margin-left:6px;opacity:.85}
+#prog{overflow:visible}
+#prog::after{content:var(--pg,"\2726");position:absolute;right:-8px;top:-8px;font-size:18px;line-height:1;color:var(--ac)}
+body:not(.reading) #prog::after{display:none}
+[data-theme=horror]{--pg:"\2620"}[data-theme=thriller]{--pg:"\25CE"}[data-theme=fantasy]{--pg:"\2727"}[data-theme=mystery]{--pg:"\25C8"}[data-theme=adventure]{--pg:"\26F5"}[data-theme=shayari]{--pg:"\263E"}
+
+/* ===== effects that belong to each world ===== */
+/* Horror: shaking, flickering cards; flickering title and heading */
+[data-theme=horror] .btxt h2,[data-theme=horror] #story h2{animation:flick 5s infinite}
+[data-theme=horror] .book{animation:bookIn .6s cubic-bezier(.2,.8,.2,1) backwards,flick2 6s infinite;animation-delay:calc(var(--i,0)*.08s),calc(var(--i,0)*-1.3s)}
+@keyframes flick2{0%,90%,100%{opacity:1}92%{opacity:.45}94%{opacity:1}96%{opacity:.7}}
+[data-theme=horror] .book:hover{animation:shake .25s linear infinite;box-shadow:0 0 36px -4px #e5253a}
+@keyframes shake{0%,100%{translate:0 0}25%{translate:-2px 1px}50%{translate:2px -1px}75%{translate:-1px -2px}}
+/* Thriller: scan lines, glitching title, classified ribbon, glitch on hover */
+[data-theme=thriller] .banner::before{display:block;left:0;right:0;bottom:0;height:100%;animation:none;background:repeating-linear-gradient(0deg,#0005 0 2px,transparent 2px 4px)}
+[data-theme=thriller] .btxt h2{animation:tglitch 5s infinite}
+@keyframes tglitch{0%,91%,100%{text-shadow:none;translate:0 0}93%{text-shadow:3px 0 #f0f,-3px 0 #0ff;translate:3px 0}95%{text-shadow:-3px 0 #f0f,3px 0 #0ff;translate:-3px 0}97%{text-shadow:none;translate:0 0}}
+[data-theme=thriller] .book::before{content:"CONFIDENTIAL";position:absolute;top:20px;left:-36px;transform:rotate(-35deg);background:#ff3b5c;color:#000;font:700 10px 'Segoe UI',sans-serif;letter-spacing:.14em;padding:2px 38px;z-index:2}
+[data-theme=thriller] .book:hover{animation:jit .3s steps(2) infinite}
+[data-theme=thriller] .book:hover h3{text-shadow:2px 0 #f0f,-2px 0 #0ff}
+@keyframes jit{0%{translate:0 0}50%{translate:2px -1px}100%{translate:-2px 1px}}
+/* Fantasy: shimmering title, colour-shifting glow and sparkles on cards */
+[data-theme=fantasy] .btxt h2{background:linear-gradient(90deg,var(--ac),#fff,var(--ac));background-size:200%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:shift2 5s linear infinite}
+[data-theme=fantasy] .book::before{content:"\2726  \2727  \2726";position:absolute;bottom:12px;left:0;right:0;text-align:center;letter-spacing:.3em;color:#ffd66b;opacity:0;transform:translateY(10px);transition:.5s}
+[data-theme=fantasy] .book:hover::before{opacity:1;transform:translateY(-4px)}
+[data-theme=fantasy] .book:hover{box-shadow:0 0 40px -4px #b57bff;animation:hue 3s linear infinite}
+@keyframes hue{to{filter:hue-rotate(360deg)}}
+/* Mystery: title types itself, cards pinned like evidence */
+[data-theme=mystery] .btxt h2{animation:typeclip 1.6s steps(12) .5s backwards}
+@keyframes typeclip{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0)}}
+[data-theme=mystery] .book:nth-child(odd){rotate:-1.5deg}[data-theme=mystery] .book:nth-child(even){rotate:1.2deg}
+[data-theme=mystery] .book:hover{rotate:0deg;box-shadow:0 0 40px -6px #3fbf8f}
+[data-theme=mystery] .book::before{content:"";position:absolute;top:9px;left:50%;width:11px;height:11px;margin-left:-5px;border-radius:50%;background:#e5253a;box-shadow:0 2px 4px #000}
+/* Adventure: bouncing title, cards swing like hanging signs */
+[data-theme=adventure] .btxt h2{animation:bounceIn .9s backwards}
+@keyframes bounceIn{from{transform:translateY(-50px) scale(.9);opacity:0}60%{transform:translateY(8px)}}
+[data-theme=adventure] .book{transform-origin:50% 0}
+[data-theme=adventure] .book:hover{animation:sway2 1.3s ease-in-out infinite}
+@keyframes sway2{0%,100%{rotate:-2deg}50%{rotate:2deg}}
+/* Shayari: title appears like wet ink, entries glow */
+[data-theme=shayari] .btxt h2{animation:inkIn 1.6s backwards}
+@keyframes inkIn{from{filter:blur(12px);opacity:0}}
+[data-theme=shayari] .page{transition:border-color .4s,box-shadow .4s}
+[data-theme=shayari] .page:hover{border-top-color:var(--ac);box-shadow:0 -14px 40px -22px var(--ac)}
+
+/* about the author + calm mode */
+.tarot[data-about] .nm{font-family:Fraunces,serif}
+#snd,#calm{font-size:14px;opacity:.65}
+#about{position:fixed;inset:0;z-index:90;background:#000d;display:flex;align-items:center;justify-content:center;padding:20px}
+.abin{max-width:460px;width:100%;text-align:center;background:#07070f;border:1px solid var(--ac);border-radius:12px;padding:34px 28px}
+.aphoto{width:130px;height:130px;margin:0 auto 14px;border-radius:50%;background:#15151f center/cover;border:2px solid var(--ac)}
+.aphoto.empty{background:radial-gradient(circle at 35% 30%,#fffbe8,#e8d28f 55%,#6a5a2a)}
+.abin h2{font-size:38px;margin-bottom:0}.abin p{white-space:pre-line;opacity:.85;margin:10px 0 18px}
+.alinks{display:flex;gap:10px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
+.alinks a{color:var(--ac);border:1px solid var(--ac);padding:6px 16px;text-decoration:none;border-radius:2px}
+#about-editor{margin-top:30px}
+body.calm *,body.calm *::before,body.calm *::after{animation:none!important}
+body.calm #amb,body.calm .banner::before{display:none}
+
+/* ===== the book: cover, opening, and a small effect on the first page ===== */
+[data-theme=horror]{--cv:#1a0508}[data-theme=thriller]{--cv:#06121f}[data-theme=fantasy]{--cv:#1e1240}[data-theme=mystery]{--cv:#0b2018}[data-theme=adventure]{--cv:#3a2308}
+#story{border:0;outline:0;background:none;padding:0}
+#reader.closed>h3,#reader.closed>#avg,#reader.closed>#review-form,#reader.closed>#reviews{display:none}
+.bk-stage{position:relative;width:min(340px,86vw);aspect-ratio:2/3;margin:24px auto 8px;perspective:1600px}
+.bk-inside{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;border-radius:4px 10px 10px 4px;border:1px solid var(--ac);background:linear-gradient(90deg,#0008,transparent 16%),#0b0b14}
+.bk-inside h3{font-size:30px;margin:10px 0 4px}.bk-inside small{opacity:.7;letter-spacing:.2em;text-transform:uppercase}.orn2{color:var(--ac);letter-spacing:.5em}
+.bk-cover{position:absolute;inset:0;width:100%;height:100%;padding:0;border:0;border-radius:4px 10px 10px 4px;transform-origin:left center;transition:transform 1.1s cubic-bezier(.6,0,.3,1);backface-visibility:hidden;-webkit-backface-visibility:hidden;cursor:pointer;background-size:cover;background-position:center;box-shadow:inset 14px 0 18px -10px #000,0 24px 50px -10px #000;overflow:hidden;color:#fff}
+.bk-cover::after{content:"";position:absolute;left:0;top:0;bottom:0;width:16px;background:linear-gradient(90deg,#000a,#ffffff1a 60%,transparent);pointer-events:none}
+.bk-cover.gen{background:var(--cv,#10101a);outline:1px solid var(--ac);outline-offset:-10px}
+.bk-cover:hover,.bk-cover:focus-visible{color:#fff;transform:rotateY(-9deg);outline-color:var(--ac)}
+.bk-cover.gen:hover,.bk-cover.gen:focus-visible{background:var(--cv,#10101a)}
+.bk-stage.opening .bk-cover{transform:rotateY(-165deg)}
+.cv-art{position:absolute;inset:0 0 38% 0;overflow:hidden;border-bottom:1px solid var(--ac)}.cv-art svg{width:100%;height:100%;display:block}
+.cv-ti{position:absolute;left:0;right:0;bottom:16%;padding:0 24px;text-align:center;font:400 clamp(24px,5vw,34px)/1.1 var(--tf);color:var(--ac)}
+.cv-by{position:absolute;left:0;right:0;bottom:6%;text-align:center;font:italic 14px Georgia,serif;opacity:.85}
+.bk-hint{text-align:center;opacity:.6;font-size:15px}
+.bk-page{position:relative;border:1px solid #ffffff2e;border-radius:10px;padding:clamp(28px,6vw,64px);text-align:center;transform-origin:top}
+.bk-page.pg-in{animation:pageIn .9s cubic-bezier(.2,.8,.2,1)}
+@keyframes pageIn{from{opacity:0;transform:perspective(1200px) rotateX(-14deg) translateY(20px)}}
+.fxp{position:absolute;inset:0;overflow:hidden;border-radius:10px;pointer-events:none;display:block}
+.pg-in .fxp::before,.pg-in .fxp::after{position:absolute;pointer-events:none}
+[data-theme=horror] .pg-in .fxp::before{content:"";left:0;right:0;top:0;height:150px;transform-origin:top;background:linear-gradient(#b0102a,#b0102a) 10% 0/6px 90px no-repeat,linear-gradient(#b0102a,#b0102a) 34% 0/6px 140px no-repeat,linear-gradient(#b0102a,#b0102a) 58% 0/6px 70px no-repeat,linear-gradient(#b0102a,#b0102a) 82% 0/6px 110px no-repeat;animation:drip2 3s ease-out forwards}
+@keyframes drip2{0%{transform:scaleY(0);opacity:1}55%{transform:scaleY(1);opacity:1}100%{transform:scaleY(1);opacity:0}}
+[data-theme=thriller] .pg-in .fxp::before{content:"CLASSIFIED";top:34px;right:26px;border:4px solid #ff3b5c;color:#ff3b5c;font:700 28px 'Bebas Neue',sans-serif;letter-spacing:.2em;padding:4px 14px;opacity:0;animation:stamp 2.6s ease-out forwards}
+@keyframes stamp{0%{transform:rotate(-12deg) scale(3);opacity:0}18%{transform:rotate(-12deg) scale(1);opacity:1}75%{opacity:1}100%{transform:rotate(-12deg) scale(1);opacity:0}}
+[data-theme=fantasy] .pg-in .fxp::before{content:"";inset:0;background:radial-gradient(circle at 50% 0%,#b57bff88,transparent 65%);animation:glowb 2.4s ease-out forwards}
+@keyframes glowb{from{opacity:1;transform:scale(.6)}to{opacity:0;transform:scale(1.4)}}
+[data-theme=fantasy] .pg-in .fxp::after{content:"\2726   \2727   \2726   \2727   \2726";left:0;right:0;bottom:20%;text-align:center;color:#ffd66b;letter-spacing:.4em;animation:upstars 2.6s ease-out forwards}
+@keyframes upstars{from{opacity:1;transform:translateY(40px)}to{opacity:0;transform:translateY(-160px)}}
+[data-theme=mystery] .pg-in .fxp::before{content:"";inset:0;background:linear-gradient(90deg,#3fbf8fb0,#3fbf8f33,transparent);animation:fogclear 2.6s ease-out forwards}
+@keyframes fogclear{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(60%)}}
+[data-theme=adventure] .pg-in .fxp::before{content:"";top:20px;left:0;width:0;border-top:3px dotted var(--ac);animation:route 2.2s ease-out forwards}
+@keyframes route{to{width:calc(100% - 40px)}}
+[data-theme=adventure] .pg-in .fxp::after{content:"\2715";top:4px;right:16px;color:#e5253a;font-size:22px;opacity:0;animation:xmark .3s 2.1s forwards}
+@keyframes xmark{to{opacity:1}}
+
+/* a richer night sky, still beautiful when everything is calm */
+.sky::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 58%,#2a1f5a66,transparent 62%),radial-gradient(circle at 14% 82%,#5b1f4a38,transparent 46%),radial-gradient(circle at 88% 70%,#0f5a6a33,transparent 44%)}
+.fan::after{content:"";position:absolute;left:6%;right:6%;bottom:2%;height:46px;background:radial-gradient(ellipse,#8a6bff40,transparent 70%);filter:blur(12px);pointer-events:none}
+#calmhint{position:fixed;top:64px;left:50%;translate:-50% 0;z-index:30;display:flex;gap:10px;align-items:center;background:#10101af2;border:1px solid var(--ac);border-radius:8px;padding:8px 14px;font-size:14px;max-width:92vw}
+#calmhint button{padding:4px 12px;font-size:13px}
+
+/* ===== portal landing: giant words, full-screen scenes ===== */
+#stage{position:fixed;inset:0;z-index:0;pointer-events:none}
+#stage::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#000d 0,#0008 55%,#0004)}
+.sc{position:absolute;inset:0;opacity:0;transition:opacity .7s}.sc.on{opacity:1}
+.sc svg{width:100%;height:100%;display:block}
+.gx-head,.wlist,.foot-quote{position:relative;z-index:1}
+#gate h1{font-size:clamp(28px,4.4vw,52px)}
+.wlist{display:flex;flex-direction:column;justify-content:center;flex:1;padding:4px 0}
+.wd{display:flex;align-items:baseline;gap:18px;width:100%;text-align:left;padding:0;border:0;border-radius:0;background:none;color:#fff;cursor:pointer;line-height:1.03;transition:transform .45s cubic-bezier(.2,.8,.2,1);animation:wIn .8s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i)*.1s + .2s)}
+@keyframes wIn{from{opacity:0;transform:translateX(-70px)}}
+.wd .n{font:14px 'Segoe UI',sans-serif;letter-spacing:.2em;color:var(--c);opacity:.75;width:38px;flex:none}
+.wd.seen .n::after{content:" \2713"}
+.wd .t{font-size:clamp(40px,10.2vh,104px);-webkit-text-stroke:1.5px var(--c);color:transparent;transition:color .35s,letter-spacing .45s}
+.wd .tg{font:italic 20px Georgia,serif;opacity:0;transform:translateX(-14px);transition:.45s}
+.wd:hover,.wd:focus-visible{background:none;color:#fff;outline:0;transform:translateX(28px)}
+.wd:hover .t,.wd:focus-visible .t{color:var(--c);letter-spacing:.04em}
+.wd:hover .tg,.wd:focus-visible .tg{opacity:.9;transform:none}
+.wd[data-world=horror] .t{font-family:Creepster}.wd[data-world=thriller] .t{font-family:'Bebas Neue'}.wd[data-world=fantasy] .t{font-family:'Cinzel Decorative'}
+.wd[data-world=mystery] .t{font-family:'Special Elite'}.wd[data-world=adventure] .t{font-family:Rye}.wd[data-world=shayari] .t{font-family:Kalam}
+.foot-quote{margin-top:6px}
+@media(max-width:760px){#gate.on{height:auto}.wd .t{font-size:clamp(38px,11vw,64px)}.wd .tg{display:none}.wd:hover{transform:none}#stage{display:none}}
+/* ===== inside a world: a contents list instead of cards ===== */
+.toc-wrap{display:flex;gap:44px;align-items:flex-start}
+.shelf{display:block;flex:1;min-width:0}
+.row{position:relative;display:flex;align-items:baseline;gap:18px;padding:16px 4px;border-bottom:1px solid #ffffff22;cursor:pointer;transition:padding .35s,border-color .3s;animation:bookIn .6s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i,0)*.08s)}
+.row .rno{font:14px 'Segoe UI',sans-serif;letter-spacing:.2em;color:var(--ac);width:34px;flex:none}
+.row h3{margin:0;flex:1;font-size:clamp(24px,4vw,40px);line-height:1.1;color:var(--ink);transition:color .3s}
+.row small{opacity:.6;white-space:nowrap}
+.row:hover{padding-left:22px;border-color:var(--ac)}.row:hover h3{color:var(--ac)}
+.row .draft{position:static;margin-left:6px}.row .adm{margin:0 0 0 auto}
+[data-theme=thriller] .row:hover h3{text-shadow:2px 0 #f0f,-2px 0 #0ff}
+[data-theme=horror] .row:hover h3{animation:shake .25s linear infinite}
+[data-theme=fantasy] .row:hover h3{text-shadow:0 0 18px var(--ac)}
+#peek{width:230px;flex:none;position:sticky;top:90px}
+.pk{position:relative;aspect-ratio:2/3;border-radius:3px 8px 8px 3px;overflow:hidden;background:#10101a center/cover;box-shadow:inset 10px 0 14px -8px #000,0 20px 40px -10px #000;animation:fadein .5s}
+.pk.gen{background:var(--cv,#10101a);outline:1px solid var(--ac);outline-offset:-8px}
+.pk .cv-ti{font-size:22px;bottom:17%;padding:0 16px}.pk .cv-by{font-size:12px}
+.slot{aspect-ratio:auto;border:0;border-left:2px solid var(--ac);border-radius:0;text-align:left;padding:10px 20px;justify-content:flex-start;animation:none}.slot .gl{display:none}
+@media(max-width:760px){#peek{display:none}.toc-wrap{display:block}.row small{display:none}}
+
+/* ===== two landing looks ===== */
+.gx-head{padding-top:0}.look{display:none;flex:1;min-height:0;flex-direction:column;gap:10px}
+body.look-doors #look-doors,body.look-shelf #look-shelf{display:flex}
+#gate h1{margin:0}
+/* Night Train */
+.tr-main{display:flex;gap:22px;flex:1;min-height:0}
+.trainwin{position:relative;flex:1.5;min-width:0;border-radius:26px;border:10px solid #1a1612;box-shadow:inset 0 0 70px #000,0 0 0 2px #3a2f22,0 30px 60px -20px #000;overflow:hidden;background:linear-gradient(#050816,#10183a)}
+.tw-in{position:absolute;inset:0;animation:rattle .38s linear infinite}
+@keyframes rattle{50%{transform:translateY(1.5px)}}
+.tw-in>div{position:absolute;left:0;right:0}
+.tw-ground{bottom:0;height:7%;background:repeating-linear-gradient(90deg,#030303 0 44px,#14110d 44px 50px);animation:gx .4s linear infinite;--w:50px}
+.tw-trees{bottom:6%;height:38%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='140'%3E%3Cpath d='M0 140l30-110 30 110zM50 140l26-90 26 90zM110 140l34-130 34 130zM190 140l28-100 28 100zM250 140l30-120 30 120z' fill='%23030708'/%3E%3C/svg%3E") repeat-x bottom/300px 100%;animation:gx 4.5s linear infinite;--w:300px;opacity:.95}
+.tw-poles{bottom:6%;height:78%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='300'%3E%3Cpath d='M118 40h4v260h-4zM94 68h52v4H94zM100 94h40v3h-40z' fill='%23020204'/%3E%3Cpath d='M0 98Q60 98 120 72M120 72Q180 98 240 98' stroke='%23020204' fill='none' stroke-width='1.6'/%3E%3C/svg%3E") repeat-x bottom/240px 100%;animation:gx 1.7s linear infinite;--w:240px}
+@keyframes gx{to{background-position-x:calc(var(--w)*-1)}}
+.tw-glass{position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,#ffffff16 0,transparent 34%),radial-gradient(ellipse at 50% 125%,#ffd98a26,transparent 60%)}
+.board{flex:1;min-width:0;display:flex;flex-direction:column;background:#0a0a0f;border:1px solid #2a2418;border-radius:12px;padding:10px 12px;font-family:'Special Elite','Courier New',monospace}
+.bh{display:flex;justify-content:space-between;gap:10px;color:#ffb347;font-size:13px;letter-spacing:.14em;padding:4px 6px 10px;border-bottom:1px solid #ffb34744}
+.bh b{color:#fff}
+.dep{display:grid;grid-template-columns:30px 1fr auto;column-gap:10px;align-items:baseline;flex:1;width:100%;text-align:left;padding:4px 8px;border:0;border-bottom:1px solid #ffffff12;border-radius:0;background:none;color:#ffb347;cursor:pointer;transition:background .3s,padding .3s;animation:wIn .7s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i)*.09s + .2s)}
+.dep .pf{color:#ffffff88}.dep .dn{font-size:clamp(18px,3.2vh,28px);letter-spacing:.06em;text-transform:uppercase}
+.dep .st{font-size:12px;letter-spacing:.14em;color:#8bd17c}.dep .dt{grid-column:2/4;font-size:13px;color:#fff;opacity:.55;font-style:italic}
+.dep:hover,.dep:focus-visible,.dep.now{background:color-mix(in srgb,var(--c) 18%,transparent);color:var(--c);padding-left:16px;outline:0}
+.dep.now .dt,.dep:hover .dt{opacity:.95}
+.dep.seen .pf::after{content:"\2713"}
+@keyframes wIn{from{opacity:0;transform:translateX(-50px)}}
+/* Campfire */
+.camp{position:relative;flex:1;min-height:0;border-radius:20px;overflow:hidden;background:linear-gradient(#050816,#0d1230 55%,#1a120a)}
+.camp::before{content:"";position:absolute;left:0;right:0;bottom:24%;height:40%;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='140'%3E%3Cpath d='M0 140l30-110 30 110zM50 140l26-90 26 90zM110 140l34-130 34 130zM190 140l28-100 28 100zM250 140l30-120 30 120z' fill='%23040a0c'/%3E%3C/svg%3E") repeat-x bottom/300px 100%}
+.camp::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30%;background:radial-gradient(ellipse at 50% 0,#ff7a0040,transparent 70%),linear-gradient(#0a0805,#050403)}
+.camp>*{z-index:1}
+#fire-say{position:absolute;left:0;right:0;top:9%;text-align:center;font:italic clamp(20px,3.2vh,32px) Georgia,serif;color:#ffd9a0;text-shadow:0 0 18px #ff7a0088;padding:0 20px;transition:color .3s}
+.fire{position:absolute;left:50%;bottom:5%;width:clamp(120px,22vh,210px);translate:-50% 0}
+.fire::before{content:"";position:absolute;left:50%;top:40%;width:360%;aspect-ratio:1;translate:-50% -50%;background:radial-gradient(#ff7a0055,transparent 60%);animation:fglow 2.2s ease-in-out infinite alternate;pointer-events:none}
+@keyframes fglow{to{opacity:.6;transform:scale(1.08)}}
+.flame{position:relative;width:100%;display:block}
+.f1,.f2,.f3{transform-box:fill-box;transform-origin:50% 100%}
+.f1{animation:flame 1.1s ease-in-out infinite alternate}.f2{animation:flame .8s ease-in-out infinite alternate-reverse}.f3{animation:flame .6s ease-in-out infinite alternate}
+@keyframes flame{0%{transform:scale(1,1) skewX(0)}50%{transform:scale(.94,1.1) skewX(3deg)}100%{transform:scale(1.05,.94) skewX(-3deg)}}
+.obj{position:absolute;left:var(--x);bottom:var(--y);translate:-50% 0;width:clamp(48px,9.5vh,86px);padding:0;border:0;background:none;color:#fff;cursor:pointer;text-align:center;transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.obj svg{width:100%;display:block;transition:filter .4s}
+.obj span{display:block;margin-top:4px;font:12px 'Segoe UI',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--c);opacity:.85}
+.obj:hover,.obj:focus-visible{background:none;color:#fff;outline:0;transform:translateY(-12px) scale(1.14)}
+.obj:hover svg,.obj:focus-visible svg{filter:drop-shadow(0 0 16px var(--c))}
+.obj.seen span::after{content:" \2713"}
+.ember{position:absolute;left:calc(50% + var(--x));bottom:16%;width:3px;height:3px;border-radius:50%;background:#ffb347;box-shadow:0 0 6px #ff7a00;animation:emb var(--t) linear infinite;animation-delay:var(--d);pointer-events:none}
+@keyframes emb{to{transform:translate(var(--dx),-46vh);opacity:0}}
+#look{font-size:14px;opacity:.75}
+@media(max-width:760px){.tr-main{flex-direction:column}.trainwin{flex:none;height:30vh}.board{flex:none}.dep{padding:8px}.camp{min-height:70vh;flex:none}.obj span{font-size:10px}}
+
+/* ===== clean page: no top bar ===== */
+#prog{display:none}
+main{padding-top:24px}
+#gate.on{height:calc(100svh - 48px)}
+.corner{position:fixed;top:12px;right:16px;z-index:30;display:flex;gap:4px}
+.corner button,.homebtn{border:0;background:none;color:var(--ink);opacity:.7;font:13px 'Segoe UI',sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:6px 10px}
+.corner button:hover,.homebtn:hover{background:none;color:var(--ac);opacity:1}
+.homebtn{position:fixed;top:12px;left:16px;z-index:30}
+/* tagline and moons that fill as worlds are visited */
+.kicker{display:flex;align-items:center;justify-content:center;gap:14px;margin:0;letter-spacing:.36em;text-transform:uppercase;font:12px 'Segoe UI',sans-serif;color:var(--ac)}
+.kl{flex:0 1 90px;height:1px;background:linear-gradient(90deg,transparent,var(--ac))}.kl:last-child{background:linear-gradient(90deg,var(--ac),transparent)}
+.moons{display:flex;gap:10px;justify-content:center;margin-top:8px}
+.moons i{width:12px;height:12px;border-radius:50%;border:1px solid #e8d28f99;transition:.6s}
+.moons i.on{background:radial-gradient(circle at 35% 30%,#fffbe8,#e8d28f);box-shadow:0 0 12px #e8d28faa;border-color:transparent}
+/* bottom quote: words surface one by one */
+.foot-quote::after{content:none}
+.foot-quote span{display:inline-block;opacity:0;filter:blur(8px);transform:translateY(10px);animation:wordin .9s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes wordin{to{opacity:1;filter:blur(0);transform:none}}
+.foot-quote.out{opacity:0;transition:opacity 1s}
+.rd-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+/* ===== the open book ===== */
+#bookfs{--pw:min(41vw,560px);--ph:min(84vh,780px);--paper:#efe6d0;--ink2:#2a2118;--wc:#0000;position:fixed;inset:0;z-index:70;background:#05050a;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .6s}
+#bookfs.single{--pw:min(92vw,520px)}#bookfs.on{opacity:1}
+[data-theme=horror] #bookfs{--paper:#d9ccb4;--ink2:#2a1410;--wc:#8a0a1a44}
+[data-theme=fantasy] #bookfs{--paper:#e6dcf0;--ink2:#2a1a45;--wc:#b57bff44}
+[data-theme=mystery] #bookfs{--paper:#d6e3d8;--ink2:#14281f;--wc:#3fbf8f44}
+[data-theme=adventure] #bookfs{--paper:#ecd9a6;--ink2:#3a2408;--wc:#f5a62344}
+.bf-bg{position:absolute;inset:0;opacity:.38}.bf-bg svg{width:100%;height:100%;display:block}
+.bf-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,#0000 20%,#000b 100%)}
+.spread{position:relative;display:flex;width:calc(var(--pw)*2);height:var(--ph);perspective:2400px;box-shadow:0 40px 80px -20px #000}
+#bookfs.single .spread{width:var(--pw)}#bookfs.single #pl{display:none}
+.slot-l,.slot-r{position:relative;width:var(--pw);height:var(--ph)}
+.pg{position:relative;width:100%;height:100%;box-sizing:border-box;padding:46px 42px 58px;background:var(--paper);color:var(--ink2);overflow:hidden}
+.pg.measure{position:fixed;left:-9999px;top:0;width:var(--pw);height:var(--ph);visibility:hidden}
+.pg.l{border-radius:6px 0 0 6px;box-shadow:inset -28px 0 36px -24px #000a}
+.pg.r{border-radius:0 6px 6px 0;box-shadow:inset 28px 0 36px -24px #000a}
+.pgtxt{position:relative;z-index:1;height:calc(var(--ph) - 104px);overflow:hidden;font-size:clamp(16px,2.05vh,20px);line-height:1.7;font-family:var(--bf),'Noto Serif Devanagari','Noto Sans Oriya',serif}
+.pgtxt p{margin:0 0 .85em;text-indent:1.4em;text-align:justify;hyphens:auto}.pgtxt p:first-child{text-indent:0}
+.pn{position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:13px;opacity:.55;z-index:1}
+.tp{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.tp h2{font-size:clamp(28px,4.6vh,46px);color:var(--ink2);margin:14px 0 6px}.tp h3{color:var(--ink2);font-size:38px}.tp small{opacity:.7;letter-spacing:.18em;text-transform:uppercase}
+.tp .orn2{color:var(--ink2);opacity:.7}
+.endbtn{display:block;margin:12px auto 0;color:var(--ink2);border-color:var(--ink2);font-size:15px}.endbtn:hover{background:var(--ink2);color:var(--paper)}
+/* behind the words: a faint picture and slow movement */
+.wm{position:absolute;inset:0;opacity:.15;background-size:cover;background-position:center;mix-blend-mode:multiply;filter:sepia(.5)}
+.fx2{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+.fx2::before{content:"";position:absolute;inset:-20%;background:radial-gradient(ellipse at 25% 85%,var(--wc),transparent 60%),radial-gradient(ellipse at 80% 15%,var(--wc),transparent 55%);animation:pgdrift 16s ease-in-out infinite alternate}
+@keyframes pgdrift{to{transform:translate(8%,-6%) scale(1.1)}}
+[data-theme=fantasy] .fx2::after{content:"";position:absolute;inset:0;background-image:radial-gradient(2px 2px at 20% 85%,#b57bff,transparent),radial-gradient(2px 2px at 55% 95%,#e0a800,transparent),radial-gradient(2px 2px at 82% 80%,#b57bff,transparent),radial-gradient(2px 2px at 38% 90%,#e0a800,transparent);animation:sparkup 9s linear infinite}
+@keyframes sparkup{from{transform:translateY(0);opacity:1}to{transform:translateY(-110%);opacity:0}}
+/* page turning */
+.leaf{position:absolute;top:0;width:var(--pw);height:var(--ph);transform-style:preserve-3d;transition:transform .95s cubic-bezier(.55,0,.25,1);z-index:5}
+.leaf.n{left:50%;transform-origin:left center}#bookfs.single .leaf.n{left:0}
+.leaf.p{left:0;transform-origin:right center}
+.leaf.n.go{transform:rotateY(-180deg)}.leaf.p.go{transform:rotateY(180deg)}
+.lf,.lb{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.lb{transform:rotateY(180deg)}.lf .pg,.lb .pg{width:100%;height:100%}
+.lf::after,.lb::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#0005,transparent 40%);pointer-events:none}
+/* ribbon bookmark: hangs from the top and grows longer as you read */
+.ribbon{position:absolute;top:-14px;right:7%;width:26px;height:60px;background:linear-gradient(90deg,color-mix(in srgb,var(--ac) 70%,#000),var(--ac) 55%,color-mix(in srgb,var(--ac) 80%,#fff));clip-path:polygon(0 0,100% 0,100% 100%,50% calc(100% - 14px),0 100%);transition:height .9s cubic-bezier(.3,.8,.3,1);z-index:6;filter:drop-shadow(0 6px 6px #0008)}
+.bf-x{position:absolute;top:14px;right:18px;z-index:8;font-size:34px;line-height:1;border:0;background:none;color:#fff;opacity:.75;padding:4px 12px}
+.bf-x:hover{background:none;color:var(--ac);opacity:1}
+.bf-nav{position:absolute;top:50%;translate:0 -50%;z-index:8;font-size:56px;line-height:1;border:0;background:none;color:#fff;opacity:.6;padding:10px 16px}
+.bf-nav:hover{background:none;color:var(--ac);opacity:1}#bf-prev{left:1.5vw}#bf-next{right:1.5vw}
+.bf-pn{position:absolute;bottom:12px;left:0;right:0;text-align:center;color:#fff;opacity:.6;font:13px 'Segoe UI',sans-serif;letter-spacing:.14em;z-index:8}
+#bookfs .pg-in .fxp::before,#bookfs .pg-in .fxp::after{z-index:3}
+@media(max-width:820px){.bf-nav{font-size:40px;padding:8px}.ribbon{right:10%}}
+
+/* ===== 3. background: a moonlit lake, tinted by each world ===== */
+#bg{position:fixed;inset:0;z-index:0;pointer-events:none;--s0:#04061a;--s1:#121a4a;--s2:#2d2f78;--m:#f3e6b8;--mt1:#0b0f2c;--mt2:#070a1c;--tr:#03050f}
+#bg svg{width:100%;height:100%;display:block}
+[data-theme=horror] #bg{--s0:#0a0203;--s1:#3a0710;--s2:#8a1424;--m:#ffb3b3;--mt1:#1a0508;--mt2:#0e0204;--tr:#050102}
+[data-theme=fantasy] #bg{--s0:#0b0620;--s1:#2a1a6a;--s2:#7a48c8;--m:#f0e6ff;--mt1:#1a1040;--mt2:#10092c;--tr:#07041a}
+[data-theme=mystery] #bg{--s0:#020d09;--s1:#0c3a2a;--s2:#228a62;--m:#dff5e8;--mt1:#06241a;--mt2:#041810;--tr:#020a07}
+[data-theme=adventure] #bg{--s0:#1a0a02;--s1:#7a3a0a;--s2:#f5a623;--m:#ffd27a;--mt1:#3a1c06;--mt2:#2a1404;--tr:#140a02}
+[data-theme=shayari] #bg{--s0:#05081f;--s1:#1b2466;--s2:#3f46a8;--m:#f3e6b8;--mt1:#0a1038;--mt2:#060a28;--tr:#03061a}
+.bglow{animation:bgp 7s ease-in-out infinite alternate}@keyframes bgp{to{opacity:.8}}
+.rp{transform-box:fill-box;transform-origin:center;animation:rpl 4.4s ease-in-out infinite}
+@keyframes rpl{50%{transform:scaleX(1.28);opacity:.2}}
+body{background:#04061a}
+/* ===== 1 and 2. icons: no tick marks; a halo and orbiting spark for visited worlds ===== */
+.obj .ico{position:relative;display:block}
+.obj .ico svg{width:100%;display:block}
+.obj.seen span::after,.dep.seen .pf::after,.wd.seen .n::after{content:none}
+.obj.seen .ico::before{content:"";position:absolute;inset:-16%;border-radius:50%;border:1.5px dashed var(--c);opacity:.7;background:radial-gradient(circle at 50% 0,var(--c) 0 3px,transparent 4px);animation:spn 9s linear infinite}
+.obj.seen .ico svg{filter:drop-shadow(0 0 10px var(--c))}
+.dep .pf{position:relative;width:30px;height:30px;color:inherit}
+.dep .pf svg{width:100%;height:100%;display:block}
+.dep.seen .pf::before{content:"";position:absolute;inset:-12%;border-radius:50%;border:1px dashed var(--c);background:radial-gradient(circle at 50% 0,var(--c) 0 2px,transparent 3px);animation:spn 8s linear infinite}
+.dep.seen .pf svg{filter:drop-shadow(0 0 6px var(--c))}
+/* ===== 4. bookmark: a charm that dangles and swings; tap it to save your place ===== */
+.ribbon{display:none}
+.charm{position:absolute;top:-64px;right:9%;width:46px;height:80px;padding:0;border:0;background:none;transform-origin:50% 0;animation:swing2 4.2s ease-in-out infinite alternate;z-index:6;cursor:pointer}
+.charm:hover{background:none}
+.cs{position:absolute;left:50%;top:0;width:1.5px;height:36px;background:linear-gradient(#ffffff44,#ffffffcc)}
+.ci{position:absolute;left:50%;top:34px;width:38px;height:38px;translate:-50% 0;filter:drop-shadow(0 4px 6px #000a);transition:filter .4s}
+.ci svg{width:100%;height:100%;display:block}
+.cl{position:absolute;left:50%;top:76px;translate:-50% 0;white-space:nowrap;font:11px 'Segoe UI',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#fff;opacity:0;transition:opacity .3s;text-shadow:0 1px 6px #000}
+.charm:hover .cl,.charm.saved .cl{opacity:.9}
+.charm.saved .ci{filter:drop-shadow(0 0 14px var(--ac)) drop-shadow(0 4px 6px #000a);animation:charmpulse 2s ease-in-out infinite alternate}
+@keyframes swing2{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}@keyframes charmpulse{to{transform:translateX(-50%) scale(1.12)}}
+.bf-toast{position:absolute;top:18px;left:50%;translate:-50% 0;z-index:9;background:#000b;color:#fff;border:1px solid var(--ac);border-radius:20px;padding:6px 16px;font:14px 'Segoe UI',sans-serif;opacity:0;transition:opacity .5s;pointer-events:none}
+.bf-toast.on{opacity:1}
+/* ===== 5. page change: the words dissolve and the next page appears (different for each world) ===== */
+#spread{--dir:1}
+#spread.out .pg{animation:var(--po,sparkOut) .42s ease-in forwards}
+#spread.in .pg{animation:var(--pi,sparkIn) .6s ease-out}
+[data-theme=horror]{--po:mistOut;--pi:mistIn}[data-theme=fantasy]{--po:sparkOut;--pi:sparkIn}[data-theme=mystery]{--po:fogOut;--pi:fogIn}[data-theme=adventure]{--po:scrollOut;--pi:scrollIn}[data-theme=shayari]{--po:sparkOut;--pi:sparkIn}
+@keyframes mistOut{to{opacity:0;filter:blur(9px) sepia(1) saturate(3) hue-rotate(-40deg);transform:translateY(-12px)}}
+@keyframes mistIn{from{opacity:0;filter:blur(9px);transform:translateY(12px)}}
+@keyframes sparkOut{to{opacity:0;filter:blur(5px) brightness(1.7);transform:scale(1.03)}}
+@keyframes sparkIn{from{opacity:0;filter:blur(5px) brightness(1.7);transform:scale(.97)}}
+@keyframes fogOut{to{opacity:0;filter:blur(8px);transform:translateX(calc(var(--dir)*-26px))}}
+@keyframes fogIn{from{opacity:0;filter:blur(8px);transform:translateX(calc(var(--dir)*26px))}}
+@keyframes scrollOut{to{opacity:0;transform:translateX(calc(var(--dir)*-70px)) rotate(calc(var(--dir)*-1.5deg))}}
+@keyframes scrollIn{from{opacity:0;transform:translateX(calc(var(--dir)*70px)) rotate(calc(var(--dir)*1.5deg))}}
+/* ===== 6. more special effects: site, inside the worlds, and on the book pages ===== */
+.view.on{animation:viewIn .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes viewIn{from{opacity:0;transform:translateY(16px)}}
+.bart::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(105deg,transparent 40%,#ffffff26 50%,transparent 60%);transform:translateX(-130%);animation:sweep 8s ease-in-out infinite}
+@keyframes sweep{0%,55%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
+.row::after{content:"";position:absolute;left:0;bottom:-1px;height:2px;width:0;background:linear-gradient(90deg,var(--ac),transparent);transition:width .6s}
+.row:hover::after{width:100%}
+.pgtxt p{animation:inkp .9s both}
+.pgtxt p:nth-child(2){animation-delay:.25s}.pgtxt p:nth-child(3){animation-delay:.5s}.pgtxt p:nth-child(4){animation-delay:.75s}.pgtxt p:nth-child(5){animation-delay:1s}.pgtxt p:nth-child(n+6){animation-delay:1.25s}
+@keyframes inkp{from{opacity:0;filter:blur(5px)}}
+.pgtxt.first p:first-child::first-letter{float:left;font-family:var(--tf),serif;font-size:3.6em;line-height:.8;padding:6px 10px 0 0;color:var(--ink2);text-shadow:0 0 14px var(--wc)}
+.fx2::after{content:"";position:absolute;inset:0;opacity:.28;background-image:radial-gradient(1.5px 1.5px at 15% 30%,var(--ink2),transparent),radial-gradient(1.5px 1.5px at 70% 62%,var(--ink2),transparent),radial-gradient(1.2px 1.2px at 40% 82%,var(--ink2),transparent),radial-gradient(1.5px 1.5px at 86% 20%,var(--ink2),transparent);animation:dust 12s linear infinite}
+@keyframes dust{from{transform:translateY(0)}to{transform:translateY(-44px)}}
+[data-theme=horror] .wm{animation:candle 3.2s ease-in-out infinite}
+@keyframes candle{0%,100%{opacity:.15}30%{opacity:.07}55%{opacity:.18}75%{opacity:.09}}
+#bookfs .spread{box-shadow:0 40px 80px -20px #000,0 0 100px -10px var(--wc)}
+
+/* ===== new page turn: the next page spreads out from the corner like spilled ink, with a glowing edge ===== */
+@property --r{syntax:'<length>';inherits:true;initial-value:0px}
+.swp{position:absolute;inset:0;z-index:5;--r:0px;--ox:100%;transition:--r .95s cubic-bezier(.55,.05,.2,1);pointer-events:none}
+.swp.go{--r:1500px}
+.swc{position:absolute;inset:0;display:flex;clip-path:circle(var(--r) at var(--ox) 100%)}
+.swh{position:relative;width:var(--pw);height:var(--ph)}
+.swr{position:absolute;inset:0;background:radial-gradient(circle at var(--ox) 100%,transparent calc(var(--r) - 10px),var(--ac) calc(var(--r) - 2px),transparent calc(var(--r) + 20px));opacity:.85;mix-blend-mode:screen}
+.slot-l,.slot-r{cursor:pointer}
+.slot-r::after,.slot-l::after{content:"";position:absolute;bottom:0;width:0;height:0;z-index:3;opacity:0;transition:.35s;pointer-events:none}
+.slot-r::after{right:0;background:linear-gradient(135deg,transparent 50%,color-mix(in srgb,var(--ac) 75%,transparent) 50%)}
+.slot-l::after{left:0;background:linear-gradient(225deg,transparent 50%,color-mix(in srgb,var(--ac) 75%,transparent) 50%)}
+.slot-r:hover::after,.slot-l:hover::after{opacity:1;width:56px;height:56px}
+/* ===== more on the book ===== */
+#bookfs .pgtxt{font-size:calc(var(--fs,1)*clamp(16px,2.05vh,20px))}
+.bf-tools{position:absolute;top:14px;left:18px;z-index:8;display:flex;gap:6px}
+.bf-tools button{border:1px solid #ffffff55;background:none;color:#fff;padding:4px 12px;border-radius:14px;font:13px 'Segoe UI',sans-serif}
+.bf-tools button:hover{background:none;color:var(--ac);border-color:var(--ac)}
+#bookfs.dark{--paper:#14141c;--ink2:#e6dfcf}
+#bookfs.dark .wm{mix-blend-mode:screen;opacity:.1}
+#bf-seek{position:absolute;bottom:34px;left:50%;translate:-50% 0;width:min(520px,70vw);-webkit-appearance:none;appearance:none;height:4px;border:0;border-radius:4px;padding:0;margin:0;outline:0;cursor:pointer;z-index:8;background:linear-gradient(90deg,var(--ac) var(--p,0%),#ffffff33 var(--p,0%))}
+#bf-seek::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--ac);box-shadow:0 0 10px var(--ac);border:0}
+#bf-seek::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--ac);box-shadow:0 0 10px var(--ac);border:0}
+.bf-pn{bottom:10px}
+/* gold-foil shine across the closed book cover */
+.bk-cover::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(110deg,transparent 40%,#ffffff38 50%,transparent 60%);transform:translateX(-130%);animation:sweep 6s ease-in-out infinite}
+
+/* ===== 3. the book fills the whole screen, like holding it ===== */
+#bookfs{--pw:50vw;--ph:100vh;--pt:clamp(44px,7vh,76px);--pb:clamp(50px,8vh,84px);--px:max(clamp(32px,5.5vw,100px),calc(25vw - 310px));padding:0;gap:0}
+@supports (height:100dvh){#bookfs{--ph:100dvh}}
+#bookfs.single{--pw:100vw}
+#bookfs .spread{width:100vw;height:var(--ph);box-shadow:none}
+.pg{padding:var(--pt) var(--px) var(--pb)}
+.pgtxt{height:calc(var(--ph) - var(--pt) - var(--pb))}
+#bookfs .pgtxt{font-size:clamp(17px,2.3vh,24px)}
+.tp h2{font-size:clamp(34px,6vh,64px)}
+.pg.l,.pg.r{border-radius:0}
+.pg.r::before,.pg.l::before{content:"";position:absolute;top:0;bottom:0;width:16px;z-index:2;pointer-events:none}
+.pg.r::before{right:0;background:repeating-linear-gradient(90deg,#0000 0 3px,#00000024 3px 4px)}
+.pg.l::before{left:0;background:repeating-linear-gradient(90deg,#00000024 0 1px,#0000 1px 4px)}
+.spread::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 110px #0007;pointer-events:none;z-index:4}
+.bf-pn,#bf-seek{display:none}
+.bf-nav{color:var(--ink2);opacity:.35;font-size:44px;padding:6px 8px}.bf-nav:hover{background:none;color:var(--ink2);opacity:.9}
+#bf-prev{left:6px}#bf-next{right:6px}
+.bf-x{color:var(--ink2);top:8px;right:10px;opacity:.6}.bf-x:hover{background:none;color:var(--ink2);opacity:1}
+.bf-tools{top:10px;left:14px}.bf-tools button{color:var(--ink2);border-color:#00000044}.bf-tools button:hover{background:none;color:var(--ink2);border-color:var(--ink2)}
+.charm{top:-2px;right:12%}.cs{height:18px}.ci{top:16px;width:34px;height:34px}
+.cl{left:auto;right:100%;top:26px;translate:0;margin-right:8px;color:var(--ink2);text-shadow:none}
+/* ===== 4. covers: book name on every cover, and a picker in the admin ===== */
+.cv-shade{position:absolute;inset:0;background:linear-gradient(transparent 40%,#000d)}
+.bk-cover.img .cv-ti,.pk:not(.gen) .cv-ti{color:#fff;text-shadow:0 2px 14px #000}
+.bk-cover.img .cv-by,.pk:not(.gen) .cv-by{color:#fff}
+.cprev{display:flex;gap:12px;align-items:center;margin:6px 0 10px}.cprev img{height:90px;border-radius:4px;border:1px solid #ffffff44}
+/* ===== 5. more life on the home page ===== */
+#gate h1 i{background:linear-gradient(90deg,var(--ac),#fff,var(--ac));background-size:200%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:shift2 4s linear infinite}
+.rays{transform-origin:1190px 230px;animation:spn 150s linear infinite}
+.cl1{animation:cdrift 55s ease-in-out infinite alternate}.cl2{animation:cdrift 80s ease-in-out infinite alternate-reverse}
+@keyframes cdrift{from{transform:translateX(-240px)}to{transform:translateX(240px)}}
+.boat{animation:boatx 90s linear infinite,bb 3.4s ease-in-out infinite alternate}
+@keyframes boatx{from{translate:-120px 0}to{translate:1750px 0}}
+.obj .ico{animation:bob3 4.5s ease-in-out infinite}
+.obj[data-world=horror] .ico{animation-duration:3.6s}.obj[data-world=fantasy] .ico{animation-duration:4.2s}.obj[data-world=mystery] .ico{animation-duration:5s}.obj[data-world=adventure] .ico{animation-duration:3.9s}.obj[data-world=shayari] .ico{animation-duration:4.8s}
+@keyframes bob3{50%{transform:translateY(-7px)}}
+.gh{animation:floaty 2.6s ease-in-out infinite alternate}@keyframes floaty{to{transform:translateY(-3px)}}
+
+/* ===== 1. opening scene ===== */
+.imoon{position:absolute;left:50%;bottom:-130px;width:110px;height:110px;translate:-50% 0;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fffbe8,#e8d28f 60%,#8a7a3a);box-shadow:0 0 70px 18px #e8d28f55;transition:bottom 2.4s cubic-bezier(.2,.7,.2,1)}
+#intro.go .imoon{bottom:64%}
+#intro p{text-shadow:0 0 26px #e8d28f;letter-spacing:.12em}
+/* ===== 2. diyas floating on the lake ===== */
+.diya{animation:diyax 120s linear infinite,bb 3.2s ease-in-out infinite alternate}
+@keyframes diyax{from{translate:-120px 0}to{translate:1750px 0}}
+/* ===== 4. a distant storm behind the mountains ===== */
+.storm{animation:stormf 14s infinite}.bolt{animation:stormb 14s infinite}
+@keyframes stormf{0%,90%,100%{opacity:0}91%{opacity:.3}92%{opacity:.04}93.5%{opacity:.24}96%{opacity:0}}
+@keyframes stormb{0%,90%,100%{opacity:0}91%{opacity:1}92.5%{opacity:0}93.5%{opacity:.85}95%{opacity:0}}
+/* ===== 3. loose pages drifting down ===== */
+#amb .pgfall{left:var(--x);top:-8%;width:calc(var(--s)*20px);height:calc(var(--s)*27px);background:#efe6d0;opacity:.42;border-radius:2px;background-image:repeating-linear-gradient(#0000 0 4px,#2a211866 4px 5px);box-shadow:0 0 10px #0006;animation:pgdrop var(--t) linear infinite;animation-delay:var(--d)}
+@keyframes pgdrop{0%{transform:translate(0,0) rotate(0) rotateY(0)}50%{transform:translate(60px,55vh) rotate(180deg) rotateY(180deg)}100%{transform:translate(-20px,112vh) rotate(380deg) rotateY(360deg)}}
+/* ===== 5. shadow storytellers behind the campfire ===== */
+.shad{position:absolute;inset:0;pointer-events:none;filter:blur(2px)}
+.shad svg{position:absolute;fill:#000;opacity:.4}
+.sh-bird{top:24%;left:-20%;width:16%;animation:birdx2 16s linear infinite}
+@keyframes birdx2{to{transform:translateX(150vw)}}
+.sh-bird path{transform-box:fill-box;transform-origin:center;animation:flapw .4s ease-in-out infinite alternate}
+@keyframes flapw{to{transform:scaleY(.5)}}
+.sh-hand{left:58%;top:14%;width:13%;transform-origin:50% 100%;animation:handw 8s ease-in-out infinite}
+@keyframes handw{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(8deg) scale(1.1)}}
+.sh-hand rect{transform-box:fill-box;transform-origin:50% 100%;animation:wig 1.8s ease-in-out infinite alternate}
+.sh-hand rect:nth-child(2){animation-delay:-.4s}.sh-hand rect:nth-child(3){animation-delay:-.8s}.sh-hand rect:nth-child(4){animation-delay:-1.2s}.sh-hand rect:nth-child(5){animation-delay:-.2s}
+@keyframes wig{to{transform:rotate(9deg)}}
+.sh-fig{left:27%;bottom:30%;width:5.5%;transform-origin:50% 100%;animation:sway3 6s ease-in-out infinite alternate}
+@keyframes sway3{from{transform:rotate(-3deg) scaleY(.97)}to{transform:rotate(3deg) scaleY(1.03)}}
+/* ===== 6. train steam and a sweeping headlight ===== */
+.steam{position:absolute;right:12%;bottom:46%;width:0;height:0;pointer-events:none;z-index:2}
+.steam i{position:absolute;width:46px;height:46px;border-radius:50%;background:#dfe6f0;filter:blur(10px);opacity:0;animation:puff 4.8s ease-out infinite;animation-delay:calc(var(--k)*.8s)}
+@keyframes puff{0%{transform:translate(0,0) scale(.4);opacity:0}15%{opacity:.5}100%{transform:translate(-300px,-80px) scale(2.8);opacity:0}}
+.beam{position:absolute;right:-6%;bottom:28%;width:70%;height:36%;pointer-events:none;z-index:2;transform-origin:100% 50%;background:linear-gradient(270deg,#fff5c88c,transparent);clip-path:polygon(100% 44%,0 0,0 100%,100% 56%);mix-blend-mode:screen;animation:beamsw 6s ease-in-out infinite alternate}
+@keyframes beamsw{from{rotate:-6deg}to{rotate:6deg}}
+/* ===== 7. constellations ===== */
+#const{position:fixed;left:4%;top:12%;width:min(38vw,460px);aspect-ratio:1;pointer-events:none;z-index:2}
+#const g{opacity:0;transition:opacity .5s}#const g.on{opacity:1}
+#const polyline{fill:none;stroke:var(--c);stroke-width:.6;stroke-linejoin:round;stroke-dasharray:100;stroke-dashoffset:100;filter:drop-shadow(0 0 1.5px var(--c))}
+#const g.on polyline{stroke-dashoffset:0;transition:stroke-dashoffset 1.6s ease-out}
+#const circle{fill:#fff;filter:drop-shadow(0 0 2px var(--c))}
+/* ===== 8 and 9. parallax for tilting, and a sky that follows the time ===== */
+#bg svg{transform:translate(var(--tx,0px),var(--ty,0px)) scale(1.06);transition:transform .25s ease-out}
+[data-theme=home] #bg[data-tod=deep]{--s0:#02030c;--s1:#0a0f33;--s2:#161c5a;--m:#e8e2c8;--mt1:#060820;--mt2:#03051a;--tr:#010208}
+[data-theme=home] #bg[data-tod=dawn]{--s0:#1a2250;--s1:#7a5a9a;--s2:#f5b0a0;--m:#fff1c8;--mt1:#241a3c;--mt2:#180f2c;--tr:#0a0618}
+[data-theme=home] #bg[data-tod=day]{--s0:#1c3560;--s1:#4a7ab0;--s2:#9ccbe6;--m:#fff7d6;--mt1:#1a2c50;--mt2:#10203c;--tr:#08101f}
+[data-theme=home] #bg[data-tod=dusk]{--s0:#241035;--s1:#8a3a5c;--s2:#f0894a;--m:#ffe0b0;--mt1:#2a1230;--mt2:#1a0a22;--tr:#0c0510}
+.clk{font:italic 15px Georgia,serif;opacity:.85;margin:4px 0 0;text-align:center;color:#e8e2ff}
+/* ===== the secret room ===== */
+.moons i.sec{border-radius:2px;transform:rotate(45deg);background:#ffe9a8;box-shadow:0 0 14px #ffd66b;border-color:transparent}
+#secret{position:fixed;inset:0;z-index:95;background:#030208;display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .6s;perspective:1400px;overflow:hidden}
+#secret.on{opacity:1}
+.sroom{position:relative;max-width:560px;width:90%;text-align:center;padding:30px 10px}
+.sglow{position:absolute;left:50%;top:0;width:520px;height:520px;translate:-50% -10%;background:radial-gradient(#ffb34755,transparent 62%);animation:fglow 2.4s ease-in-out infinite alternate;pointer-events:none}
+.scandle{position:relative;width:54px;margin:0 auto 10px;display:block}
+.sroom h2{position:relative;font-size:clamp(30px,6vw,54px);color:#ffd9a0}
+.sroom p{position:relative;font-size:clamp(18px,2.6vh,23px);line-height:1.8;margin:14px 0 26px;color:#f3e6d0}
+#s-text span{display:inline-block;opacity:0;filter:blur(8px);animation:wordin .9s forwards}
+#s-close{position:relative}
+.sdoor{position:absolute;inset:0;transform-origin:left center;background:repeating-linear-gradient(90deg,#3a230f 0 34px,#2a1a0b 34px 37px);box-shadow:inset 0 0 120px #000;pointer-events:none}
+.sdoor::after{content:"";position:absolute;left:78%;top:50%;width:26px;height:40px;background:radial-gradient(circle at 50% 28%,#ffd37a 0 28%,transparent 30%),linear-gradient(#ffd37a,#ffd37a) 50% 100%/24% 55% no-repeat;filter:drop-shadow(0 0 10px #ffb347)}
+#secret.on .sdoor{animation:dooropen 1.8s .4s ease-in-out forwards}
+@keyframes dooropen{to{transform:perspective(1400px) rotateY(-100deg);opacity:0}}
+
+/* ===== performance pass: cheaper effects, and pause what nobody can see ===== */
+.steam i{filter:none;background:radial-gradient(circle,#dfe6f0cc,#dfe6f000 70%)}
+.shad{filter:none}.shad svg{opacity:.34}
+.beam{mix-blend-mode:normal}
+#const polyline,#const circle{filter:none}
+#amb .fog{filter:none}
+.tw-in .tw-ground,.tw-in .tw-trees,.tw-in .tw-poles{right:auto;width:calc(100% + var(--w));will-change:transform}
+.tw-in .tw-ground{animation:gxt .4s linear infinite}.tw-in .tw-trees{animation:gxt 4.5s linear infinite}.tw-in .tw-poles{animation:gxt 1.7s linear infinite}
+@keyframes gxt{to{transform:translateX(calc(var(--w)*-1))}}
+body:not(.home) #bg *{animation-play-state:paused}
+body.bookopen #bg *,body.bookopen #amb *,body.bookopen #fx *{animation-play-state:paused}
+body.tabhidden *,body.tabhidden *::before,body.tabhidden *::after{animation-play-state:paused!important}
+/* automatic lite mode */
+body.lite .steam,body.lite .beam,body.lite .shad,body.lite #amb,body.lite .sky .shoot,body.lite #const,body.lite .diya,body.lite .bart::after,body.lite .fx2::after{display:none}
+body.lite .rays,body.lite .cl1,body.lite .cl2,body.lite .boat,body.lite .storm,body.lite .bolt,body.lite .bglow,body.lite .rp,body.lite .fx2::before,body.lite .bk-cover::before,body.lite .tw-in{animation:none}
+body.lite #fx i:nth-child(n+8){display:none}
+/* ===== 1. headline letters ===== */
+#gate h1 .w{display:inline-block;white-space:nowrap}
+#gate h1 .lt{display:inline-block;animation:letterUp .7s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--n)*.035s + .3s)}
+@keyframes letterUp{from{opacity:0;transform:translateY(.7em)}}
+#gate h1 i .lt{-webkit-text-fill-color:var(--ac);color:var(--ac);text-shadow:0 0 18px color-mix(in srgb,var(--ac) 60%,transparent)}
+/* ===== 2. icons react while you point at them ===== */
+.gh,.egg,.hat,.ht{transform-box:fill-box;transform-origin:50% 100%}.ht{transform-origin:center}.hat{transition:transform .3s}.crk{transition:stroke .3s}
+.obj:hover .gh,.dep:hover .gh{animation:wobble .45s ease-in-out infinite alternate}
+@keyframes wobble{from{transform:rotate(-9deg)}to{transform:rotate(9deg)}}
+.obj:hover .egg,.dep:hover .egg{animation:shakee .3s linear infinite}
+@keyframes shakee{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+.obj:hover .crk,.dep:hover .crk{stroke:#ffd66b}
+.obj:hover .hat,.dep:hover .hat{transform:rotate(-16deg) translateY(-3px)}
+.obj[data-world=adventure]:hover .ico svg,.dep[data-world=adventure]:hover .pf svg{animation:balloon 1.4s ease-in-out infinite alternate}
+@keyframes balloon{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-8px) rotate(3deg)}}
+.obj:hover .ht,.dep:hover .ht{animation:beat2 .5s ease-in-out infinite alternate}
+@keyframes beat2{to{transform:scale(1.22)}}
+/* ===== 3. lanterns float up once when a story is finished ===== */
+.lant{position:fixed;bottom:-60px;left:var(--x);width:26px;height:36px;border-radius:8px 8px 10px 10px;background:linear-gradient(#ffd98a,#f08a2a);box-shadow:0 0 22px 6px #ffb34777;opacity:.92;z-index:80;pointer-events:none;animation:lup 3.8s ease-in forwards;animation-delay:var(--d)}
+.lant::before{content:"";position:absolute;left:6px;right:6px;top:-4px;height:4px;background:#8a5a2a;border-radius:2px}
+@keyframes lup{to{transform:translate(var(--dx),-118vh) scale(.7);opacity:0}}
+/* ===== 4. loading placeholders ===== */
+.skrow{display:flex;gap:18px;align-items:center;padding:18px 4px;border-bottom:1px solid #ffffff18}
+.skrow span{width:34px;height:12px;border-radius:4px;background:#ffffff1c}
+.skrow i{flex:1;height:26px;border-radius:6px;background:linear-gradient(90deg,#ffffff10 25%,#ffffff2e 50%,#ffffff10 75%);background-size:200% 100%;animation:shim 1.4s linear infinite}
+.skpage{height:130px;border-top:1px solid #ffffff22;background:linear-gradient(90deg,#ffffff08 25%,#ffffff1c 50%,#ffffff08 75%);background-size:200% 100%;animation:shim 1.4s linear infinite}
+@keyframes shim{to{background-position:-200% 0}}
+/* ===== 5. dust puffs out when the book opens ===== */
+.bdust{position:absolute;left:50%;top:50%;width:var(--s);height:var(--s);border-radius:50%;background:#e8dcc0;box-shadow:0 0 8px #fff6;z-index:7;pointer-events:none;animation:bdust 1.8s ease-out forwards}
+@keyframes bdust{from{transform:translate(0,0) scale(.6);opacity:.9}to{transform:translate(var(--dx),var(--dy)) scale(1.3);opacity:0}}
+/* ===== 7. a corner of the cover lifts when you point at a story ===== */
+.pk.peel::after{content:"";position:absolute;right:0;bottom:0;width:58px;height:58px;z-index:3;background:linear-gradient(135deg,transparent 50%,#efe6d0 50%,#cdbf9e);transform:scale(0);transform-origin:100% 100%;animation:peel 1.6s ease-in-out .15s}
+@keyframes peel{0%{transform:scale(0)}30%,65%{transform:scale(1)}100%{transform:scale(0)}}
+[data-theme=adventure] #moonshade{display:none}
+
+/* ===== new landing look: the five names, each one alive ===== */
+.wlist2{display:flex;flex-direction:column;justify-content:center;flex:1;gap:clamp(2px,1vh,10px)}
+.wrd{display:flex;align-items:center;gap:20px;width:100%;text-align:left;padding:2px 0;border:0;border-radius:0;background:none;color:var(--c);cursor:pointer;animation:wIn .8s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i)*.1s + .2s);transition:transform .4s}
+.wrd .ico{position:relative;display:block;width:clamp(34px,6.4vh,58px);flex:none}.wrd .ico svg{width:100%;display:block}
+.wrd .wt{position:relative;display:inline-block;font-size:clamp(38px,9.6vh,96px);line-height:1.05;color:var(--c)}
+.wrd .wt i{display:inline-block;font-style:normal}
+.wrd .wg{font:italic 20px Georgia,serif;color:#fff;opacity:0;transform:translateX(-14px);transition:.4s;white-space:nowrap}
+.wrd:hover,.wrd:focus-visible{background:none;color:var(--c);outline:0;transform:translateX(26px)}
+.wrd:hover .wg,.wrd:focus-visible .wg{opacity:.9;transform:none}
+.wrd:hover .wt{text-shadow:0 0 22px var(--c)}
+.wrd[data-world=horror] .wt{font-family:Creepster}.wrd[data-world=fantasy] .wt{font-family:'Cinzel Decorative'}.wrd[data-world=mystery] .wt{font-family:'Special Elite'}.wrd[data-world=adventure] .wt{font-family:Rye}.wrd[data-world=shayari] .wt{font-family:Kalam}
+.wrd.seen .ico::before{content:"";position:absolute;inset:-16%;border-radius:50%;border:1.5px dashed var(--c);opacity:.7;background:radial-gradient(circle at 50% 0,var(--c) 0 3px,transparent 4px);animation:spn 9s linear infinite}
+/* horror: letters twitch and die out, blood runs from the word */
+.wrd[data-world=horror] .wt i{animation:hflick 6s infinite;animation-delay:calc(var(--k)*.7s)}
+@keyframes hflick{0%,90%,100%{opacity:1;transform:none}92%{opacity:.15}94%{opacity:1;transform:translateX(-2px)}96%{opacity:.4;transform:translateY(2px)}}
+.wrd[data-world=horror] .wt::after{content:"";position:absolute;left:0;right:0;top:88%;height:26px;transform-origin:top;animation:drip 5s ease-in infinite;background:linear-gradient(#b0102a,#b0102a) 8% 0/5px 14px no-repeat,linear-gradient(#b0102a,#b0102a) 30% 0/5px 26px no-repeat,linear-gradient(#b0102a,#b0102a) 55% 0/5px 18px no-repeat,linear-gradient(#b0102a,#b0102a) 80% 0/5px 22px no-repeat}
+/* fantasy: letters float like magic, sparkles pop beside the word */
+.wrd[data-world=fantasy] .wt i{animation:ffloat 3.4s ease-in-out infinite;animation-delay:calc(var(--k)*.18s);text-shadow:0 0 14px #b57bff88}
+@keyframes ffloat{50%{transform:translateY(-7px)}}
+.wrd[data-world=fantasy] .wt::before,.wrd[data-world=fantasy] .wt::after{content:"\2726";position:absolute;color:#ffd66b;font-size:.32em;animation:twk 1.6s ease-in-out infinite alternate}
+.wrd[data-world=fantasy] .wt::before{left:-6px;top:-2px}.wrd[data-world=fantasy] .wt::after{right:-14px;top:30%;content:"\2727";animation-delay:-.8s}
+@keyframes twk{from{opacity:.2;transform:scale(.6)}to{opacity:1;transform:scale(1.2)}}
+/* mystery: the word is typed out, letter by letter, out of the blur */
+.wrd[data-world=mystery] .wt i{animation:mtype 7s infinite;animation-delay:calc(var(--k)*.35s)}
+@keyframes mtype{0%{opacity:0;filter:blur(6px)}8%,78%{opacity:1;filter:blur(0)}90%,100%{opacity:0;filter:blur(6px)}}
+.wrd[data-world=mystery] .wt::after{content:"_";animation:blink 1s steps(1) infinite}
+/* adventure: letters hop along a dotted route */
+.wrd[data-world=adventure] .wt i{animation:hop 1.9s ease-in-out infinite;animation-delay:calc(var(--k)*.12s)}
+@keyframes hop{0%,55%,100%{transform:translateY(0)}28%{transform:translateY(-13px) rotate(-4deg)}}
+.wrd[data-world=adventure] .wt::after{content:"";position:absolute;left:0;right:0;bottom:0;border-bottom:3px dotted var(--c);opacity:.7}
+/* shayari: the word is written with ink, again and again */
+.wrd[data-world=shayari] .wt{animation:write2 5s ease-in-out infinite}
+@keyframes write2{0%{clip-path:inset(-12% 100% -12% 0)}45%,88%{clip-path:inset(-12% 0 -12% 0)}100%{clip-path:inset(-12% 0 -12% 100%)}}
+.wrd:hover .gh{animation:wobble .45s ease-in-out infinite alternate}.wrd:hover .egg{animation:shakee .3s linear infinite}.wrd:hover .crk{stroke:#ffd66b}
+.wrd:hover .hat{transform:rotate(-16deg) translateY(-3px)}.wrd[data-world=adventure]:hover .ico svg{animation:balloon 1.4s ease-in-out infinite alternate}.wrd:hover .ht{animation:beat2 .5s ease-in-out infinite alternate}
+@media(max-width:760px){.wrd .wg{display:none}.wrd:hover{transform:none}}
+
+/* ===== new animations inside the five worlds ===== */
+#amb .eyes{left:var(--x);top:var(--y);width:calc(var(--s)*9px);height:calc(var(--s)*6px);border-radius:50%;background:#ff2a2a;color:#ff2a2a;box-shadow:calc(var(--s)*22px) 0 0 0 currentColor,0 0 16px 3px #ff2a2a88,calc(var(--s)*22px) 0 16px 3px #ff2a2a88;opacity:0;animation:eyeo var(--t) ease-in-out infinite;animation-delay:var(--d)}
+@keyframes eyeo{0%,40%{opacity:0;transform:scaleY(1)}44%{opacity:.9}50%{transform:scaleY(.1)}54%{transform:scaleY(1)}70%{opacity:.9}74%,100%{opacity:0}}
+#amb .spider{left:var(--x);top:-3%;width:2px;height:2vh;background:linear-gradient(#ffffff66,#ffffff22);animation:spid var(--t) ease-in-out infinite;animation-delay:var(--d)}
+#amb .spider::after{content:"";position:absolute;left:-6px;bottom:-11px;width:14px;height:12px;border-radius:50%;background:#000;box-shadow:-7px 4px 0 -3px #000,7px 4px 0 -3px #000,0 0 0 1px #ffffff18}
+@keyframes spid{0%,100%{height:2vh}45%,60%{height:calc(16vh + var(--s)*14vh)}}
+#amb .wisp{left:var(--x);top:var(--y);width:8px;height:8px;border-radius:50%;background:#fff7c4;box-shadow:0 0 14px 5px #ffd66baa,0 0 30px 10px #b57bff66;animation:wispm var(--t) ease-in-out infinite;animation-delay:var(--d)}
+@keyframes wispm{0%,100%{transform:translate(0,0)}20%{transform:translate(18vw,-12vh)}40%{transform:translate(8vw,10vh)}60%{transform:translate(-14vw,-6vh)}80%{transform:translate(-6vw,12vh)}}
+#amb .rune{left:var(--x);bottom:-6%;font-size:calc(var(--s)*26px);color:#e0c8ff;text-shadow:0 0 14px #b57bff;opacity:0;animation:runeup var(--t) ease-in infinite;animation-delay:var(--d)}
+@keyframes runeup{0%{transform:translateY(0) rotate(0);opacity:0}15%{opacity:.8}100%{transform:translateY(-105vh) rotate(160deg);opacity:0}}
+#amb .qmark{left:var(--x);top:var(--y);font:calc(var(--s)*40px) 'Special Elite',monospace;color:#3fbf8f;opacity:0;animation:qm var(--t) ease-in-out infinite;animation-delay:var(--d)}
+@keyframes qm{0%,100%{opacity:0;transform:translateY(16px) scale(.8)}40%,60%{opacity:.22;transform:translateY(-10px) scale(1)}}
+#amb .fp{left:var(--x);bottom:var(--y);width:10px;height:22px;border-radius:50% 50% 45% 45%;background:#bfffe5;opacity:0;rotate:12deg;animation:fprint 12s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes fprint{0%{opacity:0}6%{opacity:.5}30%{opacity:.5}45%,100%{opacity:0}}
+#amb .route{left:0;right:0;bottom:6%;height:20vh;clip-path:inset(0 100% 0 0);animation:rwipe 12s ease-in-out infinite}
+#amb .route svg{width:100%;height:100%}
+#amb .route path{fill:none;stroke:#f5a623;stroke-width:2.5;stroke-dasharray:6 8;opacity:.85}
+#amb .route text{fill:#e5253a;font-size:26px}
+@keyframes rwipe{0%{clip-path:inset(0 100% 0 0);opacity:1}55%,85%{clip-path:inset(0);opacity:1}100%{clip-path:inset(0);opacity:0}}
+#amb .seed{left:0;top:var(--y);width:calc(var(--s)*6px);height:calc(var(--s)*6px);border-radius:50%;background:#fff;box-shadow:0 0 8px #fff9;animation:seedf var(--t) linear infinite;animation-delay:var(--d)}
+@keyframes seedf{0%{transform:translate(-10vw,0)}50%{transform:translate(50vw,-8vh)}100%{transform:translate(110vw,4vh)}}
+#amb .word{left:var(--x);bottom:-8%;font:calc(var(--s)*34px) Kalam,'Noto Serif Devanagari',serif;color:#e8d28f;text-shadow:0 0 16px #e8d28f88;opacity:0;animation:wordup var(--t) ease-in-out infinite;animation-delay:var(--d)}
+@keyframes wordup{0%{transform:translateY(0);opacity:0}20%{opacity:.5}80%{opacity:.4}100%{transform:translateY(-70vh);opacity:0}}
+#amb .ripple{left:var(--x);top:var(--y);width:10px;height:10px;border-radius:50%;border:2px solid #e8d28f;opacity:0;animation:rip 6s ease-out infinite;animation-delay:var(--d)}
+@keyframes rip{0%{transform:scale(1);opacity:.6}100%{transform:scale(18);opacity:0}}
+
+/* ===== opening effects named for each world ===== */
+@property --lx{syntax:'<percentage>';inherits:false;initial-value:12%}
+@property --ly{syntax:'<percentage>';inherits:false;initial-value:78%}
+@property --lr{syntax:'<length>';inherits:false;initial-value:0px}
+#curtain[data-w=horror]{background:#000}
+#curtain.go[data-w=horror]{clip-path:none;animation:hbg 1.25s forwards}
+@keyframes hbg{0%,60%{background:#000}76%{background:#5a0000}100%{background:#000}}
+.hz{position:absolute;inset:0}
+.hz i{position:absolute;top:50%;width:46px;height:22px;margin-top:-11px;border-radius:50%;background:radial-gradient(#ff5a5a,#9a0000 70%);box-shadow:0 0 34px 10px #ff2a2a88;opacity:0;animation:eyez 1.25s ease-in forwards}
+.hz i:first-child{left:calc(50% - 62px)}.hz i:last-child{left:calc(50% + 16px)}
+@keyframes eyez{0%{opacity:0;transform:scaleY(.1)}16%{opacity:1;transform:scaleY(1)}26%{transform:scaleY(.08)}34%{transform:scaleY(1)}58%{transform:scale(1)}100%{opacity:1;transform:scale(70)}}
+#curtain[data-w=fantasy]{background:radial-gradient(circle,#2a1458,#0b0620)}
+#curtain.go[data-w=fantasy]{clip-path:none;animation:none}
+#curtain.out[data-w=fantasy]{background:#fff1c8}
+.fm{position:absolute;left:50%;top:50%;width:min(70vmin,520px);translate:-50% -50%;opacity:0;animation:fmo 1.25s ease-in forwards}
+@keyframes fmo{0%{opacity:0;transform:scale(.3) rotate(0)}25%{opacity:1;transform:scale(1) rotate(70deg)}100%{opacity:1;transform:scale(8) rotate(300deg)}}
+#curtain[data-w=mystery]{background:radial-gradient(circle at var(--lx) var(--ly),transparent calc(var(--lr) - 7px),#3fbf8f calc(var(--lr) - 5px),#3fbf8f var(--lr),transparent calc(var(--lr) + 1px)),radial-gradient(circle at var(--lx) var(--ly),transparent var(--lr),#020d09 calc(var(--lr) + 2px))}
+#curtain.go[data-w=mystery]{clip-path:none;animation:lens 1.1s ease-in-out forwards}
+@keyframes lens{0%{--lx:12%;--ly:78%;--lr:40px}45%{--lx:50%;--ly:50%;--lr:120px}100%{--lx:50%;--ly:50%;--lr:1700px}}
+#curtain.out[data-w=mystery]{--lx:50%;--ly:50%;--lr:1700px}
+.ad{position:absolute;left:50%;top:50%;width:min(80vw,640px);translate:-50% -50%;clip-path:inset(0 100% 0 0);animation:rw .9s .2s forwards}
+@keyframes rw{to{clip-path:inset(0)}}
+.wr{position:absolute;left:50%;top:50%;translate:-50% -50%;font:clamp(52px,11vw,130px) Kalam,serif;color:#e8d28f;text-shadow:0 0 30px #e8d28f88;clip-path:inset(-10% 100% -10% 0);animation:wr 1s .45s ease-out forwards}
+@keyframes wr{to{clip-path:inset(-10% 0 -10% 0)}}
+#curtain.out .hz,#curtain.out .fm,#curtain.out .ad,#curtain.out .wr{display:none}
+
+/* ===== look 1: the tunnel. Doors with riddles; the true name decodes when you point ===== */
+.tun{position:relative;flex:1;min-height:0;overflow:hidden;border-radius:20px;background:radial-gradient(circle,#000 0,#05040f 35%,#0a0a22 100%)}
+.rings i{position:absolute;left:50%;top:50%;width:80%;aspect-ratio:1;border-radius:50%;translate:-50% -50%;border:2px solid hsl(calc(var(--k)*40) 75% 62% / .5);animation:zoomr 9s linear infinite;animation-delay:calc(var(--k)*-1s);will-change:transform,opacity}
+@keyframes zoomr{from{transform:scale(.05) rotate(0);opacity:0}15%{opacity:.7}to{transform:scale(2.4) rotate(70deg);opacity:0}}
+.eye{position:absolute;left:50%;top:50%;width:36px;height:36px;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,#fff 0,#b8a8ff 35%,transparent 70%);box-shadow:0 0 40px 14px #b8a8ff88;animation:eyep 3s ease-in-out infinite alternate}
+@keyframes eyep{to{transform:scale(1.5);opacity:.6}}
+.tq{position:absolute;left:0;right:0;bottom:3%;text-align:center;font:italic 16px Georgia,serif;opacity:.6;pointer-events:none}
+.dr{position:absolute;left:var(--x);top:var(--y);translate:-50% -50%;width:clamp(130px,17vw,210px);padding:6px;border:0;background:none;color:#fff;text-align:center;cursor:pointer;animation:wIn .8s cubic-bezier(.2,.8,.2,1) backwards,flo 5s ease-in-out infinite alternate;animation-delay:calc(var(--i)*.12s + .2s),calc(var(--i)*-1.3s)}
+@keyframes flo{to{transform:translateY(-10px)}}
+.dr .ico{display:block;width:clamp(40px,7vh,64px);margin:0 auto 4px;position:relative}.dr .ico svg{width:100%;display:block}
+.dn2{display:block;font-size:clamp(26px,4.6vh,48px);color:var(--c);min-height:1.15em;line-height:1.15;letter-spacing:.04em}
+[data-world=horror] .dn2{font-family:Creepster}[data-world=fantasy] .dn2{font-family:'Cinzel Decorative'}[data-world=mystery] .dn2{font-family:'Special Elite'}[data-world=adventure] .dn2{font-family:Rye}[data-world=shayari] .dn2{font-family:Kalam}
+.dq{display:block;font:italic clamp(13px,1.9vh,17px) Georgia,serif;opacity:.78}
+.dr:hover,.dr:focus-visible{background:none;color:#fff;outline:0;filter:drop-shadow(0 0 18px var(--c));z-index:3}
+.dr:hover .dq{opacity:1}
+.dr.seen .ico::before{content:"";position:absolute;inset:-16%;border-radius:50%;border:1.5px dashed var(--c);opacity:.7;background:radial-gradient(circle at 50% 0,var(--c) 0 3px,transparent 4px);animation:spn 9s linear infinite}
+/* ===== look 2: a turning prism; five faces, each a riddle ===== */
+.pscene{flex:1;min-height:0;display:grid;place-items:center;perspective:1500px;overflow:hidden}
+.prism{--w:min(44vw,340px);--h:min(52vh,400px);position:relative;width:var(--w);height:var(--h);transform-style:preserve-3d;animation:prot 34s linear infinite}
+@keyframes prot{0%{transform:rotateX(-9deg) rotateY(0)}50%{transform:rotateX(9deg) rotateY(-180deg)}100%{transform:rotateX(-9deg) rotateY(-360deg)}}
+.pscene:hover .prism{animation-play-state:paused}
+.pface{position:absolute;inset:0;transform:rotateY(calc(var(--i)*72deg)) translateZ(calc(var(--w)*.69));backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:24px;text-align:center;color:#fff;cursor:pointer;border:1px solid var(--c);border-radius:14px;background:linear-gradient(160deg,#10102aee,#02020aee);box-shadow:0 0 50px -12px var(--c),inset 0 0 40px -18px var(--c)}
+.pface .ico{width:clamp(44px,8vh,70px);position:relative}.pface .ico svg{width:100%;display:block}
+.pface:hover,.pface:focus-visible{background:linear-gradient(160deg,#18183a,#04040e);color:#fff;outline:0}
+.pgo{font:12px 'Segoe UI',sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--c);opacity:.8}
+.pface.seen .ico::before{content:"";position:absolute;inset:-16%;border-radius:50%;border:1.5px dashed var(--c);opacity:.7;background:radial-gradient(circle at 50% 0,var(--c) 0 3px,transparent 4px);animation:spn 9s linear infinite}
+.dr:hover .gh,.pface:hover .gh{animation:wobble .45s ease-in-out infinite alternate}.dr:hover .egg,.pface:hover .egg{animation:shakee .3s linear infinite}
+.dr:hover .crk,.pface:hover .crk{stroke:#ffd66b}.dr:hover .hat,.pface:hover .hat{transform:rotate(-16deg) translateY(-3px)}
+.dr[data-world=adventure]:hover .ico svg,.pface[data-world=adventure]:hover .ico svg{animation:balloon 1.4s ease-in-out infinite alternate}
+.dr:hover .ht,.pface:hover .ht{animation:beat2 .5s ease-in-out infinite alternate}
+body.lite .rings{display:none}
+@media(max-width:760px){.dr{width:34vw}.dq{display:none}.prism{--w:min(70vw,300px)}}
+
+/* ===== new opening effects, named for each world ===== */
+@property --w{syntax:'<percentage>';inherits:true;initial-value:0%}
+@property --sr{syntax:'<percentage>';inherits:false;initial-value:0%}
+/* horror: a candle is lit... then blown out, and the dark takes over */
+#curtain[data-w=horror]{background:#000}
+#curtain.go[data-w=horror]{clip-path:none;animation:hcd 1.7s forwards}
+@keyframes hcd{0%{background:#0000}16%,100%{background:#000}}
+.cd{position:absolute;left:50%;top:50%;width:70px;translate:-50% -50%;opacity:0;animation:cdi 1.7s forwards}
+@keyframes cdi{0%{opacity:0}14%,100%{opacity:1}}
+.cd svg{width:100%;display:block;overflow:visible}
+.flm{transform-box:fill-box;transform-origin:50% 100%;animation:blow 1.7s forwards,flk2 .14s infinite alternate}
+@keyframes blow{0%,45%{transform:scale(1)}56%{transform:scale(1.5,1.25)}66%{transform:scale(.15)}70%,100%{transform:scale(0)}}
+@keyframes flk2{from{opacity:.7}to{opacity:1}}
+.sm{opacity:0;animation:smk 1.7s forwards}
+@keyframes smk{0%,64%{opacity:0;transform:translateY(0)}70%{opacity:.8}100%{opacity:0;transform:translateY(-30px)}}
+/* fantasy: a wall of starlight sweeps across and takes the screen */
+#curtain[data-w=fantasy]{background:radial-gradient(2px 2px at 20% 30%,#fff,transparent) 0 0/90px 90px,radial-gradient(2px 2px at 70% 70%,#ffd66b,transparent) 0 0/120px 120px,linear-gradient(115deg,#1a0b3a,#4a2a9a)}
+#curtain.go[data-w=fantasy]{animation:wipew .8s ease-in-out forwards;clip-path:polygon(0 0,var(--w) 0,calc(var(--w) - 14%) 100%,0 100%)}
+@keyframes wipew{from{--w:0%}to{--w:116%}}
+#curtain.out[data-w=fantasy]{--w:116%;clip-path:none;background:linear-gradient(115deg,#1a0b3a,#4a2a9a)}
+.edge{position:absolute;top:0;bottom:0;left:calc(var(--w) - 8%);width:8px;background:#fff1c8;box-shadow:0 0 34px 12px #ffd66b;transform:skewX(-8deg)}
+/* mystery: you look through a keyhole, then it opens onto the page */
+#curtain[data-w=mystery]{background:none}
+#curtain.go[data-w=mystery]{clip-path:none;animation:none}
+.kh{position:absolute;left:50%;top:50%;width:min(60vmin,500px);height:min(60vmin,500px);translate:-50% -50%;overflow:visible;animation:khz 1.3s cubic-bezier(.6,0,.4,1) forwards}
+@keyframes khz{0%{transform:scale(10)}28%,52%{transform:scale(1)}100%{transform:scale(70)}}
+/* adventure: the sun rises behind you and a balloon lifts off */
+#curtain[data-w=adventure]{background:radial-gradient(circle at 50% 100%,#fff6c8 var(--sr),#f5a623 calc(var(--sr) + 28%),#7a3a0a calc(var(--sr) + 80%))}
+#curtain.go[data-w=adventure]{transform:none;animation:sunr 1.1s ease-in forwards}
+@keyframes sunr{from{--sr:0%}to{--sr:110%}}
+#curtain.out[data-w=adventure]{--sr:110%;transform:none}
+.bl2{position:absolute;left:45%;bottom:-170px;width:min(22vw,150px);animation:bup 1.1s ease-in forwards}
+.bl2 svg{width:100%;display:block}
+@keyframes bup{from{transform:translate(0,0) rotate(-4deg)}to{transform:translate(8vw,-125vh) rotate(5deg)}}
+/* shayari: a storm of rose petals sweeps the screen */
+#curtain[data-w=shayari]{background:#05081f}
+#curtain.go[data-w=shayari]{animation:sbg 1.3s forwards}
+@keyframes sbg{0%{background:#05081f00}35%,100%{background:#05081f}}
+.pt i{position:absolute;right:-6vw;top:var(--y);width:calc(var(--s)*22px);height:calc(var(--s)*28px);background:#e5568a;border-radius:80% 0 80% 0;opacity:.9;animation:psw 1s ease-in forwards;animation-delay:var(--d)}
+@keyframes psw{to{transform:translate(-120vw,10vh) rotate(500deg)}}
+#curtain.out .cd,#curtain.out .kh,#curtain.out .bl2,#curtain.out .pt,#curtain.out .edge{display:none}
+
+/* ===== new book opening: the cover dives toward you; the pages open outward from the spine ===== */
+.bk-stage.opening .bk-cover{transform:none;transform-origin:center;animation:dive .95s cubic-bezier(.5,0,.8,.4) forwards}
+@keyframes dive{to{transform:scale(7);opacity:0}}
+.bk-stage.opening .bk-inside{opacity:0;transition:opacity .4s .3s}
+#spread.ob .pg.l{animation:ol 1.1s cubic-bezier(.2,.7,.2,1) backwards}
+#spread.ob .pg.r{animation:or 1.1s cubic-bezier(.2,.7,.2,1) backwards}
+@keyframes ol{from{clip-path:inset(0 0 0 100%)}}
+@keyframes or{from{clip-path:inset(0 100% 0 0)}}
+/* ===== new page turn: the old pages part like doors (or new ones close in) ===== */
+.dl{position:absolute;top:0;width:var(--pw);height:var(--ph);z-index:5;transition:transform .85s cubic-bezier(.65,0,.25,1);box-shadow:0 0 70px 14px #000a}
+.dl.lt{left:0}.dl.rt{left:50%}#bookfs.single .dl.rt{left:0}
+.dl.lt.away{transform:translateX(-100%)}.dl.rt.away{transform:translateX(100%)}
+.dl .pg{width:100%;height:100%}
+/* ===== new bookmark: a firefly that keeps your page, and leads you back to it ===== */
+.ffly{position:absolute;top:8px;right:11%;width:46px;height:46px;padding:0;border:0;background:none;z-index:6;cursor:pointer}
+.ffly:hover{background:none}
+.fly-body{position:absolute;inset:0;animation:buzz 5s ease-in-out infinite}
+@keyframes buzz{0%,100%{translate:0 0}20%{translate:-9px 6px}40%{translate:6px -8px}60%{translate:-5px -3px}80%{translate:8px 5px}}
+.fly-body .glow{position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:#fff6a8;box-shadow:0 0 14px 6px #ffe27a,0 0 34px 14px #ffd66b66;opacity:.6;animation:fpulse 1.8s ease-in-out infinite alternate}
+@keyframes fpulse{to{opacity:1;transform:scale(1.25)}}
+.fly-body .wg1,.fly-body .wg2{position:absolute;left:50%;top:50%;width:16px;height:8px;border-radius:50%;background:#ffffff88;transform-origin:0 50%}
+.fly-body .wg1{rotate:-35deg;animation:wing .1s linear infinite alternate}.fly-body .wg2{rotate:215deg;animation:wing .1s linear infinite alternate-reverse}
+@keyframes wing{to{transform:scaleY(.25)}}
+.ffly.saved .fly-body{animation-duration:14s}
+.ffly.saved .glow{opacity:1;background:#ffffcc;box-shadow:0 0 20px 9px #fff59a,0 0 52px 24px #ffd66b88}
+.ffly.other .glow{box-shadow:0 0 14px 6px #ffe27a,0 0 34px 14px #ffd66b66,0 0 0 3px #ffffff55}
+.ffly .cl{position:absolute;right:100%;top:50%;left:auto;translate:0 -50%;margin-right:10px;white-space:nowrap;font:12px 'Segoe UI',sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);text-shadow:none;opacity:0;transition:opacity .3s}
+.ffly:hover .cl,.ffly.saved .cl,.ffly.other .cl{opacity:.9}
+/* ===== first-visit guide ===== */
+#tour{position:fixed;inset:0;z-index:96;background:#000a;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;transition:opacity .4s}
+#tour.on{opacity:1}
+.tcard{max-width:440px;width:100%;text-align:center;background:#0a0a18;border:1px solid var(--ac);border-radius:16px;padding:30px 26px;box-shadow:0 0 70px -20px var(--ac)}
+.tico{width:64px;margin:0 auto 10px}.tico svg{width:100%;display:block}
+.tcard h3{font-size:28px;margin:0 0 8px;color:#fff}.tcard p{opacity:.85;margin:0 0 18px;font-size:17px}
+.tdots{display:flex;gap:8px;justify-content:center;margin-bottom:16px}.tdots i{width:8px;height:8px;border-radius:50%;background:#ffffff33}.tdots i.on{background:var(--ac)}
+.tbtns{display:flex;gap:10px;justify-content:center}
+
+/* ===== look 1: a moonlit hallway; every door hides a world ===== */
+.hall{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:clamp(6px,2vw,34px);padding:clamp(10px,2vh,26px) 16px clamp(6px,1.4vh,18px);border:1px solid #ffffff1a;border-radius:22px;background:radial-gradient(ellipse at 50% 0%,#241a3f 0%,#0d0a1c 48%,#05040c 100%);box-shadow:inset 0 0 90px #000a,0 30px 60px -40px #000;overflow:hidden;perspective:1200px}
+.hall::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 8%,#ffffff1c,transparent 55%),linear-gradient(90deg,transparent calc(50% - .5px),#ffffff0f 50%,transparent calc(50% + .5px));pointer-events:none}
+.hall::after{content:"";position:absolute;left:6%;right:6%;bottom:0;height:26%;background:linear-gradient(#ffffff00,#ffffff0d 40%,#0000),repeating-linear-gradient(90deg,#0000 0 58px,#ffffff08 58px 60px);border-radius:50% 50% 0 0/18% 18% 0 0;pointer-events:none}
+.hall-glow{position:absolute;left:50%;top:-30%;width:70%;aspect-ratio:1;translate:-50% 0;border-radius:50%;background:radial-gradient(circle,#b9a8ff2e,transparent 65%);filter:blur(10px);pointer-events:none;animation:hallGlow 7s ease-in-out infinite alternate}
+@keyframes hallGlow{to{opacity:.55;transform:scale(1.12)}}
+.door{position:relative;width:clamp(112px,15vw,184px);margin-top:var(--yo,0);padding:0;border:0;background:none;color:#fff;text-align:center;cursor:pointer;animation:wIn .8s cubic-bezier(.2,.8,.2,1) backwards,doorFloat 6s ease-in-out infinite alternate;animation-delay:calc(var(--i)*.1s + .2s),calc(var(--i)*-1.2s);transition:transform .5s cubic-bezier(.2,.8,.2,1),filter .4s,opacity .4s}
+@keyframes doorFloat{to{translate:0 -7px}}
+.darch{position:relative;display:block;width:100%;aspect-ratio:2/3.35;border-radius:52% 52% 6px 6px/36% 36% 4px 4px;overflow:hidden;background:linear-gradient(#161228,#080610);border:2px solid color-mix(in srgb,var(--c) 55%,#3a3350);box-shadow:0 0 0 5px #0a0814,0 0 0 6px color-mix(in srgb,var(--c) 30%,#2a2440),0 18px 40px -18px #000,inset 0 0 30px #000a;perspective:900px;transition:box-shadow .45s,border-color .45s}
+.darch::before{content:"";position:absolute;inset:8px;border-radius:48% 48% 4px 4px/34% 34% 2px 2px;border:1px solid color-mix(in srgb,var(--c) 30%,transparent);pointer-events:none;z-index:4}
+.darch::after{content:"";position:absolute;left:6%;right:6%;bottom:-1px;height:8px;border-radius:50%;background:color-mix(in srgb,var(--c) 70%,#fff);box-shadow:0 0 18px 4px var(--c);opacity:.35;transition:opacity .45s;z-index:4;pointer-events:none}
+.dscene{position:absolute;inset:0;display:block;transform:scale(1.25);filter:brightness(.55) saturate(.85);transition:filter .5s,transform .7s}
+.dscene svg{width:100%;height:100%;display:block}
+.dlight{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,color-mix(in srgb,var(--c) 55%,transparent),transparent 68%),linear-gradient(0deg,color-mix(in srgb,var(--c) 55%,transparent),transparent 40%);opacity:0;transition:opacity .5s;z-index:1;pointer-events:none}
+.dpanel{position:absolute;inset:0;z-index:2;display:flex;align-items:center;justify-content:center;transform-origin:left center;transform:rotateY(0deg);background:linear-gradient(90deg,color-mix(in srgb,var(--c) 34%,#0a0814),#0a0814 42%,#06040c 72%,color-mix(in srgb,var(--c) 22%,#06040c));border-left:4px solid color-mix(in srgb,var(--c) 65%,#fff);box-shadow:inset -14px 0 24px #0008,inset 8px 0 16px #ffffff0a;transition:transform .7s cubic-bezier(.2,.8,.2,1),box-shadow .5s;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.dpanel::before{content:"";position:absolute;inset:14px 12px;border:1px solid color-mix(in srgb,var(--c) 28%,transparent);border-radius:44% 44% 3px 3px/26% 26% 2px 2px;pointer-events:none}
+.dpanel::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,#0000 0 18px,#00000026 18px 19px);pointer-events:none}
+.dglyph{position:relative;z-index:1;font:normal clamp(30px,5.6vh,54px)/1 Georgia,serif;color:var(--c);text-shadow:0 0 18px var(--c);opacity:.9}
+.door[data-world=horror] .dglyph::before{content:"\2020"}
+.door[data-world=fantasy] .dglyph::before{content:"\2727"}
+.door[data-world=mystery] .dglyph::before{content:"\25C8"}
+.door[data-world=adventure] .dglyph::before{content:"\2736"}
+.door[data-world=shayari] .dglyph::before{content:"\263E"}
+.dknob{position:absolute;right:9%;top:56%;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff8d8,#c9a45c 55%,#5a4218);box-shadow:0 0 10px #ffd98a88,0 2px 4px #000a;z-index:3}
+.door .on{position:relative;z-index:3;display:block;margin-top:10px;font-size:clamp(14px,2.1vh,19px);line-height:1.05;color:var(--c);letter-spacing:.03em;white-space:nowrap;text-shadow:0 0 16px color-mix(in srgb,var(--c) 45%,transparent);transition:letter-spacing .45s,text-shadow .45s}
+.door .ot{display:block;font:italic 13px Georgia,serif;color:#fff;opacity:0;transform:translateY(-4px);transition:.35s;margin-top:2px;min-height:1.2em}
+.door:hover,.door:focus-visible{background:none;color:#fff;outline:0;transform:translateY(-12px);z-index:4;filter:drop-shadow(0 0 26px color-mix(in srgb,var(--c) 55%,transparent))}
+.door:hover .darch,.door:focus-visible .darch{border-color:color-mix(in srgb,var(--c) 85%,#fff);box-shadow:0 0 0 5px #0a0814,0 0 0 6px color-mix(in srgb,var(--c) 60%,#2a2440),0 22px 46px -16px #000,inset 0 0 40px #000a}
+.door:hover .dpanel,.door:focus-visible .dpanel{transform:rotateY(-74deg);box-shadow:inset -24px 0 40px #000a,8px 0 30px #0006}
+.door:hover .dscene,.door:focus-visible .dscene{filter:brightness(1) saturate(1.1);transform:scale(1.12)}
+.door:hover .dlight,.door:focus-visible .dlight{opacity:.85}
+.door:hover .darch::after,.door:focus-visible .darch::after{opacity:1}
+.door:hover .on,.door:focus-visible .on{letter-spacing:.08em;text-shadow:0 0 24px var(--c)}
+.door:hover .ot,.door:focus-visible .ot{opacity:.85;transform:none}
+.hall:has(.door:hover) .door:not(:hover){opacity:.42}
+.door.seen .darch::after{opacity:.9}
+.door.seen .on::after{content:"\2713";font-size:.48em;margin-left:.45em;vertical-align:middle;opacity:.85}
+.door.seen .dknob{box-shadow:0 0 14px 3px var(--c),0 2px 4px #000a}
+.door[data-world=horror] .on{font-family:Creepster}.door[data-world=fantasy] .on{font-family:'Cinzel Decorative'}.door[data-world=mystery] .on{font-family:'Special Elite'}.door[data-world=adventure] .on{font-family:Rye}.door[data-world=shayari] .on{font-family:Kalam}
+/* ===== look 2: a shelf of books; pull one out ===== */
+.shelfroom{position:relative;flex:1;min-height:0;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;border-radius:20px;background:linear-gradient(#0b0814,#140c08)}
+.lampg{position:absolute;left:8%;top:-12%;width:60%;aspect-ratio:1;background:radial-gradient(circle,#ffb34755,transparent 62%);animation:fglow 4s ease-in-out infinite alternate;pointer-events:none}
+.books{position:relative;flex:1;min-height:0;display:flex;align-items:flex-end;justify-content:center;gap:clamp(6px,1.4vw,20px);padding:0 4% 0}
+.plank{height:clamp(18px,3.4vh,34px);background:linear-gradient(#6a3d1a,#3a200c);box-shadow:0 -4px 20px #0008,inset 0 3px 0 #9a6a3a55}
+.spine{position:relative;width:clamp(74px,9.5vw,130px);height:var(--h);padding:10px 6px 22px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;border:0;border-radius:5px 5px 2px 2px;color:var(--c);background:linear-gradient(90deg,color-mix(in srgb,var(--c) 38%,#000),#07070c 55%,color-mix(in srgb,var(--c) 30%,#000));box-shadow:inset 0 0 0 2px #ffffff12,inset 3px 0 8px #ffffff1a,0 8px 24px #000a;cursor:pointer;transform-origin:50% 100%;animation:wIn .8s cubic-bezier(.2,.8,.2,1) backwards;animation-delay:calc(var(--i)*.1s + .2s);transition:transform .45s cubic-bezier(.2,.8,.2,1),filter .4s}
+.spine::before,.spine::after{content:"";position:absolute;left:8%;right:8%;height:5px;border-top:2px solid var(--c);border-bottom:1px solid var(--c);opacity:.7}
+.spine::before{top:78px}.spine::after{bottom:12px}
+.spine .ico{display:block;width:clamp(30px,4.4vw,48px);position:relative}.spine .ico svg{width:100%;display:block}
+.spine .sn{writing-mode:vertical-rl;font-size:clamp(26px,5.2vh,50px);letter-spacing:.06em;line-height:1;margin:auto 0}
+.spine .sg{position:absolute;bottom:calc(100% + 12px);left:50%;translate:-50% 0;width:190px;text-align:center;font:italic 15px Georgia,serif;color:#fff;opacity:0;transition:opacity .4s;pointer-events:none}
+.spine:hover,.spine:focus-visible{background:linear-gradient(90deg,color-mix(in srgb,var(--c) 52%,#000),#0c0c14 55%,color-mix(in srgb,var(--c) 42%,#000));color:var(--c);outline:0;transform:translateY(-28px) rotate(-2.5deg);filter:drop-shadow(0 0 20px var(--c));z-index:3}
+.spine:hover .sg,.spine:focus-visible .sg{opacity:.95}
+.spine[data-world=horror] .sn{font-family:Creepster}.spine[data-world=fantasy] .sn{font-family:'Cinzel Decorative'}.spine[data-world=mystery] .sn{font-family:'Special Elite'}.spine[data-world=adventure] .sn{font-family:Rye}.spine[data-world=shayari] .sn{font-family:Kalam}
+.spine.seen .ico::before{content:"";position:absolute;inset:-16%;border-radius:50%;border:1.5px dashed var(--c);opacity:.7;background:radial-gradient(circle at 50% 0,var(--c) 0 3px,transparent 4px);animation:spn 9s linear infinite}
+.spine:hover .gh{animation:wobble .45s ease-in-out infinite alternate}.spine:hover .egg{animation:shakee .3s linear infinite}.spine:hover .crk{stroke:#ffd66b}
+.spine:hover .hat{transform:rotate(-16deg) translateY(-3px)}.spine[data-world=adventure]:hover .ico svg{animation:balloon 1.4s ease-in-out infinite alternate}.spine:hover .ht{animation:beat2 .5s ease-in-out infinite alternate}
+body.lite .hall-glow,body.lite .dlight{display:none}
+body.lite .door{animation:wIn .8s backwards;animation-delay:calc(var(--i)*.1s + .2s)}
+@media(max-width:760px){.gx-head{padding-top:38px}.kicker{font-size:10px;letter-spacing:.2em}.kl{flex-basis:26px}.hall{flex-wrap:wrap;gap:10px 4px;align-content:center;padding:10px 4px}.door{width:29vw;max-width:128px;margin-top:0}.door .ot{display:none}.door .on{font-size:clamp(16px,4.6vw,22px);margin-top:6px}.spine .sg{display:none}.spine{width:15vw}}
+
+/* ===== new opening effects, named for each world ===== */
+/* horror: the screen cracks like glass, flashes white, goes black */
+#curtain[data-w=horror]{background:#000}
+#curtain.go[data-w=horror]{clip-path:none;animation:hcr 1.55s forwards}
+@keyframes hcr{0%,46%{background:#0000}56%{background:#fff}64%,100%{background:#000}}
+.cr{position:absolute;inset:0;width:100%;height:100%;animation:crs 1.55s forwards,shk .09s linear 5 .4s}
+.cr path{fill:none;stroke:#fff;stroke-width:.4;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:crd .45s ease-out forwards}
+@keyframes crd{to{stroke-dashoffset:0}}
+@keyframes crs{0%,54%{opacity:1}58%,100%{opacity:0}}
+@keyframes shk{0%{transform:translate(0,0)}25%{transform:translate(-5px,3px)}50%{transform:translate(4px,-4px)}75%{transform:translate(-3px,-3px)}100%{transform:translate(0,0)}}
+/* fantasy: ribbons of aurora fall like a curtain */
+#curtain[data-w=fantasy]{background:none}
+#curtain.go[data-w=fantasy]{clip-path:none;animation:none}
+#curtain.out[data-w=fantasy]{clip-path:none;background:none}
+.au{position:absolute;inset:0;display:flex}
+.au i{flex:1;background:linear-gradient(#7affc8,#b57bff 55%,#2a1458);transform-origin:top;transform:scaleY(0);animation:aur3 .75s cubic-bezier(.3,.8,.3,1) forwards;animation-delay:calc(var(--n)*.045s)}
+@keyframes aur3{to{transform:scaleY(1)}}
+/* mystery: a green clue lens sweeps in, finds a fingerprint, and opens onto the page */
+#curtain[data-w=mystery]{background:radial-gradient(circle at 50% 50%,#0a3a2a 0%,#041610 48%,#010604 100%)}
+#curtain.go[data-w=mystery]{clip-path:none;animation:mgbg 1.25s ease-in forwards}
+@keyframes mgbg{0%{background:#010604}38%,100%{background:radial-gradient(circle at 50% 50%,#0a3a2a 0%,#041610 48%,#010604 100%)}}
+#curtain.out[data-w=mystery]{background:none}
+.lxg{position:absolute;inset:0;background-image:linear-gradient(#3fbf8f14 1px,transparent 1px),linear-gradient(90deg,#3fbf8f14 1px,transparent 1px);background-size:44px 44px;opacity:0;animation:lxg 1.25s ease-in-out forwards}
+@keyframes lxg{18%,76%{opacity:1}100%{opacity:0}}
+.lensx{position:absolute;left:50%;top:50%;width:min(52vmin,420px);translate:-50% -50%;animation:lx 1.25s cubic-bezier(.5,0,.2,1) forwards}
+.lensx svg{width:100%;display:block;overflow:visible}
+@keyframes lx{0%{transform:translate(-40vw,10vh) scale(.45) rotate(-22deg);opacity:0}16%{opacity:1}52%{transform:translate(0,0) scale(1) rotate(0)}76%{transform:translate(0,0) scale(1.05) rotate(0)}100%{transform:translate(0,0) scale(18) rotate(0);opacity:0}}
+.lx-ring{fill:none;stroke:#3fbf8f;stroke-width:6;stroke-dasharray:430;stroke-dashoffset:430;animation:lxd .7s .08s ease-out forwards;filter:drop-shadow(0 0 14px #3fbf8f)}
+.lx-in{fill:#3fbf8f10;stroke:#7dffc4;stroke-width:1.5;stroke-dasharray:360;stroke-dashoffset:360;animation:lxd .9s .2s ease-out forwards}
+.lx-hand{fill:none;stroke:#3fbf8f;stroke-width:13;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:lxd .55s .35s ease-out forwards;filter:drop-shadow(0 0 10px #3fbf8f)}
+.lx-print{fill:none;stroke:#7dffc4;stroke-width:3.5;stroke-linecap:round;stroke-dasharray:100;stroke-dashoffset:100;animation:lxd 1s .35s ease-out forwards}
+.lx-dot{fill:#d8fff0;filter:drop-shadow(0 0 8px #7dffc4)}
+@keyframes lxd{to{stroke-dashoffset:0}}
+/* adventure: a compass finds north, a dotted trail races out, and the screen fills with dawn */
+#curtain[data-w=adventure]{background:radial-gradient(circle at 50% 50%,#7a3a0a 0%,#2a1404 55%,#120802 100%)}
+#curtain.go[data-w=adventure]{transform:none;animation:advbg 1.1s ease-in forwards}
+@keyframes advbg{0%{background:#120802}55%,100%{background:radial-gradient(circle at 50% 50%,#7a3a0a 0%,#2a1404 55%,#120802 100%)}}
+#curtain.out[data-w=adventure]{background:none;transform:none}
+.cmp{position:absolute;left:50%;top:50%;width:min(46vmin,360px);translate:-50% -50%;animation:cmpin 1.1s cubic-bezier(.3,.8,.3,1) forwards}
+.cmp svg{width:100%;display:block;overflow:visible}
+@keyframes cmpin{0%{transform:scale(.2) rotate(-160deg);opacity:0}22%{opacity:1}70%{transform:scale(1) rotate(0)}100%{transform:scale(1.08) rotate(0);opacity:1}}
+.cp-ring{fill:none;stroke:#f5a623;stroke-width:4;stroke-dasharray:560;stroke-dashoffset:560;animation:cpr .8s .08s ease-out forwards;filter:drop-shadow(0 0 12px #f5a623)}
+.cp-ring2{fill:none;stroke:#ffd98a;stroke-width:1.5;stroke-dasharray:430;stroke-dashoffset:430;animation:cpr .9s .2s ease-out forwards;opacity:.8}
+@keyframes cpr{to{stroke-dashoffset:0}}
+.cp-star path{fill:#f5a6231a;stroke:#f5a623;stroke-width:2}
+.cp-needle{transform-box:fill-box;transform-origin:50% 50%;animation:cpspin 1.1s cubic-bezier(.3,.8,.3,1) forwards}
+@keyframes cpspin{0%{transform:rotate(-540deg)}72%,100%{transform:rotate(0)}}
+.rt2{position:absolute;inset:0}
+.rt2 svg{width:100%;height:100%}
+.rt2 path{fill:none;stroke:#ffd98a;stroke-width:4;stroke-linecap:round;stroke-dasharray:2 18;stroke-dashoffset:1800;animation:rtd 1s .12s ease-out forwards;filter:drop-shadow(0 0 10px #f5a623)}
+@keyframes rtd{to{stroke-dashoffset:0}}
+.adflash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#ffd98a,#f5a623 38%,transparent 72%);opacity:0;animation:adf 1.1s ease-in forwards}
+@keyframes adf{0%,64%{opacity:0}76%{opacity:.85}100%{opacity:0}}
+#curtain.out .lensx,#curtain.out .lxg,#curtain.out .cmp,#curtain.out .rt2,#curtain.out .adflash{display:none}
+/* shayari: five strokes of a brush paint the night over the page */
+#curtain[data-w=shayari]{background:none}
+#curtain.go[data-w=shayari]{animation:none}
+#curtain.out[data-w=shayari]{background:none}
+.bs{position:absolute;inset:0}
+.bs i{position:absolute;left:0;right:0;top:calc(var(--n)*20%);height:21%;background:linear-gradient(90deg,#0b1040,#1b2466);border-radius:0 90px 40px 0;box-shadow:10px 0 22px -4px #e8d28f;transform:translateX(-106%);animation:bsw .55s cubic-bezier(.3,.8,.3,1) forwards;animation-delay:calc(var(--n)*.12s)}
+.bs i:nth-child(even){border-radius:90px 0 0 40px;box-shadow:-10px 0 22px -4px #e8d28f;transform:translateX(106%)}
+@keyframes bsw{to{transform:none}}
+
+/* ===== backgrounds: lake, blood moon, floating islands, foggy street, sunrise peaks, rose-coloured moonlight ===== */
+body:not(.home) #bg *{animation-play-state:running}
+#bg svg{will-change:transform}
+body:not([data-theme=home]) #bg::after{content:"";position:absolute;inset:0;background:linear-gradient(#0007,#0005 45%,#000a)}
+.aur2{animation:aursw 10s ease-in-out infinite alternate}
+@keyframes aursw{to{transform:translateX(70px) scaleY(1.18)}}
+.isl{animation:bb 5s ease-in-out infinite alternate}
+.bal{animation:balup 60s ease-in-out infinite alternate}
+@keyframes balup{from{transform:translate(0,60px)}to{transform:translate(140px,-160px)}}
+.rain{animation:rainf .9s linear infinite}
+@keyframes rainf{from{transform:translateY(-60px)}to{transform:translateY(960px)}}
+body.lite #bg .rain,body.lite #bg .aur2,body.lite #bg .bal,body.lite #bg .flyw{display:none}
+/* ===== home: the floating library at moonrise ===== */
+.aurora{transform-box:fill-box;transform-origin:center}
+.hA1{animation:hAur1 15s ease-in-out infinite alternate}
+.hA2{animation:hAur2 19s ease-in-out infinite alternate}
+.hA3{animation:hAur3 24s ease-in-out infinite alternate}
+@keyframes hAur1{to{transform:translate(-50px,16px) scaleY(1.14)}}
+@keyframes hAur2{to{transform:translate(60px,-12px) scaleY(1.2)}}
+@keyframes hAur3{to{transform:translate(-30px,22px) scaleY(1.1)}}
+.fbook{animation:fbook 7s ease-in-out infinite alternate}
+.fb1{animation-delay:-1s}.fb2{animation-delay:-3s}.fb3{animation-delay:-5s}.fb4{animation-delay:-2s}
+@keyframes fbook{to{transform:translateY(-16px) rotate(3deg)}}
+.pbird{animation:pfly 16s linear infinite;animation-delay:var(--d)}
+@keyframes pfly{0%{transform:translate(-80px,calc(var(--y,0)*1px));opacity:0}8%{opacity:.85}85%{opacity:.8}100%{transform:translate(1480px,calc(var(--y,0)*1px - 150px));opacity:0}}
+.fly3{fill:#ffe9a8;filter:drop-shadow(0 0 6px #ffd98a);animation:hfly 5.5s ease-in-out infinite alternate;animation-delay:var(--d)}
+@keyframes hfly{0%{transform:translate(0,0);opacity:.25}50%{opacity:1}100%{transform:translate(14px,-18px);opacity:.45}}
+.lantern{animation:lanp 3.4s ease-in-out infinite alternate}
+@keyframes lanp{to{opacity:.55;transform:scale(1.18)}}
+.mring{transform-box:fill-box;transform-origin:center;animation:mspin 80s linear infinite}
+@keyframes mspin{to{transform:rotate(360deg)}}
+.twk circle{animation:twk2 3.2s ease-in-out infinite alternate}
+.twk circle:nth-child(2n){animation-delay:-1.4s}
+@keyframes twk2{to{opacity:.25}}
+body.lite .aurora,body.lite .pbird,body.lite .fly3,body.lite .fbook,body.lite .mring,body.lite .lantern{animation:none}
+body.lite .pbird{display:none}
+/* the story you just read is marked, so the next one sits right below it */
+.row.last{border-left:3px solid var(--ac);padding-left:14px}
+.row.last .rno::after{content:" \00b7 read";color:var(--ac);opacity:.8;letter-spacing:.1em}
+
+/* ===== new horror opening: the red eye ===== */
+#curtain[data-w=horror]{background:#050003}
+#curtain.go[data-w=horror]{clip-path:none;animation:hxbg 1.45s ease-in forwards}
+@keyframes hxbg{0%{background:#050003}55%,100%{background:radial-gradient(circle at 50% 50%,#3a0610 0%,#120208 52%,#050003 100%)}}
+#curtain.out[data-w=horror]{background:none}
+.hx-eye{position:absolute;left:50%;top:50%;width:min(76vmin,700px);translate:-50% -50%;animation:hxopen 1.45s cubic-bezier(.2,.8,.2,1) forwards;filter:drop-shadow(0 0 50px #e5253a66)}
+.hx-eye svg{width:100%;display:block;overflow:visible}
+.hx-white{fill:#160207;stroke:#e5253a;stroke-width:4;stroke-dasharray:1500;stroke-dashoffset:1500;animation:hxdraw .9s .05s ease-out forwards}
+.hx-veins{fill:none;stroke:#ff5a6a;stroke-width:2;stroke-linecap:round;stroke-dasharray:120;stroke-dashoffset:120;opacity:.75;animation:hxdraw 1s .2s ease-out forwards}
+.hx-iris{fill:#3a0610;stroke:#ff5a6a;stroke-width:3;transform-box:fill-box;transform-origin:center;animation:hxiris 1.45s cubic-bezier(.2,.8,.2,1) forwards}
+.hx-pupil{fill:#050003;transform-box:fill-box;transform-origin:center;animation:hxpupil 1.45s cubic-bezier(.2,.8,.2,1) forwards}
+.hx-glint{fill:#ffd8d8;opacity:0;animation:hxglint 1.45s ease-in forwards}
+@keyframes hxopen{0%{transform:scaleY(.02) scaleX(.5);opacity:0}12%{opacity:1}38%{transform:scaleY(1) scaleX(1)}68%{transform:scale(1.03)}100%{transform:scale(1.12);opacity:1}}
+@keyframes hxdraw{to{stroke-dashoffset:0}}
+@keyframes hxiris{0%{transform:scale(.2);opacity:0}30%{opacity:1}55%{transform:scale(1)}100%{transform:scale(1.15)}}
+@keyframes hxpupil{0%,20%{transform:scaleX(.15) scaleY(.4)}55%{transform:scaleX(.7) scaleY(.9)}100%{transform:scaleX(1) scaleY(1)}}
+@keyframes hxglint{0%,40%{opacity:0}60%,80%{opacity:1}100%{opacity:0}}
+.hx-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#ff2a3a,#7a0010 42%,transparent 74%);opacity:0;animation:hxflash 1.45s ease-in forwards}
+@keyframes hxflash{0%,58%{opacity:0}70%{opacity:.9}100%{opacity:0}}
+#curtain.out .hx-eye,#curtain.out .hx-flash{display:none}
+/* ===== new fantasy opening: the rune gate ===== */
+#curtain[data-w=fantasy]{background:radial-gradient(circle at 50% 50%,#2a1458,#08031f)}
+#curtain.go[data-w=fantasy]{clip-path:none;animation:fxbg 1.4s ease-in forwards}
+@keyframes fxbg{0%{background:#08031f}45%,100%{background:radial-gradient(circle at 50% 50%,#3a1b7a 0%,#1a0b3a 55%,#08031f 100%)}}
+#curtain.out[data-w=fantasy]{background:none}
+.fx-gate{position:absolute;left:50%;top:50%;width:min(68vmin,560px);translate:-50% -50%;animation:fxin 1.4s cubic-bezier(.2,.8,.2,1) forwards;filter:drop-shadow(0 0 40px #b57bff66)}
+.fx-gate svg{width:100%;display:block;overflow:visible}
+.fx-ring{fill:none;stroke:#b57bff;stroke-width:5;stroke-dasharray:970;stroke-dashoffset:970;animation:fxdraw .9s .05s ease-out forwards;filter:drop-shadow(0 0 14px #b57bff)}
+.fx-ring2{fill:none;stroke:#7affc8;stroke-width:2;stroke-dasharray:800;stroke-dashoffset:800;animation:fxdraw 1s .18s ease-out forwards;opacity:.85}
+.fx-runes{fill:#b57bff33;stroke:#e9d8ff;stroke-width:2;opacity:0;transform-box:fill-box;transform-origin:center;animation:fxrunes 1.4s cubic-bezier(.2,.8,.2,1) forwards}
+.fx-petals{fill:#b57bff22;stroke:#ff9ad8;stroke-width:2.5;transform-box:fill-box;transform-origin:center;opacity:0;animation:fxpetals 1.4s cubic-bezier(.2,.8,.2,1) forwards;filter:drop-shadow(0 0 18px #ff9ad8)}
+.fx-core{fill:#b57bff;filter:drop-shadow(0 0 26px #b57bff);animation:fxcore 1.4s ease-in-out forwards}
+@keyframes fxin{0%{transform:scale(.2) rotate(-90deg);opacity:0}22%{opacity:1}70%{transform:scale(1) rotate(0)}100%{transform:scale(1.18) rotate(8deg);opacity:1}}
+@keyframes fxdraw{to{stroke-dashoffset:0}}
+@keyframes fxpetals{0%{opacity:0;transform:rotate(-50deg) scale(.25)}45%{opacity:1}100%{opacity:1;transform:rotate(18deg) scale(1.08)}}
+@keyframes fxrunes{0%{opacity:0;transform:rotate(-40deg) scale(.7)}35%{opacity:1}100%{opacity:1;transform:rotate(35deg) scale(1.05)}}
+@keyframes fxcore{0%,20%{opacity:0;transform:scale(.2)}55%{opacity:1;transform:scale(1)}100%{opacity:.2;transform:scale(1.6)}}
+.fx-bloom{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#ff9ad8,#b57bff 34%,transparent 70%);opacity:0;animation:fxbloom 1.4s ease-in forwards}
+@keyframes fxbloom{0%,60%{opacity:0}74%{opacity:.85}100%{opacity:0}}
+#curtain.out .fx-gate,#curtain.out .fx-bloom{display:none}
+/* ===== new world background motion ===== */
+.petal{transform-box:fill-box;transform-origin:center;animation:petal 9s ease-in-out infinite alternate;animation-delay:var(--d)}
+@keyframes petal{to{transform:translate(34px,46px) rotate(48deg)}}
+body.lite .petal{animation:none}
+
+/* ===== new landing look: the night train ===== */
+body.look-train #look-train{display:flex}
+#look-train .tr-main{width:100%;max-width:1180px;margin:0 auto}
+#look-train .board{overflow:auto}
+.tw-stars{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 12% 18%,#fff,transparent),radial-gradient(1.4px 1.4px at 28% 42%,#fff,transparent),radial-gradient(1.2px 1.2px at 44% 14%,#fff,transparent),radial-gradient(1.6px 1.6px at 62% 36%,#fff,transparent),radial-gradient(1.2px 1.2px at 78% 20%,#fff,transparent),radial-gradient(1.4px 1.4px at 88% 46%,#fff,transparent),radial-gradient(1.2px 1.2px at 36% 62%,#fff,transparent),radial-gradient(1.4px 1.4px at 70% 66%,#fff,transparent);opacity:.65;animation:twstars 6s ease-in-out infinite alternate}
+@keyframes twstars{to{opacity:.28}}
+.tw-moon{position:absolute;right:13%;top:11%;width:clamp(38px,7vh,62px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fffbe8,#e8d28f 60%,#8a7a3a);box-shadow:0 0 44px 12px #e8d28f44;animation:moonb 7s ease-in-out infinite alternate}
+@keyframes moonb{to{transform:translateY(5px);box-shadow:0 0 58px 16px #e8d28f55}}
+#look-train .trainwin{background:linear-gradient(#050816,#0b1230 58%,#161c3a)}
+#look-train .dep.now .st{color:#fff}
+@media(max-width:900px){#look-train .tr-main{gap:14px}}
+@media(max-width:760px){#look-train h1{font-size:clamp(28px,7.6vw,44px)}#look-train .tr-main{flex-direction:column;gap:12px}#look-train .trainwin{flex:none;height:26vh;min-height:150px}#look-train .board{flex:none;max-height:none}#look-train .dep{padding:7px 8px}#look-train .dep .dn{font-size:clamp(16px,4.6vw,22px)}#look-train .dep .dt{font-size:11px}}
+
+/* ===== new opening: a book opens, then the tagline writes itself ===== */
+#intro{background:radial-gradient(circle at 50% 42%,#182052 0%,#070a1f 48%,#02030a 100%);overflow:hidden}
+#intro::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(1.6px 1.6px at 8% 18%,#fff,transparent),radial-gradient(1.4px 1.4px at 22% 64%,#fff,transparent),radial-gradient(1.8px 1.8px at 38% 12%,#fff,transparent),radial-gradient(1.3px 1.3px at 54% 78%,#fff,transparent),radial-gradient(1.6px 1.6px at 70% 22%,#fff,transparent),radial-gradient(1.4px 1.4px at 84% 58%,#fff,transparent),radial-gradient(1.7px 1.7px at 94% 30%,#fff,transparent),radial-gradient(1.3px 1.3px at 14% 88%,#fff,transparent);opacity:.55;animation:istars 9s ease-in-out infinite alternate}
+@keyframes istars{to{opacity:.24;transform:scale(1.03)}}
+#intro::after{content:"";position:absolute;inset:-20%;pointer-events:none;background:radial-gradient(circle at 50% 48%,#e8d28f22,transparent 56%);animation:iglowa 6s ease-in-out infinite alternate}
+@keyframes iglowa{to{opacity:.55;transform:scale(1.06)}}
+.ibook{position:relative;width:min(54vw,250px);aspect-ratio:3/4;perspective:1500px;transform-style:preserve-3d;margin-bottom:4px;filter:drop-shadow(0 30px 60px #000a);transition:transform 1.2s ease}
+#intro.go .ibook{transform:translateY(-6px) scale(1.04)}
+.ileaf{position:absolute;inset:0;border-radius:6px 12px 12px 6px;background:linear-gradient(135deg,#f6ecd2,#d8c39a);box-shadow:inset -12px 0 26px #0002,0 0 60px #e8d28f44;overflow:hidden}
+.ileaf::before{content:"";position:absolute;inset:8% 10%;background:repeating-linear-gradient(#0000 0 15px,#8a7a5a22 15px 16px);border-radius:3px}
+.iglow{position:absolute;inset:0;background:radial-gradient(circle at 62% 42%,#fffbe8cc,transparent 64%);opacity:0;animation:ileafglow 4s 1s ease-in-out infinite alternate}
+@keyframes ileafglow{to{opacity:.9}}
+.irune{position:absolute;left:50%;top:50%;translate:-50% -50%;font:64px Georgia,serif;color:#b08a58;opacity:.32}
+.icover{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d;border-radius:6px 12px 12px 6px;background:linear-gradient(135deg,#161d4c,#0a0d26 58%,#05071a);border:2px solid #c9a86a;box-shadow:inset 0 0 50px #0008,0 0 0 6px #0a0d26,0 0 0 7px #c9a86a66;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:transform 1.7s cubic-bezier(.4,0,.2,1)}
+#intro.go .icover{transform:rotateY(-72deg)}
+.icover::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(115deg,#ffffff00 30%,#ffffff1f 46%,#ffffff00 62%);pointer-events:none}
+.imark{font:clamp(30px,6vw,46px) Georgia,serif;color:#e8d28f;text-shadow:0 0 22px #e8d28f99}
+.icover b{font:900 clamp(20px,4.4vw,29px)/1.1 Fraunces,Georgia,serif;color:#f3e6b8;letter-spacing:.02em}
+.icover i{font:italic 11px/1 Georgia,serif;color:#c9b8ff;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
+#intro p{position:relative;z-index:2}
+#intro small{position:relative;z-index:2}
+@media(max-width:520px){.ibook{width:min(64vw,210px)}.icover b{font-size:20px}.icover i{font-size:10px}}
+
+/* ===== new home background: the moonlit railway ===== */
+.hcloud{animation:hcloud 42s linear infinite}
+@keyframes hcloud{from{transform:translateX(-90px)}to{transform:translateX(110px)}}
+.hc2{animation-duration:58s;animation-direction:reverse}
+.hsteam{animation:hsteam 11s ease-in-out infinite alternate}
+@keyframes hsteam{to{transform:translate(46px,-26px);opacity:.05}}
+.htrain{animation:htrain 64s linear infinite}
+@keyframes htrain{from{transform:translateX(-280px)}to{transform:translateX(1520px)}}
+.hsignal{animation:hsignal 2.6s steps(1) infinite}
+@keyframes hsignal{50%{opacity:.3}}
+body.lite .hcloud,body.lite .hsteam,body.lite .htrain,body.lite .hsignal{animation:none}
+body.lite .htrain,body.lite .hsteam{display:none}
+
+/* ===== polish: book opens fully, mobile landing spacing ===== */
+.icover{backface-visibility:hidden;transition:transform 1.7s cubic-bezier(.4,0,.2,1),opacity .6s 1.1s}
+#intro.go .icover{transform:rotateY(-150deg);opacity:0}
+@media(max-width:760px){
+  #gate.on{height:auto;min-height:calc(100svh - 48px)}
+  #gate .look{flex:none;min-height:0}
+  #look-train .tr-main{padding-bottom:2px}
+  .foot-quote{margin-top:18px;font-size:clamp(16px,4.6vw,20px)}
+}
+
+/* ===== 3D opening: a spinning world cube ===== */
+#intro{perspective:1200px}
+.icube{width:180px;height:180px;perspective:900px;margin-bottom:14px;animation:icubefloat 4s ease-in-out infinite alternate}
+.icube-in{--cz:90px;position:relative;width:100%;height:100%;transform-style:preserve-3d;animation:icubespin 9s linear infinite}
+#intro.go .icube-in{animation-duration:4.5s}
+@keyframes icubespin{from{transform:rotateX(-18deg) rotateY(0)}to{transform:rotateX(-18deg) rotateY(360deg)}}
+@keyframes icubefloat{to{transform:translateY(-10px)}}
+.iface{position:absolute;inset:0;display:grid;place-items:center;padding:10px;border:1px solid #ffffff2e;background:linear-gradient(160deg,#111a44dd,#05071add);backface-visibility:hidden;font:700 14px 'Segoe UI',sans-serif;letter-spacing:.16em;text-transform:uppercase;text-align:center;text-shadow:0 0 14px currentColor;box-shadow:inset 0 0 40px #000a}
+.if1{transform:translateZ(var(--cz));color:#ff6b6b;border-color:#e5253a77}
+.if2{transform:rotateY(90deg) translateZ(var(--cz));color:#c9a8ff;border-color:#b57bff77}
+.if3{transform:rotateY(180deg) translateZ(var(--cz));color:#6fffc0;border-color:#3fbf8f77}
+.if4{transform:rotateY(-90deg) translateZ(var(--cz));color:#ffc46b;border-color:#f5a62377}
+.if5{transform:rotateX(90deg) translateZ(var(--cz));color:#f3e6b8;border-color:#e8d28f77}
+.if6{transform:rotateX(-90deg) translateZ(var(--cz));color:#f3e6b8;border-color:#e8d28f99;font:900 18px/1.2 Fraunces,Georgia,serif;letter-spacing:.02em;text-transform:none}
+@media(max-width:520px){.icube{width:140px;height:140px}.icube-in{--cz:70px}.iface{font-size:12px}.if6{font-size:15px}}
+
+/* ===== new landing look: five floating lanterns ===== */
+body.look-lantern #look-lantern{display:flex}
+.lanterns{display:flex;align-items:flex-end;justify-content:center;gap:clamp(10px,2.4vw,30px);flex:1;padding:18px 10px 34px}
+.lan{position:relative;width:clamp(88px,12vw,144px);display:flex;flex-direction:column;align-items:center;gap:8px;padding:0;border:0;background:none;color:#fff;cursor:pointer;animation:lanfloat 4.2s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-.65s);transition:filter .4s}
+.lan:hover,.lan:focus-visible{background:none;outline:0;filter:drop-shadow(0 0 24px var(--c))}
+.lglow{position:absolute;left:50%;top:38%;width:180%;aspect-ratio:1;translate:-50% -50%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--c) 55%,transparent),transparent 62%);opacity:.55;animation:langlow 2.8s ease-in-out infinite alternate;pointer-events:none}
+.lbody{position:relative;display:block;width:clamp(56px,7.4vw,80px);height:clamp(86px,11.4vw,124px);border-radius:46% 46% 34% 34%/30% 30% 52% 52%;background:linear-gradient(90deg,#241408,#7a5424 42%,#f0b45a 50%,#7a5424 58%,#241408);border:1px solid #f0b45a88;box-shadow:inset 0 0 22px #ffb34788,0 12px 26px -10px #000;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.lbody::before,.lbody::after{content:"";position:absolute;left:14%;right:14%;height:9px;background:linear-gradient(#f0c070,#8a5a24);border-radius:4px}
+.lbody::before{top:-6px}.lbody::after{bottom:-6px}
+.lflame{position:absolute;left:50%;top:50%;width:16px;height:26px;translate:-50% -50%;border-radius:50% 50% 46% 46%/62% 62% 38% 38%;background:radial-gradient(circle at 50% 70%,#fff8d0,#ffd98a 45%,#ff9a2a 75%,transparent 78%);filter:drop-shadow(0 0 10px #ffb347);animation:lflame 1.1s ease-in-out infinite alternate}
+.ln{font-family:Fraunces,Georgia,serif;font-size:clamp(16px,2vw,22px);color:var(--c);text-shadow:0 0 18px color-mix(in srgb,var(--c) 65%,transparent)}
+.ltag{font:italic 12px/1.35 Georgia,serif;color:#e8e2ffcc;text-align:center}
+.lan.seen .ln::after{content:" \2713"}
+.lan:hover .lbody{transform:translateY(-12px) scale(1.06)}
+@keyframes lanfloat{to{transform:translateY(-16px)}}
+@keyframes langlow{to{opacity:.95;transform:translate(-50%,-50%) scale(1.12)}}
+@keyframes lflame{0%{transform:translate(-50%,-50%) scale(1,1) skewX(0)}100%{transform:translate(-50%,-50%) scale(.88,1.14) skewX(4deg)}}
+@media(max-width:760px){.lanterns{flex-wrap:wrap;align-items:center;align-content:center;gap:18px 10px;padding:10px 4px 18px}.lan{width:27vw;max-width:110px}.ltag{display:none}.ln{font-size:clamp(14px,4.2vw,18px)}}
+
+/* ===== new world openings ===== */
+/* horror: a black mirror shatters into red shards */
+#curtain[data-w=horror]{background:#000}
+#curtain.go[data-w=horror]{clip-path:none;animation:hxbg2 1.15s ease-in forwards}
+@keyframes hxbg2{0%,100%{background:#000}55%{background:#3a0008}}
+#curtain.out[data-w=horror]{background:none}
+.hxr{position:absolute;inset:0;overflow:hidden}
+.hxr i{position:absolute;inset:0;background:linear-gradient(135deg,#2a0208,#8a0012 45%,#160004);opacity:0;transform-origin:50% 50%;animation:hxshard 1.15s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--n)*.035s)}
+.hxr i:nth-child(1){clip-path:polygon(0 0,40% 0,34% 38%,0 30%)}
+.hxr i:nth-child(2){clip-path:polygon(40% 0,72% 0,66% 30%,34% 38%)}
+.hxr i:nth-child(3){clip-path:polygon(72% 0,100% 0,100% 36%,66% 30%)}
+.hxr i:nth-child(4){clip-path:polygon(0 30%,34% 38%,30% 72%,0 68%)}
+.hxr i:nth-child(5){clip-path:polygon(34% 38%,66% 30%,72% 70%,30% 72%)}
+.hxr i:nth-child(6){clip-path:polygon(66% 30%,100% 36%,100% 74%,72% 70%)}
+.hxr i:nth-child(7){clip-path:polygon(0 68%,30% 72%,72% 70%,100% 74%,100% 100%,0 100%)}
+@keyframes hxshard{0%{opacity:0;transform:scale(.04) rotate(-24deg)}40%{opacity:1}100%{opacity:1;transform:scale(1.04) rotate(0)}}
+.hxr-flash{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#ff2a3a,#5a0008 46%,transparent 72%);opacity:0;animation:hxflash2 1.15s ease-in forwards}
+@keyframes hxflash2{0%,52%{opacity:0}64%{opacity:.85}100%{opacity:0}}
+/* fantasy: a swirl of spell pages around a bright star */
+#curtain[data-w=fantasy]{background:radial-gradient(circle at 50% 50%,#2a1458,#08031f)}
+#curtain.go[data-w=fantasy]{clip-path:none;animation:fxbg3 1.15s ease-in forwards}
+@keyframes fxbg3{0%{background:#08031f}50%,100%{background:radial-gradient(circle at 50% 50%,#4a2a9a,#1a0b3a 58%,#08031f)}}
+#curtain.out[data-w=fantasy]{background:none}
+.fxp{position:absolute;inset:0;overflow:hidden}
+.fxp i{position:absolute;left:50%;top:50%;width:44px;height:58px;margin:-29px 0 0 -22px;border-radius:2px;background:linear-gradient(160deg,#fff6dc,#d8c39a);box-shadow:0 0 16px #b57bff88;opacity:0;animation:fxpfly 1.15s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--n)*.028s)}
+@keyframes fxpfly{0%{opacity:0;transform:rotate(calc(var(--n)*36deg)) translateY(-20px) scale(.25)}28%{opacity:1}100%{opacity:1;transform:rotate(calc(var(--n)*36deg + 210deg)) translateY(-44vmin) scale(.9)}}
+.fxp-core{position:absolute;left:50%;top:50%;width:110px;height:110px;translate:-50% -50%;background:#fff6dc;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%);filter:drop-shadow(0 0 28px #ff9ad8);animation:fxpcore 1.15s ease-in-out forwards}
+@keyframes fxpcore{0%{opacity:0;transform:scale(.2) rotate(0)}45%{opacity:1;transform:scale(1) rotate(70deg)}100%{opacity:.2;transform:scale(2.6) rotate(160deg)}}
+/* mystery: question marks scatter through fog around a keyhole */
+#curtain[data-w=mystery]{background:radial-gradient(circle at 50% 50%,#0a3a2a,#041610 50%,#010604)}
+#curtain.go[data-w=mystery]{clip-path:none;animation:mybg 1.15s ease-in forwards}
+@keyframes mybg{0%{background:#010604}45%,100%{background:radial-gradient(circle at 50% 50%,#0a3a2a,#041610 50%,#010604)}}
+#curtain.out[data-w=mystery]{background:none}
+.mym{position:absolute;inset:0;overflow:hidden}
+.mym i{position:absolute;left:50%;top:50%;font:900 clamp(70px,15vw,170px)/1 Georgia,serif;color:#3fbf8f;text-shadow:0 0 34px #3fbf8f;opacity:0;transform:translate(-50%,-50%);animation:mymq 1.15s ease-in forwards;animation-delay:calc(var(--n)*.1s)}
+.mym i:nth-child(1){--dx:-22vw;--dy:-12vh}
+.mym i:nth-child(2){--dx:20vw;--dy:-6vh;animation-delay:.12s}
+.mym i:nth-child(3){--dx:-6vw;--dy:16vh;animation-delay:.24s}
+@keyframes mymq{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(-20deg)}28%{opacity:.85}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1.7) rotate(24deg)}}
+.myk{position:absolute;left:50%;top:50%;width:120px;height:160px;translate:-50% -50%;border-radius:50% 50% 44% 44%;background:radial-gradient(circle at 50% 34%,#d8fff0,#3fbf8f 46%,#041610 72%);box-shadow:0 0 60px #3fbf8f88,inset 0 0 30px #041610;animation:myk 1.15s ease-in-out forwards}
+@keyframes myk{0%{opacity:0;transform:scale(.3)}38%{opacity:1;transform:scale(1)}100%{opacity:.9;transform:scale(1.3)}}
+.myfog{position:absolute;inset:-20%;background:linear-gradient(100deg,transparent 20%,#bfffe522 44%,transparent 66%);animation:myfog 1.15s ease-in forwards}
+@keyframes myfog{0%{transform:translateX(-60%)}100%{transform:translateX(60%)}}
+/* adventure: a treasure map unrolls, a dotted route draws, an X marks the spot */
+#curtain[data-w=adventure]{background:radial-gradient(circle at 50% 50%,#7a3a0a,#2a1404 58%,#120802)}
+#curtain.go[data-w=adventure]{clip-path:none;animation:avbg 1.15s ease-in forwards}
+@keyframes avbg{0%{background:#120802}55%,100%{background:radial-gradient(circle at 50% 50%,#7a3a0a,#2a1404 58%,#120802)}}
+#curtain.out[data-w=adventure]{background:none}
+.avm{position:absolute;inset:0;display:grid;place-items:center}
+.avmap{position:relative;width:min(80vw,720px);aspect-ratio:2/1;background:linear-gradient(135deg,#f0dfb4,#d8b98a 55%,#c9a86a);clip-path:inset(0 50% 0 50%);box-shadow:0 0 70px #f5a62366;animation:avunroll 1.15s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes avunroll{to{clip-path:inset(0 0 0 0)}}
+.avmap::before{content:"";position:absolute;inset:7%;border:2px dashed #8a6a3a55;border-radius:4px}
+.avmap svg{position:absolute;inset:0;width:100%;height:100%}
+.avroute{fill:none;stroke:#8a3a1a;stroke-width:5;stroke-linecap:round;stroke-dasharray:8 12;stroke-dashoffset:620;animation:avdraw 1s .18s ease-out forwards}
+@keyframes avdraw{to{stroke-dashoffset:0}}
+.avx{fill:none;stroke:#c0392b;stroke-width:9;stroke-linecap:round;opacity:0;animation:avx .45s .82s ease-out forwards}
+@keyframes avx{to{opacity:1}}
+.avsun{position:absolute;left:50%;top:50%;width:150vmax;aspect-ratio:1;translate:-50% -50%;background:radial-gradient(circle,#ffd98a55,transparent 60%);pointer-events:none}
+/* shayari: rose petals gather around a crescent and the word shayari */
+#curtain[data-w=shayari]{background:radial-gradient(circle at 50% 50%,#1b2466,#05081f)}
+#curtain.go[data-w=shayari]{clip-path:none;animation:shbg 1.15s ease-in forwards}
+@keyframes shbg{0%{background:#05081f}50%,100%{background:radial-gradient(circle at 50% 50%,#3a2a7a,#1b2466 55%,#05081f)}}
+#curtain.out[data-w=shayari]{background:none}
+.shm{position:absolute;inset:0;overflow:hidden}
+.shm i{position:absolute;left:50%;top:50%;width:18px;height:26px;margin:-13px 0 0 -9px;border-radius:60% 0 60% 0;background:linear-gradient(160deg,#ff9ec0,#e8d28f);opacity:0;animation:shpetal 1.15s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--n)*.02s)}
+@keyframes shpetal{0%{opacity:0;transform:rotate(calc(var(--n)*36deg)) translateY(-44vmin) scale(.4)}26%{opacity:1}100%{opacity:.9;transform:rotate(calc(var(--n)*36deg + 100deg)) translateY(-13vmin) scale(.95)}}
+.shm-moon{position:absolute;left:50%;top:50%;width:120px;height:120px;translate:-50% -50%;border-radius:50%;background:#f3e6b8;box-shadow:0 0 50px #f3e6b888;opacity:0;animation:shmoon 1.15s .25s ease-in forwards}
+.shm-moon::after{content:"";position:absolute;left:20%;top:-10%;width:100%;height:100%;border-radius:50%;background:#1b2466}
+@keyframes shmoon{0%{opacity:0;transform:scale(.3)}55%,100%{opacity:1;transform:scale(1)}}
+.shm em{position:absolute;left:50%;top:66%;translate:-50% 0;font:700 clamp(28px,6vw,58px) 'Noto Serif Devanagari',Kalam,serif;font-style:normal;color:#f3e6b8;text-shadow:0 0 26px #e8d28f99;opacity:0;animation:shword 1.15s .45s ease-in forwards}
+@keyframes shword{to{opacity:1}}
+#curtain.out .hxr,#curtain.out .fxp,#curtain.out .mym,#curtain.out .avm,#curtain.out .shm{display:none}
+body.lite .lan,body.lite .lglow,body.lite .lflame,body.lite .icube-in{animation:none}
+
+/* keyhole notch */
+.myk::after{content:"";position:absolute;left:50%;bottom:-44px;width:58px;height:68px;translate:-50% 0;background:#3fbf8f;clip-path:polygon(50% 0,100% 100%,0 100%);filter:drop-shadow(0 0 18px #3fbf8f);opacity:.95}
+
+/* ===== opening: five world-lights gather into the moon ===== */
+.nwrap{position:relative;width:min(70vmin,360px);height:min(70vmin,360px);flex:none;aspect-ratio:1;display:grid;place-items:center;margin-bottom:10px}
+.norbit{position:absolute;inset:0;animation:nidle 8s linear infinite}
+.norbit i{position:absolute;left:50%;top:50%;width:14px;height:14px;margin:-7px;border-radius:50%;background:var(--c);box-shadow:0 0 18px 5px var(--c);transform:rotate(var(--a)) translateY(calc(min(70vmin,360px)*-.44))}
+#intro.go .norbit{animation:ngather 1.6s cubic-bezier(.6,0,.25,1) forwards}
+@keyframes nidle{to{transform:rotate(360deg)}}
+@keyframes ngather{from{transform:rotate(0) scale(1);opacity:1}85%{opacity:1}to{transform:rotate(540deg) scale(.05);opacity:0}}
+.nmoon{position:absolute;width:30%;aspect-ratio:1;border-radius:50%;box-shadow:calc(min(70vmin,360px)*.05) calc(min(70vmin,360px)*.025) 0 0 #f3e6b8;filter:drop-shadow(0 0 22px #e8d28f99);opacity:0;transform:scale(.4) rotate(-30deg)}
+#intro.go .nmoon{animation:nmoon 1.1s 1s cubic-bezier(.2,.8,.2,1) forwards,nglow 3s 2.1s ease-in-out infinite alternate}
+@keyframes nmoon{to{opacity:1;transform:scale(1) rotate(0)}}
+@keyframes nglow{to{filter:drop-shadow(0 0 40px #e8d28fcc)}}
+.nring{position:absolute;width:30%;aspect-ratio:1;border-radius:50%;border:2px solid #e8d28f;opacity:0}
+#intro.go .nring{animation:nring 1s 1.45s ease-out forwards}
+@keyframes nring{from{opacity:.9;transform:scale(.6)}to{opacity:0;transform:scale(3.4)}}
+
+/* ===== new landing look: five windows ===== */
+body.look-windows #look-windows{display:flex}
+.wins{display:flex;align-items:center;justify-content:center;gap:clamp(12px,2.6vw,36px);flex:1;padding:12px 10px 26px}
+.win{position:relative;width:clamp(92px,13vw,170px);display:flex;flex-direction:column;align-items:center;gap:9px;padding:0;border:0;background:none;color:#fff;cursor:pointer;animation:winfl 4.4s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-.8s)}
+.win:hover,.win:focus-visible{background:none;outline:0}
+.wview{display:block;position:relative;width:100%;aspect-ratio:3/4;border-radius:999px 999px 12px 12px;overflow:hidden;border:2px solid var(--c);background:#05060f;box-shadow:0 0 28px color-mix(in srgb,var(--c) 45%,transparent),inset 0 0 30px #000b;transition:box-shadow .4s,transform .4s}
+.wview svg{width:100%;height:100%;display:block;transition:transform .7s}
+.wview::before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;opacity:.35;background:linear-gradient(var(--c),var(--c)) center/2px 100% no-repeat,linear-gradient(var(--c),var(--c)) 0 58%/100% 2px no-repeat}
+.wview::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(115deg,transparent 35%,#ffffff2e 50%,transparent 65%);transform:translateX(-120%);transition:transform .8s}
+.win:hover .wview{transform:translateY(-8px);box-shadow:0 0 52px color-mix(in srgb,var(--c) 70%,transparent),inset 0 0 20px #0008}
+.win:hover .wview svg{transform:scale(1.18)}
+.win:hover .wview::after{transform:translateX(120%)}
+.wn{font-family:Fraunces,Georgia,serif;font-size:clamp(16px,2vw,22px);color:var(--c);text-shadow:0 0 18px color-mix(in srgb,var(--c) 65%,transparent)}
+.wt{font:italic 12px/1.35 Georgia,serif;color:#e8e2ffcc;text-align:center}
+.win.seen .wn::after{content:" \2713"}
+@keyframes winfl{to{transform:translateY(-10px)}}
+@media(max-width:760px){.wins{flex-wrap:wrap;gap:16px 10px;align-content:center;padding:10px 4px 18px}.win{width:27vw;max-width:108px}.wt{display:none}.wn{font-size:clamp(14px,4.2vw,18px)}}
+body.lite .win,body.lite .norbit{animation:none}
+
+/* ===== world openings: one scene per world ===== */
+#curtain[data-w],#curtain.go[data-w],#curtain.out[data-w]{background:#000;animation:none;clip-path:none;transform:none}
+.wsc{position:absolute;inset:0;animation:wscin .3s ease-out both}
+.wsc svg{width:100%;height:100%;display:block}
+@keyframes wscin{from{opacity:0}to{opacity:1}}
+.sc-t{opacity:0;animation:sct .8s .8s ease-out forwards;paint-order:stroke;stroke:#0008;stroke-width:6px}
+@keyframes sct{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.sc-up{animation:scup 1s var(--d,0s) cubic-bezier(.2,.8,.2,1) both}
+@keyframes scup{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+.sc-tw{animation:sctw 1.1s ease-in-out infinite alternate}
+@keyframes sctw{from{opacity:.25}to{opacity:1}}
+/* horror: Hollow Manor */
+.hz-moon{animation:hzmoon 1.3s cubic-bezier(.2,.8,.2,1) both}
+@keyframes hzmoon{from{transform:translateY(320px);opacity:.3}to{transform:none;opacity:1}}
+.hz-crow{animation:hzcrow 1.6s var(--d) linear both}
+@keyframes hzcrow{from{transform:translate(-80px,var(--y))}to{transform:translate(1300px,calc(var(--y) - 70px))}}
+.hz-win rect{animation:hzfl .9s steps(1) infinite}.hz-win2{animation-duration:1.7s!important}
+@keyframes hzfl{50%{opacity:.25}}
+.hz-fog{animation:hzfog 1.9s ease-out both}.hz-fog2{animation:hzfog 1.9s ease-out reverse both}
+@keyframes hzfog{from{transform:translateX(-160px);opacity:0}to{transform:translateX(120px);opacity:1}}
+/* fantasy: Starlit Citadel */
+.gl-cr{fill:#d8c4ff;filter:drop-shadow(0 0 8px #b57bff)}
+.gl-f{animation:glrise 1.1s var(--d) cubic-bezier(.2,.8,.2,1) both,glfl 2s 1.2s ease-in-out infinite alternate}
+@keyframes glrise{from{transform:translateY(200px);opacity:0}to{transform:none;opacity:1}}
+@keyframes glfl{to{transform:translateY(-12px)}}
+.gl-au{animation:glau 1.9s ease-out both}.gl-au2{animation-delay:.2s;animation-direction:reverse}
+@keyframes glau{from{opacity:0;transform:translateX(-120px)}to{opacity:1;transform:translateX(60px)}}
+/* mystery: The Green Lamp */
+.mt-lit{animation:mtlit .5s var(--d) steps(1) both,mtfl 1.3s 1s ease-in-out infinite alternate}
+@keyframes mtlit{from{opacity:0}30%{opacity:.8}45%{opacity:.1}to{opacity:1}}
+@keyframes mtfl{to{opacity:.8}}
+.mt-q{opacity:0;transform-box:fill-box;transform-origin:center;filter:drop-shadow(0 0 22px #3fbf8f);animation:mtq .7s 1s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes mtq{from{opacity:0;transform:scale(.2) rotate(-20deg)}to{opacity:1;transform:none}}
+.mt-rain{animation:mtrain .4s linear infinite}
+@keyframes mtrain{to{transform:translateY(60px)}}
+/* adventure: The Lost Temple */
+.lt-sun{animation:ltsun 1.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes ltsun{from{transform:translateY(200px)}to{transform:none}}
+.lt-air{animation:ltair 2.4s ease-in-out both}
+@keyframes ltair{from{transform:translate(-200px,190px)}to{transform:translate(1250px,90px)}}
+.lt-rv{stroke-dasharray:100;stroke-dashoffset:100;animation:ltrv 1.1s .3s ease-out forwards}
+@keyframes ltrv{to{stroke-dashoffset:0}}
+.lt-x{opacity:0;animation:wscin .3s 1.3s forwards}
+.lt-door{animation:mtfl .8s ease-in-out infinite alternate}
+.lt-cp{animation:wscin .5s .2s both}
+.lt-nd{transform-box:fill-box;transform-origin:center;animation:ltnd 1.5s cubic-bezier(.2,.7,.2,1) both}
+@keyframes ltnd{from{transform:rotate(-540deg)}to{transform:rotate(35deg)}}
+/* shayari: Moonlit Terrace */
+.sh-pg{transform-box:fill-box;transform-origin:left center;animation:shpg 1.4s ease-in-out infinite alternate}
+@keyframes shpg{to{transform:scaleX(.9) skewY(2deg)}}
+.sh-st{animation:shst 1.6s ease-in-out infinite}
+@keyframes shst{from{opacity:0;transform:translateY(8px)}50%{opacity:.6}to{opacity:0;transform:translateY(-14px)}}
+.sh-lan{transform-origin:930px 0;animation:shsw 1.6s ease-in-out infinite alternate}
+@keyframes shsw{from{transform:rotate(-3deg)}to{transform:rotate(3deg)}}
+.sh-pt{animation:shpt 1.9s var(--d) linear both}
+@keyframes shpt{from{transform:translate(var(--x),-40px) rotate(0)}to{transform:translate(calc(var(--x) + 130px),760px) rotate(320deg)}}
+@media(prefers-reduced-motion:reduce){.wsc *{animation-duration:.01s!important;animation-delay:0s!important}}
+
+/* ===== third look: moon phases ===== */
+body.look-moons #look-moons{display:flex}
+.mphases{display:flex;align-items:center;justify-content:center;gap:clamp(12px,3vw,44px);flex:1;padding:12px 10px 26px}
+.mn{position:relative;width:clamp(86px,13vw,168px);display:flex;flex-direction:column;align-items:center;gap:10px;padding:0;border:0;background:none;color:#fff;cursor:pointer;animation:winfl 5s ease-in-out infinite alternate;animation-delay:calc(var(--i)*-.9s)}
+.mn:hover,.mn:focus-visible{background:none;outline:0}
+.mview{display:block;position:relative;width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden;background:#05060f;border:2px solid color-mix(in srgb,var(--c) 70%,#fff 10%);box-shadow:0 0 30px color-mix(in srgb,var(--c) 50%,transparent),0 0 70px color-mix(in srgb,var(--c) 22%,transparent);transition:box-shadow .5s,transform .5s}
+.mview svg{width:100%;height:100%;display:block;transform:scale(1.12);transform-origin:50% 55%;transition:transform .8s}
+.mshade{position:absolute;inset:-4%;border-radius:50%;background:radial-gradient(circle at 50% 50%,#05060fe0,#02030aeb);transform:translateX(var(--o));transition:transform 1s cubic-bezier(.3,.7,.2,1)}
+.mn:hover .mview,.mn:focus-visible .mview{transform:translateY(-8px) scale(1.04);box-shadow:0 0 50px color-mix(in srgb,var(--c) 75%,transparent),0 0 100px color-mix(in srgb,var(--c) 35%,transparent)}
+.mn:hover .mshade,.mn:focus-visible .mshade{transform:translateX(125%)}
+.mn:hover .mview svg{transform:scale(1.25)}
+.mname{font-family:Fraunces,Georgia,serif;font-size:clamp(16px,2vw,22px);color:var(--c);text-shadow:0 0 18px color-mix(in srgb,var(--c) 65%,transparent)}
+.mtag{font:italic 12px/1.35 Georgia,serif;color:#e8e2ffcc;text-align:center}
+.mn.seen .mname::after{content:" \2713"}
+.mn.seen .mshade{transform:translateX(125%)}
+@media(max-width:760px){.mphases{flex-wrap:wrap;gap:16px 10px;align-content:center;padding:10px 4px 18px}.mn{width:27vw;max-width:108px}.mtag{display:none}.mname{font-size:clamp(14px,4.2vw,18px)}}
+body.lite .mn{animation:none}
+
+/* ===== world openings v2 (no captions) ===== */
+.sc-t{display:none}
+/* horror: a crocodile-like devil eye opens */
+.he-glow{animation:heglow 1.2s ease-in-out infinite alternate}
+@keyframes heglow{to{opacity:.6;transform:scale(1.1)}}
+.he-glow{transform-box:fill-box;transform-origin:center}
+.he-eye{transform-origin:600px 350px;animation:hezoom 2.1s ease-in forwards}
+@keyframes hezoom{from{transform:scale(.92)}to{transform:scale(1.18)}}
+.he-lu{animation:heu 1.1s .35s cubic-bezier(.7,0,.2,1) forwards}
+.he-ll{animation:hel 1.1s .35s cubic-bezier(.7,0,.2,1) forwards}
+@keyframes heu{to{transform:translateY(-330px)}}
+@keyframes hel{to{transform:translateY(330px)}}
+.he-slit{animation:heslit 1s ease-out forwards}
+@keyframes heslit{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+.he-p{transform-box:fill-box;transform-origin:center;animation:hepu .9s 1.2s ease-in-out forwards}
+@keyframes hepu{0%{transform:scaleX(1.9)}60%{transform:scaleX(.45)}100%{transform:scaleX(.6)}}
+/* shayari: pink petals blow through the air */
+.sh2-p{animation:sh2p 1.6s var(--d) cubic-bezier(.35,.1,.4,1) both}
+@keyframes sh2p{0%{transform:translate(-80px,var(--py)) rotate(0) scale(var(--s))}50%{transform:translate(620px,calc(var(--py) - var(--pw))) rotate(220deg) scale(var(--s))}100%{transform:translate(1320px,var(--py2)) rotate(460deg) scale(var(--s))}}
+.sh2-w{animation:sh2w 1.3s var(--d) ease-in-out both}
+@keyframes sh2w{from{stroke-dashoffset:560;opacity:0}30%{opacity:1}to{stroke-dashoffset:-200;opacity:0}}
+/* fantasy: a magic portal opens */
+.fa-r{transform-box:fill-box;transform-origin:center}
+.fa-r1{animation:far 2s cubic-bezier(.2,.8,.2,1) forwards}.fa-r2{animation:far2 2s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes far{from{transform:scale(.1) rotate(0);opacity:0}25%{opacity:1}to{transform:scale(1) rotate(200deg)}}
+@keyframes far2{from{transform:scale(.1) rotate(0);opacity:0}25%{opacity:1}to{transform:scale(1) rotate(-260deg)}}
+.fa-core{transform-box:fill-box;transform-origin:center;animation:facore 2s .2s ease-in forwards}
+@keyframes facore{0%{transform:scale(0);opacity:0}40%{opacity:1;transform:scale(1)}100%{transform:scale(5);opacity:.9}}
+.fa-sp{animation:fasp 1.4s .5s ease-out both}
+@keyframes fasp{from{transform:rotate(var(--a)) translateY(0) scale(.2);opacity:0}25%{opacity:1}to{transform:rotate(var(--a)) translateY(-440px) scale(1.1);opacity:0}}
+/* mystery: a magnifying glass reveals the clues */
+.my-lens{animation:mylens 1.7s ease-in-out forwards;filter:drop-shadow(0 0 16px #3fbf8f)}
+@keyframes mylens{0%{transform:translate(90px,420px)}22%{transform:translate(250px,340px)}44%{transform:translate(500px,380px)}66%{transform:translate(740px,320px)}88%,100%{transform:translate(980px,360px)}}
+.my-cl{opacity:.1;animation:mycl .5s var(--d) ease-out forwards;filter:drop-shadow(0 0 14px #3fbf8f)}
+@keyframes mycl{to{opacity:1}}
+.my-fog{animation:myfg 2s linear forwards}.my-fog2{animation-direction:reverse}
+@keyframes myfg{from{transform:translateX(-300px)}to{transform:translateX(300px)}}
+/* adventure: a treasure map unrolls */
+.ad-map{transform-box:fill-box;transform-origin:center;animation:admap .9s cubic-bezier(.2,.8,.2,1) both;filter:drop-shadow(0 0 40px #f5a62377)}
+@keyframes admap{from{transform:scaleX(.04);opacity:.6}to{transform:scaleX(1);opacity:1}}
+.ad-in{animation:wscin .5s .6s both}
+.ad-rv{stroke-dasharray:100;stroke-dashoffset:100;animation:adrv 1s .7s ease-out forwards}
+@keyframes adrv{to{stroke-dashoffset:0}}
+.ad-x{opacity:0;transform-box:fill-box;transform-origin:center;animation:adx .4s 1.65s cubic-bezier(.2,1.6,.4,1) forwards}
+@keyframes adx{from{opacity:0;transform:scale(.2)}to{opacity:1;transform:scale(1)}}
+.ad-cp{transform-box:fill-box;transform-origin:center;animation:adcp 1.6s .6s cubic-bezier(.2,.7,.2,1) both}
+@keyframes adcp{from{transform:rotate(-540deg)}to{transform:rotate(30deg)}}
+
+/* ===== extras ===== */
+/* soft fade when moving between views */
+.view.on{animation:viewin .5s ease-out both}
+@keyframes viewin{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+/* reading ambience */
+.bf-amb{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.bf-amb .fg{position:absolute;left:-30%;bottom:-6%;width:160%;height:46%;background:radial-gradient(ellipse at 50% 60%,#c0101e55,transparent 70%);animation:fgdrift 20s ease-in-out infinite alternate}
+.bf-amb .fg2{bottom:18%;height:34%;animation-duration:27s;animation-direction:alternate-reverse;opacity:.7}
+@keyframes fgdrift{from{transform:translateX(-8%)}to{transform:translateX(8%)}}
+.bf-amb .cn{position:absolute;left:-6vmin;bottom:-12vmin;width:56vmin;height:56vmin;border-radius:50%;background:radial-gradient(circle,#ffa43c66,transparent 64%);animation:cnfl 2.3s ease-in-out infinite}
+.bf-amb .cn2{left:auto;right:-6vmin;animation-delay:-1.1s}
+@keyframes cnfl{0%{opacity:.9}18%{opacity:.5}32%{opacity:1}47%{opacity:.62}66%{opacity:.95}82%{opacity:.45}100%{opacity:.85}}
+.bf-amb .drop{position:absolute;top:-8%;left:var(--x);width:1px;height:calc(14px + var(--s)*14px);background:linear-gradient(transparent,#a8f0d4aa);transform:rotate(8deg);animation:rdrop var(--t) var(--d) linear infinite}
+@keyframes rdrop{to{transform:translate(-9vh,112vh) rotate(8deg)}}
+.bf-amb .sp{position:absolute;bottom:-4%;left:var(--x);width:calc(3px + var(--s)*4px);height:calc(3px + var(--s)*4px);border-radius:50%;background:#e6d4ff;box-shadow:0 0 10px 2px #b57bff;animation:spup var(--t) var(--d) ease-in infinite}
+@keyframes spup{0%{opacity:0;transform:translateY(0)}15%{opacity:1}100%{opacity:0;transform:translate(30px,-105vh)}}
+.bf-amb .dm{position:absolute;top:-4%;left:var(--x);width:calc(2px + var(--s)*3px);height:calc(2px + var(--s)*3px);border-radius:50%;background:#ffd98a;box-shadow:0 0 8px 2px #f5a62388;animation:dmdr var(--t) var(--d) linear infinite}
+@keyframes dmdr{0%{opacity:0;transform:translate(0,0)}15%{opacity:.9}100%{opacity:0;transform:translate(-14vw,108vh)}}
+body.lite .bf-amb *{animation-duration:calc(var(--t,20s)*1.6)}
+/* typewriter opening line */
+.tw1{font-family:var(--tf),var(--bf),serif;letter-spacing:.01em}
+.tw1:not(.done)::after{content:"|";margin-left:1px;animation:blink 1s steps(1) infinite}
+/* shayari lines surface one by one */
+.page .sl{display:block;min-height:1em;opacity:0;transform:translateY(8px);transition:opacity 1.1s calc(.5s + var(--k)*.6s),transform 1.1s calc(.5s + var(--k)*.6s)}
+.page.rv .sl{opacity:1;transform:none}
+/* shayari of the day */
+.sotd{display:block;max-width:min(560px,92vw);margin:6px auto 0;padding:10px 18px 12px;border:0;border-left:2px solid #e8d28f;border-radius:0 10px 10px 0;background:#ffffff0d;color:var(--ink);text-align:left;cursor:pointer;transition:background .3s,transform .3s}
+.sotd[hidden]{display:none}
+.sotd:hover{background:#ffffff1a;transform:translateY(-2px)}
+.sotd small{display:block;font:11px 'Segoe UI',sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#e8d28f;margin-bottom:4px}
+.sotd span{display:block;font:italic clamp(15px,2.2vw,19px)/1.55 Kalam,'Noto Serif Devanagari',Georgia,serif;white-space:pre-line;max-height:6.2em;overflow:hidden}
+@media(max-height:760px){.sotd span{max-height:3.2em}}
+.moonlbl{margin:4px 0 0;text-align:center;font:11px 'Segoe UI',sans-serif;letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+.sfonts{display:inline-flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.sbtns button.on{outline:2px solid #e8d28f}
+/* cursor trail + parallax */
+.trl{position:fixed;left:-4px;top:-4px;width:8px;height:8px;border-radius:50%;pointer-events:none;z-index:200;opacity:.85;mix-blend-mode:screen}
+body.lite .trl{display:none}
+#bg,#world-bg{translate:calc(var(--px,0)*1px) calc(var(--py,0)*1px);scale:1.06;transition:translate .25s ease-out}
+body.lite #bg,body.lite #world-bg{translate:none;scale:none}
+/* themed loading candle */
+.loadc{display:flex;flex-direction:column;align-items:center;gap:8px;padding:30px 0;grid-column:1/-1;opacity:.85}
+.loadc svg{width:34px;height:76px;overflow:visible;filter:drop-shadow(0 0 16px #ffb347aa)}
+.loadc .lf{transform-box:fill-box;transform-origin:50% 100%;animation:lcfl .45s ease-in-out infinite alternate}
+@keyframes lcfl{from{transform:scale(1,1) skewX(0)}to{transform:scale(.86,1.14) skewX(5deg)}}
+.loadc p{margin:0;font:italic 14px Georgia,serif;opacity:.7}
+/* day mode: paper and sunrise (landing page) */
+body.day[data-theme=home]{--bg:#f6ead2;--ink:#2a1d0a;--ac:#8a4a1a;--card:#fff6e4}
+body.day[data-theme=home] #bg{--s0:#ffe3b8;--s1:#ffc08a;--s2:#ff9d8a;--m:#fff8d0;--mt1:#c98a6a;--mt2:#a06a5a;--tr:#6a4a3a}
+body.day[data-theme=home] #fx,body.day[data-theme=home] #grain{opacity:.18}
+body.day[data-theme=home] .wn,body.day[data-theme=home] .mname{color:color-mix(in srgb,var(--c) 52%,#1a1020);text-shadow:none}
+body.day[data-theme=home] .wt,body.day[data-theme=home] .mtag{color:#3a2a1acc}
+body.day[data-theme=home] .sotd{background:#ffffff66;border-left-color:#8a4a1a}
+body.day[data-theme=home] .sotd small{color:#8a4a1a}
+body.day[data-theme=home] .wview,body.day[data-theme=home] .mview{box-shadow:0 8px 26px #5a3a1a44}
+body.day .trl{mix-blend-mode:normal}
+body.day[data-theme=home]{background:linear-gradient(#ffe6bf,#ffc89a 55%,#f6ead2)}
+body.day[data-theme=home] .kicker,body.day[data-theme=home] .moonlbl,body.day[data-theme=home] .clk{color:#2a1d0a}
+body.day[data-theme=home] h1 i{color:#8a4a1a}
+body.day[data-theme=home] .wn,body.day[data-theme=home] .mname{color:color-mix(in srgb,var(--c) 38%,#1a1020)}

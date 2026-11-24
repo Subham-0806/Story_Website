@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Moonlit Pages: stories and shayari</title>
+<meta name="description" content="Horror, thriller, fantasy, mystery and adventure stories, plus a shayari diary. Catch the night train and enter a world.">
+<meta property="og:title" content="Moonlit Pages">
+<meta property="og:description" content="Stories after dark. Shayari from the heart. Draw a card and enter a world.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0a12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,400&family=Kalam:wght@400;700&family=Creepster&family=Bebas+Neue&family=Cinzel+Decorative:wght@700&family=Special+Elite&family=Rye&family=Noto+Serif+Devanagari&family=Noto+Sans+Oriya&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="home">
+<div id="intro"><div class="nwrap" aria-hidden="true"><div class="norbit"><i style="--c:#e5253a;--a:0deg"></i><i style="--c:#b57bff;--a:72deg"></i><i style="--c:#3fbf8f;--a:144deg"></i><i style="--c:#f5a623;--a:216deg"></i><i style="--c:#e8d28f;--a:288deg"></i></div><span class="nring"></span><div class="nmoon"></div></div><p id="intro-text"></p><small>click to skip</small></div>
+<div id="bg" aria-hidden="true"></div>
+<div id="fx"></div><div id="amb"></div><div id="world-bg"></div><div id="curtain"></div><div id="arts" hidden><div data-art="horror"><svg class="art" viewBox="0 0 200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><circle cx="140" cy="80" r="34" fill="#f3cfcf" opacity=".85"/><circle cx="128" cy="72" r="6" fill="#d9a8a8" opacity=".5"/><path class="fly" d="M10 60q6-8 12 0q6-8 12 0q-6 4-12 2q-6 2-12-2z" fill="#050202"/><path class="fly" style="animation-delay:-4s" d="M10 110q6-8 12 0q6-8 12 0q-6 4-12 2q-6 2-12-2z" fill="#050202"/><path d="M40 300V190l30-40 30 40v110zM95 300V210l25-30 25 30v90z" fill="#050202"/><path d="M60 150l10-40 10 40z" fill="#050202"/><rect class="fl" x="62" y="200" width="10" height="14" fill="#ffb14a"/><rect class="fl d2" x="108" y="215" width="10" height="14" fill="#e5253a"/><path d="M175 300V215m0 35l-20-25m20 5l18-22m-18 2l-6-20" stroke="#050202" stroke-width="5" fill="none" stroke-linecap="round"/><rect y="272" width="200" height="30" fill="#050202"/><g class="bl" fill="#ff2a2a"><ellipse cx="25" cy="284" rx="3" ry="2"/><ellipse cx="35" cy="284" rx="3" ry="2"/></g></svg></div><div data-art="fantasy"><svg class="art" viewBox="0 0 200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><circle cx="38" cy="48" r="16" fill="#f0e6ff" opacity=".9"/><ellipse class="pulse" cx="120" cy="100" rx="26" ry="38" fill="#b57bff" fill-opacity=".25" stroke="#c89bff" stroke-width="3"/><g fill="#fff"><circle class="tw" cx="30" cy="110" r="1.5"/><circle class="tw" cx="170" cy="40" r="1.5"/><circle class="tw" cx="80" cy="30" r="1.2"/><circle class="tw" cx="175" cy="150" r="1.5"/></g><path d="M30 300V210h14v-20l7-14 7 14v20h16v-50l8-18 8 18v50h16v-30h8v-14l8-12 8 12v14h8v120z" fill="#08031a"/><rect class="fl" x="76" y="170" width="5" height="8" fill="#ffd66b"/><rect class="fl d2" x="118" y="185" width="5" height="8" fill="#ffd66b"/></svg></div><div data-art="mystery"><svg class="art" viewBox="0 0 200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><circle cx="95" cy="120" r="48" fill="#3fbf8f" fill-opacity=".08" stroke="#3fbf8f" stroke-width="5"/><path d="M130 156l40 50" stroke="#3fbf8f" stroke-width="10" stroke-linecap="round"/><g fill="#3fbf8f" opacity=".75"><circle cx="95" cy="112" r="9"/><path d="M90 118h10l4 26H86z"/></g><path d="M10 250q60-40 90-10t90-20" stroke="#e5253a" stroke-dasharray="3 4" fill="none" opacity=".8"/><circle cx="10" cy="250" r="3" fill="#e5253a"/><circle cx="190" cy="220" r="3" fill="#e5253a"/><ellipse cx="100" cy="300" rx="130" ry="30" fill="#3fbf8f" opacity=".12"/></svg></div><div data-art="adventure"><svg class="art" viewBox="0 0 200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><circle cx="100" cy="150" r="46" fill="#ffb347" opacity=".85"/><g class="spin"><circle cx="150" cy="55" r="20" fill="none" stroke="#f5a623" stroke-width="2"/><polygon points="150,38 154,55 150,72 146,55" fill="#f5a623"/></g><path d="M0 300V220l50-70 30 40 30-60 60 90 30 20V300z" fill="#2a1a06"/><path d="M0 300V265l40-30 40 30 50-40 70 50V300z" fill="#1a0f03"/><path d="M20 285q40-20 70-5t80-25" stroke="#fff" stroke-dasharray="4 5" fill="none" opacity=".75"/><path d="M168 246l10 10m0-10l-10 10" stroke="#e5253a" stroke-width="3"/></svg></div><div data-art="shayari"><svg class="art" viewBox="0 0 200 300" preserveAspectRatio="xMidYMax slice" aria-hidden="true"><path d="M120 40a50 50 0 1 0 40 90a40 40 0 1 1-40-90z" fill="#f3e6b8" opacity=".9"/><g fill="#fff"><circle class="tw" cx="30" cy="50" r="1.5"/><circle class="tw" cx="60" cy="100" r="1.2"/><circle class="tw" cx="170" cy="170" r="1.5"/><circle class="tw" cx="90" cy="30" r="1.2"/></g><path d="M40 285q30-70 90-110q-20 50-30 70z" fill="#e8d28f" opacity=".85"/><path d="M40 285l40-50" stroke="#f3ead3" stroke-width="1.5"/><circle cx="36" cy="292" r="3" fill="#e8d28f"/></svg></div></div>
+<div id="grain"></div><div id="prog"></div><div id="pulse"></div>
+<div class="corner" id="corner"><button id="guide">Guide</button><button id="daybtn">Day</button><button id="look">Look: Windows</button><button id="aboutbtn">About</button></div>
+<button id="home" class="homebtn" data-go="gate" hidden>&larr; Home</button>
+<main>
+  <section id="gate" class="view on">
+    <div class="sky"><i class="shoot" style="--t:8%;--l:78%;--d:2s"></i><i class="shoot" style="--t:22%;--l:58%;--d:6s"></i></div>
+    <div class="gx-head"><div class="kicker" id="kicker"><span class="kl"></span><span>Stories after dark</span><span class="kl"></span></div><p class="clk" id="clk"></p><p class="moonlbl" id="moonlbl"></p><div class="moons" id="moons" title="Worlds you have visited"></div></div>
+    <div id="look-windows" class="look">
+      <h1>Five windows. <i>Look into one.</i></h1>
+      <div class="wins">
+        <button class="win" data-world="horror" style="--c:#e5253a;--i:0"><span class="wview"></span><span class="wn">Horror</span><span class="wt">Don't read alone.</span></button>
+        <button class="win" data-world="fantasy" style="--c:#b57bff;--i:1"><span class="wview"></span><span class="wn">Fantasy</span><span class="wt">Step through the portal.</span></button>
+        <button class="win" data-world="mystery" style="--c:#3fbf8f;--i:2"><span class="wview"></span><span class="wn">Mystery</span><span class="wt">Every clue lies.</span></button>
+        <button class="win" data-world="adventure" style="--c:#f5a623;--i:3"><span class="wview"></span><span class="wn">Adventure</span><span class="wt">The map is only the start.</span></button>
+        <button class="win" data-world="shayari" style="--c:#e8d28f;--i:4"><span class="wview"></span><span class="wn">Shayari</span><span class="wt">Words the moon kept.</span></button>
+      </div>
+    </div>
+    <div id="look-moons" class="look">
+      <h1>Five moons. <i>Pick your phase.</i></h1>
+      <div class="mphases">
+        <button class="mn" data-world="horror" style="--c:#e5253a;--i:0;--o:62%"><span class="mview"><span class="mshade"></span></span><span class="mname">Horror</span><span class="mtag">Don't read alone.</span></button>
+        <button class="mn" data-world="fantasy" style="--c:#b57bff;--i:1;--o:48%"><span class="mview"><span class="mshade"></span></span><span class="mname">Fantasy</span><span class="mtag">Step through the portal.</span></button>
+        <button class="mn" data-world="mystery" style="--c:#3fbf8f;--i:2;--o:28%"><span class="mview"><span class="mshade"></span></span><span class="mname">Mystery</span><span class="mtag">Every clue lies.</span></button>
+        <button class="mn" data-world="adventure" style="--c:#f5a623;--i:3;--o:-40%"><span class="mview"><span class="mshade"></span></span><span class="mname">Adventure</span><span class="mtag">The map is only the start.</span></button>
+        <button class="mn" data-world="shayari" style="--c:#e8d28f;--i:4;--o:-62%"><span class="mview"><span class="mshade"></span></span><span class="mname">Shayari</span><span class="mtag">Words the moon kept.</span></button>
+      </div>
+    </div>
+    <div id="look-shelf" class="look">
+      <h1>Take a book <i>off the shelf.</i></h1>
+      <div class="shelfroom"><div class="lampg"></div><div class="books"><button class="spine" data-world="horror" style="--c:#e5253a;--i:0;--h:78%"><span class="ico"></span><span class="sn">Horror</span><span class="sg">Don't read alone.</span></button><button class="spine" data-world="fantasy" style="--c:#b57bff;--i:1;--h:92%"><span class="ico"></span><span class="sn">Fantasy</span><span class="sg">Step through the portal.</span></button><button class="spine" data-world="mystery" style="--c:#3fbf8f;--i:2;--h:70%"><span class="ico"></span><span class="sn">Mystery</span><span class="sg">Every clue lies.</span></button><button class="spine" data-world="adventure" style="--c:#f5a623;--i:3;--h:86%"><span class="ico"></span><span class="sn">Adventure</span><span class="sg">The map is only the start.</span></button><button class="spine" data-world="shayari" style="--c:#e8d28f;--i:4;--h:74%"><span class="ico"></span><span class="sn">Shayari</span><span class="sg">Words the moon kept.</span></button></div><div class="plank"></div></div>
+    </div>
+    <button id="sotd" class="sotd" data-world="shayari" hidden><small>Shayari of the day</small><span id="sotd-t"></span></button>
+    <p id="foot-quote" class="foot-quote"></p>
+  </section>
+
+  <section id="library" class="view">
+    <div class="banner"><div class="bart" id="bart"></div>
+      <div class="btxt"><span id="chip" class="chip"></span><h2 id="genre-title">Horror</h2><p id="genre-tag" class="sub"></p></div></div>
+    <blockquote id="genre-quote"></blockquote>
+    <div class="tabs" id="tabs"></div>
+    <div class="toc-wrap"><div id="story-list" class="shelf"><div class="skrow"><span></span><i></i></div><div class="skrow"><span></span><i></i></div><div class="skrow"><span></span><i></i></div></div><aside id="peek"></aside></div>
+  </section>
+
+  <section id="reader" class="view">
+    <button class="back" data-go="library">Back to stories</button>
+    <article id="story"></article>
+    <h3>Whispers from readers</h3>
+    <p id="avg" class="meta"></p>
+    <div id="review-form">
+      <input id="r-name" placeholder="Your name" maxlength="40">
+      <div id="r-rating" class="rate" data-v="5"></div>
+      <textarea id="r-text" placeholder="What did you think?" maxlength="500"></textarea>
+      <button id="r-send">Post review</button>
+    </div>
+    <div id="reviews"></div>
+  </section>
+
+  <section id="diary" class="view">
+    <div class="banner"><div class="bart" id="bart-d"></div><div class="btxt"><span class="chip">Words the moon kept</span><h2>Shayari diary</h2></div></div>
+    <blockquote id="diary-quote"></blockquote>
+    <div id="shayari-list" class="pages"><div class="loadc"><svg viewBox="0 0 40 90" aria-hidden="true"><rect x="12" y="38" width="16" height="50" rx="2" fill="#d9cdb4"/><path class="lf" d="M20 4q12 16 0 30q-12-14 0-30z" fill="#ffb347"/><path d="M20 14q6 9 0 16q-6-7 0-16z" fill="#fff3c0"/></svg><p>Lighting the candle...</p></div></div>
+  </section>
+
+  <section id="admin" class="view">
+    <h2>Admin</h2>
+    <form id="login" class="panel">
+      <input id="a-email" type="email" placeholder="Email" autocomplete="username">
+      <input id="a-pass" type="password" placeholder="Password" autocomplete="current-password">
+      <button>Log in</button>
+      <p id="a-err" class="err"></p>
+    </form>
+    <div id="editor" class="panel" hidden>
+      <select id="kind"><option value="stories">Story</option><option value="shayari">Shayari</option></select>
+      <input id="e-title" placeholder="Story title" maxlength="100">
+      <select id="e-genre"><option>Horror</option><option>Fantasy</option><option>Mystery</option><option>Adventure</option></select>
+      <input id="e-cover" placeholder="Book cover (optional): a link, or a file like covers/night.jpg">
+      <div id="cover-tools">
+        <label class="chk">Or choose a picture from this computer: <input type="file" id="e-coverfile" accept="image/*"></label>
+        <div class="cprev" id="cprev" hidden><img id="cprev-img" alt="Cover preview"><button type="button" id="cprev-rm" class="ghost">Remove cover</button></div>
+        <label class="chk"><input type="checkbox" id="e-showtitle" checked> Show the book name on the cover</label>
+      </div>
+      <input id="e-mood" placeholder="Mood (love, sad, hope...)" maxlength="30" hidden>
+      <textarea id="e-body" rows="14" placeholder="Write or paste here"></textarea>
+      <label class="chk"><input type="checkbox" id="e-draft"> Save as draft (hidden from readers)</label>
+      <button id="publish">Publish</button>
+      <button id="cancel-edit" class="ghost" hidden>Cancel editing</button>
+      <button id="logout" class="ghost">Log out</button>
+      <p id="e-msg"></p>
+    </div>
+    <div id="about-editor" class="panel" hidden>
+      <h3>About the author</h3>
+      <input id="ab-name" placeholder="Your name or pen name" maxlength="60">
+      <textarea id="ab-bio" rows="5" placeholder="A short note for your readers" maxlength="600"></textarea>
+      <input id="ab-photo" placeholder="Photo: a link, or a file name like me.jpg in your folder">
+      <input id="ab-ig" placeholder="Instagram link (optional)">
+      <input id="ab-wa" placeholder="WhatsApp channel or chat link (optional)">
+      <button id="about-save">Save about</button>
+      <p id="ab-msg"></p>
+    </div>
+    <div id="secret-editor" class="panel" hidden>
+      <h3>Secret room</h3>
+      <input id="sc-title" placeholder="Title" maxlength="80">
+      <textarea id="sc-text" rows="6" placeholder="A hidden shayari, a message, or a very short story. Readers find the room by tapping the five small moons three times, or by typing the word midnight." maxlength="1500"></textarea>
+      <button id="sc-save">Save secret room</button>
+      <p id="sc-msg"></p>
+    </div>
+  </section>
+</main>
+<footer><button data-go="admin" class="ghost">Admin</button></footer>
+<div id="sharebox" hidden><div class="sbin"><canvas id="sc" width="1080" height="1350"></canvas>
+  <div class="sbtns"><button data-st="night">Night</button><button data-st="rose">Rose</button><button data-st="paper">Paper</button><button data-st="moon">Moonlit</button><button data-st="rain">Rain</button><span class="sfonts"><button data-sf="kalam">Kalam</button><button data-sf="deva">Hindi serif</button><button data-sf="odia">Odia</button></span><button id="sdl">Share / Download</button><button id="sx" class="ghost">Close</button></div></div></div>
+<div id="about" hidden><div class="abin"><div class="aphoto empty" id="aphoto"></div><h2 id="aname">The Storyteller</h2><p id="abio"></p><div class="alinks" id="alinks"></div><button id="aclose" class="ghost">Close</button></div></div>
+<div id="bookfs" hidden>
+  <div class="bf-bg" id="bf-bg"></div>
+  <div class="bf-amb" id="bf-amb" aria-hidden="true"></div>
+  <button id="bf-close" class="bf-x" aria-label="Close book">&times;</button>
+  <button id="bf-prev" class="bf-nav" aria-label="Previous page">&#8249;</button>
+  <div class="bf-tools"><button id="bf-mode" aria-label="Paper or night pages">Night pages</button><button id="bf-full" aria-label="Full screen">Full screen</button></div>
+  <div class="spread" id="spread"><div class="slot-l" id="pl"></div><div class="slot-r" id="pr"></div><button class="ffly" id="charm" aria-label="Firefly bookmark"><span class="fly-body"><i class="wg1"></i><i class="wg2"></i><i class="glow"></i></span><b class="cl"></b></button></div>
+  <button id="bf-next" class="bf-nav" aria-label="Next page">&#8250;</button>
+  <p class="bf-pn" id="bf-pn"></p>
+  <p class="bf-toast" id="bf-toast"></p>
+  <div class="pg measure"><div class="pgtxt" id="measure"></div></div>
+</div>
+<div id="secret" hidden><div class="sroom"><div class="sglow"></div><svg class="scandle" viewBox="0 0 40 90" aria-hidden="true"><rect x="12" y="38" width="16" height="50" rx="2" fill="#d9cdb4"/><path class="fl" d="M20 4q12 16 0 30q-12-14 0-30z" fill="#ffb347"/><path d="M20 14q6 9 0 16q-6-7 0-16z" fill="#fff3c0"/></svg><h2 id="s-title"></h2><p id="s-text"></p><button id="s-close" class="ghost">Leave quietly</button></div><div class="sdoor"></div></div>
+<div id="tour" hidden><div class="tcard"><div class="tico" id="t-ico"></div><h3 id="t-h"></h3><p id="t-p"></p><div class="tdots" id="t-dots"></div><div class="tbtns"><button id="t-skip" class="ghost">Skip</button><button id="t-next">Next</button></div></div></div>
+<script type="module" src="app.js"></script>
+</body>
+</html>
